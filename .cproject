@@ -49,6 +49,12 @@
                                 								
                                 <option id="gnu.cpp.compiler.mingw.exe.debug.option.debugging.level.1856618335" name="Debug Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
                                 								
+                                <option id="gnu.cpp.compiler.option.include.paths.943110978" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Pacman/src/inc}&quot;"/>
+                                    								
+                                </option>
+                                								
                                 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1195233689" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
                                 							
                             </tool>

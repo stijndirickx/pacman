@@ -1,13 +1,11 @@
-
 #include <iostream>
+//#include <Entity.h>
 
+class Pacman{
+public:
+	Pacman();
+};
 
-int main( )
-{
-	//start project
-
-	//create new abstractfactory + put it in sdlfactory
-	//create game, put sdlfactory in game
-	//start game
+Pacman::Pacman(){
 
 }

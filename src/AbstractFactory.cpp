@@ -1,4 +1,18 @@
 #include <iostream>
-#include <SDLFactory.h>
+#include "Pacman.h"
+#include "SDLFactory.h"
 
-SDLFactory *sdlFactory = new SDLFactory;
+class AbstractFactory{
+public:
+	AbstractFactory(SDLFactory* sdlFactory);	//constructor
+	virtual ~AbstractFactory();					//destructor
+
+	virtual Pacman* createPacman() = 0;
+private:
+	SDLFactory* sdlf;
+};
+
+AbstractFactory::AbstractFactory(SDLFactory* sdlFactory){
+	sdlf = sdlFactory;
+}
+
