@@ -2,6 +2,5 @@
 
 AbstractFactory::~AbstractFactory(){}
 
-AbstractFactory::AbstractFactory(){
-}
+AbstractFactory::AbstractFactory(){}
 

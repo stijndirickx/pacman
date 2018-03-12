@@ -14,9 +14,10 @@ void Game::Start(){
 	/*Create all objects*/
 
 	Pacman* p = f->createPacman();
+	p->Paint(); //output/ painted sdlpacman
 
-	while(true){
-
-		cout << "game is up and running...";
-	}
+//	while(true){ //makes program crash atm because its rather empty
+//
+//		//cout << "game is up and running...";
+//	}
 }
