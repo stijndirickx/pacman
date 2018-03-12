@@ -1,16 +1,12 @@
 #ifndef ABSTRACTFACTORY_H_
 #define ABSTRACTFACTORY_H_
-#include "SDLFactory.h"
 #include "Pacman.h"
 
-class AbstractFactory
-{
+class AbstractFactory{
 public:
-	AbstractFactory(SDLFactory* sdlFactory);
-	virtual ~AbstractFactory();
+	AbstractFactory();							//constructor
+	virtual ~AbstractFactory();					//destructor
 	virtual Pacman* createPacman() = 0;
-private:
-	SDLFactory* sdlf;
 };
 
 

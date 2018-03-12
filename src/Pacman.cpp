@@ -1,10 +1,7 @@
 #include <iostream>
-//#include <Entity.h>
+#include "Pacman.h"
 
-class Pacman{
-public:
-	Pacman();
-};
+Pacman::~Pacman(){}
 
 Pacman::Pacman(){
 

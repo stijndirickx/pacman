@@ -1,15 +1,9 @@
 #include <iostream>
 #include "AbstractFactory.h"
+#include "Game.h"
 
 using namespace std;
 
-class Game{
-public:
-	Game(AbstractFactory* abstractFactory);
-	void Start();
-private:
-	AbstractFactory* f;
-};
 
 Game::Game(AbstractFactory* abstractFactory){
 	f = abstractFactory;
@@ -19,9 +13,10 @@ void Game::Start(){
 
 	/*Create all objects*/
 
-	//PAC = f->createPACMAN()
+	Pacman* p = f->createPacman();
 
 	while(true){
+
 		cout << "game is up and running...";
 	}
 }
