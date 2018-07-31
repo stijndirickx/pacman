@@ -6,6 +6,10 @@ namespace Logic{
 	public:
 		EventHandler();
 		virtual ~EventHandler();
+		virtual int PollEvent() = 0;
+		virtual bool QuitEvent() = 0;
+		virtual bool KeyDown() = 0;
+		virtual int GetKeyDown() = 0;
 	};
 }
 

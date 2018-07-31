@@ -2,22 +2,20 @@
 #include "AbstractFactory.h"
 #include "Game.h"
 
-using namespace std;
 using namespace Logic;
 
-Game::Game(AbstractFactory* abstractFactory){
-	f = abstractFactory;
-}
 
-void Game::Start(){
+namespace Logic{
 
-	/*Create all objects*/
+	Game::~Game(){};
 
-	//Player* p = f->createPacman();
-	//p->Paint(); //output/ painted sdlpacman
+	Game::Game(AbstractFactory* abstractFactory){
+		f = abstractFactory;
+	}
 
-	while(true){ //makes program crash atm because its rather empty
-
-		cout << "game is up and running...";
+	void Game::Start(){
+		Player* p = f->createPacman();
+		p->Paint();
 	}
 }
+

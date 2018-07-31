@@ -9,13 +9,12 @@ using namespace std;
 
 int main(int argc, char* args[])
 {
-	cout << "gg";
-//	Logic::AbstractFactory* f = new Graphics::SDLAbstractFactory();
-//	Game* g = new Game(f);
-//	g->Start();
-//	delete g;
-//	delete f;
-//	return 0;
+	Logic::AbstractFactory* f = new Graphics::SDLAbstractFactory();
+	Game* g = new Game(f);
+	g->Start();
+	delete g;
+	delete f;
+	return 0;
 }
 
 

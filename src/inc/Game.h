@@ -5,6 +5,7 @@ namespace Logic{
 	class Game{
 	public:
 		Game(AbstractFactory* abstractFactory);
+		virtual ~Game();
 		void Start();
 	private:
 		AbstractFactory* f;
