@@ -1,13 +1,16 @@
 #ifndef ABSTRACTFACTORY_H_
 #define ABSTRACTFACTORY_H_
-#include "Pacman.h"
 
-class AbstractFactory{
-public:
-	AbstractFactory();							//constructor
-	virtual ~AbstractFactory();					//destructor
-	virtual Pacman* createPacman() = 0;
-};
+#include <Player.h>
+
+namespace Logic{
+	class AbstractFactory{
+	public:
+		AbstractFactory();
+		virtual ~AbstractFactory();
+		virtual Player* createPacman();
+	};
+}
 
 
-#endif /* ABSTRACTFACTORY_H_ */
+#endif

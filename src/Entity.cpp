@@ -3,7 +3,7 @@
 #include "Entity.h"
 
 using namespace std;
-
+using namespace Logic;
 Entity::~Entity(){}
 
 Entity::Entity(){
