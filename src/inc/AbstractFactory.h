@@ -3,12 +3,13 @@
 
 #include <Player.h>
 
+
 namespace Logic{
 	class AbstractFactory{
 	public:
 		AbstractFactory();
 		virtual ~AbstractFactory();
-		virtual Player* createPacman();
+		virtual Player* createPacman()=0;
 	};
 }
 
