@@ -1,6 +1,6 @@
 #ifndef SDLEVENTHANDLER_H_
 #define SDLEVENTHANDLER_H_
-#include <EventHandler.h>
+#include "EventHandler.h"
 #include <sdl2/sdl.h>
 
 using namespace Logic;

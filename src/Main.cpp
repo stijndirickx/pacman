@@ -1,10 +1,6 @@
-#include <SDLAbstractFactory.h>
+#include "SDLAbstractFactory.h"
 #include "AbstractFactory.h"
 #include "Game.h"
-
-//DEBUG
-#include <iostream>
-using namespace std;
 
 
 int main(int argc, char* args[])

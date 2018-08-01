@@ -2,11 +2,6 @@
 #include "AbstractFactory.h"
 #include "Game.h"
 
-#include <SDL2/SDL.h> //TODO DELETE THIS, SEPRATE SDL/LOGIC
-
-using namespace Logic;
-
-
 namespace Logic{
 
 	Game::~Game(){};
@@ -29,21 +24,44 @@ namespace Logic{
 		if(window == NULL){
 			std::cout << "error";
 		}
-		SDL_Renderer* renderer = NULL;
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+		_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 		SDL_Event* mainEvent = new SDL_Event();
+
+
+		//_TextureGrass = IMG_LoadTexture(_renderer,"grass.bmp");
+		//_TextureBob = loadTexture("Assets/bob.png");
+
+		SDL_Rect grass_rect;
+		grass_rect.x = 10;
+		grass_rect.y = 50;
+		grass_rect.w = 250;
+		grass_rect.h = 250;
 
 		while(!quit && mainEvent->type != SDL_QUIT){
 			SDL_PollEvent(mainEvent);
-			SDL_RenderClear(renderer);
-			SDL_RenderPresent(renderer);
+			SDL_RenderClear(_renderer);
+			//SDL_RenderCopy(_renderer, _TextureGrass, NULL, &grass_rect);
+			SDL_RenderPresent(_renderer);
 		}
 		SDL_DestroyWindow(window);
-		SDL_DestroyRenderer(renderer);
+		SDL_DestroyRenderer(_renderer);
 		delete mainEvent;
 
 
+	}
+
+	SDL_Texture* Game::loadTexture( std::string path )
+	{
+		SDL_Texture* newTexture = NULL;
+//		SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+//		newTexture = SDL_CreateTextureFromSurface( _renderer, loadedSurface );
+//		if( newTexture == NULL )
+//		{
+//			std::cout << "texture not loaded" << std::endl;
+//		}
+//		SDL_FreeSurface( loadedSurface );
+		return newTexture;
 	}
 }
 
