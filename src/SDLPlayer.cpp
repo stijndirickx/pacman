@@ -9,5 +9,5 @@ SDLPlayer::SDLPlayer(){
 }
 
 void SDLPlayer::Paint(){
-	std::cout << "painted sdlpacman";
+	std::cout << "painted sdlpacman" << std::endl;
 }

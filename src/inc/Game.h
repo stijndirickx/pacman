@@ -16,7 +16,7 @@ namespace Logic{
 		AbstractFactory* f;
 
 
-		SDL_Texture* loadTexture( std::string path ); //TODO SPLIT SDL
+		SDL_Texture* loadTexture(std::string path ); //TODO SPLIT SDL
 
 
 		SDL_Renderer* _renderer = NULL;				//TODO SPLIT SDL

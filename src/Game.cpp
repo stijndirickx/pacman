@@ -25,42 +25,51 @@ namespace Logic{
 			std::cout << "error";
 		}
 
-		_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+		_renderer = SDL_CreateRenderer(window, -1, 0);
 		SDL_Event* mainEvent = new SDL_Event();
 
 
-		//_TextureGrass = IMG_LoadTexture(_renderer,"grass.bmp");
+		_TextureGrass = IMG_LoadTexture(_renderer,"Assets/grass.bmp");
+		//_TextureGrass = loadTexture("Assets/bob.png");
+
+		_TextureBob = IMG_LoadTexture(_renderer,"Assets/bob.png");
 		//_TextureBob = loadTexture("Assets/bob.png");
 
-		SDL_Rect grass_rect;
-		grass_rect.x = 10;
-		grass_rect.y = 50;
-		grass_rect.w = 250;
-		grass_rect.h = 250;
+		SDL_Rect rectGrass = {0,0,600,400};
+		SDL_Rect rectBob = {300,250,50,80};
+
 
 		while(!quit && mainEvent->type != SDL_QUIT){
 			SDL_PollEvent(mainEvent);
 			SDL_RenderClear(_renderer);
-			//SDL_RenderCopy(_renderer, _TextureGrass, NULL, &grass_rect);
+			SDL_RenderCopy(_renderer, _TextureGrass, NULL, &rectGrass);
+			SDL_RenderCopy(_renderer, _TextureBob, NULL, &rectBob);
 			SDL_RenderPresent(_renderer);
 		}
+
 		SDL_DestroyWindow(window);
 		SDL_DestroyRenderer(_renderer);
 		delete mainEvent;
+		SDL_Quit();
 
 
 	}
 
-	SDL_Texture* Game::loadTexture( std::string path )
+	SDL_Texture* Game::loadTexture(std::string path)
 	{
+		std::cout << "Game::loadTexture" << std::endl;
+		//The final texture
 		SDL_Texture* newTexture = NULL;
-//		SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-//		newTexture = SDL_CreateTextureFromSurface( _renderer, loadedSurface );
-//		if( newTexture == NULL )
-//		{
-//			std::cout << "texture not loaded" << std::endl;
-//		}
-//		SDL_FreeSurface( loadedSurface );
+		//Load image at specified path
+		SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
+			//Create texture from surface pixels
+		newTexture = SDL_CreateTextureFromSurface( _renderer, loadedSurface );
+		if( newTexture == NULL )
+		{
+			std::cout << "texture not loaded" << std::endl;
+		}
+			//Get rid of old loaded surface
+		SDL_FreeSurface( loadedSurface );
 		return newTexture;
 	}
 }
