@@ -30,7 +30,7 @@ namespace Logic{
 
 
 		_TextureGrass = IMG_LoadTexture(_renderer,"Assets/grass.bmp");
-		//_TextureGrass = loadTexture("Assets/bob.png");
+		//_TextureGrass = loadTexture("Assets/grass.bmp");
 
 		_TextureBob = IMG_LoadTexture(_renderer,"Assets/bob.png");
 		//_TextureBob = loadTexture("Assets/bob.png");
@@ -46,7 +46,8 @@ namespace Logic{
 			SDL_RenderCopy(_renderer, _TextureBob, NULL, &rectBob);
 			SDL_RenderPresent(_renderer);
 		}
-
+		SDL_DestroyTexture(_TextureGrass);
+		SDL_DestroyTexture(_TextureBob);
 		SDL_DestroyWindow(window);
 		SDL_DestroyRenderer(_renderer);
 		delete mainEvent;
@@ -58,17 +59,13 @@ namespace Logic{
 	SDL_Texture* Game::loadTexture(std::string path)
 	{
 		std::cout << "Game::loadTexture" << std::endl;
-		//The final texture
 		SDL_Texture* newTexture = NULL;
-		//Load image at specified path
 		SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-			//Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface( _renderer, loadedSurface );
 		if( newTexture == NULL )
 		{
 			std::cout << "texture not loaded" << std::endl;
 		}
-			//Get rid of old loaded surface
 		SDL_FreeSurface( loadedSurface );
 		return newTexture;
 	}
