@@ -14,7 +14,9 @@ namespace Logic{
 
 	private:
 		AbstractFactory* f;
-
+		bool quit;				//Controls gameloop
+		Player* CPlayer;
+		Window* CWindow;
 
 		SDL_Texture* loadTexture(std::string path ); //TODO SPLIT SDL
 

@@ -8,8 +8,8 @@ namespace Graphics{
 
 	class SDLPlayer: public Player{
 	public:
-		~SDLPlayer();
 		SDLPlayer();
+		~SDLPlayer();
 		void Paint();
 	};
 }
