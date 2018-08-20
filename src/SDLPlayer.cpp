@@ -1,15 +1,21 @@
+#include <iostream> //todo delete
+
 #include "SDLPlayer.h"
-#include <iostream>
-using namespace Graphics;
+
+using namespace graphics_SDL;
 
 
-SDLPlayer::SDLPlayer(){
-
-	//write sdl pacman
+SDLPlayer::SDLPlayer()
+{
+	//write sdl player
 }
 
-SDLPlayer::~SDLPlayer(){}
+SDLPlayer::~SDLPlayer()
+{
 
-void SDLPlayer::Paint(){
-	std::cout << "painted sdlpacman" << std::endl;
+}
+
+void SDLPlayer::Paint()
+{
+	std::cout << "painted sdlplayer" << std::endl;
 }

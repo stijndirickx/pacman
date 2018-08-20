@@ -5,8 +5,10 @@
 #include <SDL2/SDL_image.h> //TODO DELETE THIS, SEPRATE SDL/LOGIC
 #include <string> 			//TODO DELETE THIS PART OF LOADTEXTURE
 
-namespace Logic{
-	class Game{
+namespace logic
+{
+	class Game
+	{
 	public:
 		Game(AbstractFactory* abstractFactory);
 		virtual ~Game();
@@ -16,7 +18,7 @@ namespace Logic{
 		AbstractFactory* f;
 		bool quit;				//Controls gameloop
 		Player* CPlayer;
-		Window* CWindow;
+		//Window* CWindow;
 
 		SDL_Texture* loadTexture(std::string path ); //TODO SPLIT SDL
 

@@ -1,12 +1,17 @@
 #ifndef SDLEVENTHANDLER_H_
 #define SDLEVENTHANDLER_H_
-#include "EventHandler.h"
+
 #include <sdl2/sdl.h>
 
-using namespace Logic;
+#include "EventHandler.h"
 
-namespace Graphics{
-	class SDLEventHandler:public EventHandler{
+
+using namespace logic;
+
+namespace graphics_SDL
+{
+	class SDLEventHandler:public EventHandler
+	{
 	public:
 		SDLEventHandler();
 		virtual ~SDLEventHandler();
@@ -14,6 +19,7 @@ namespace Graphics{
 		bool QuitEvent();
 		bool KeyDown();
 		int GetKeyDown();
+
 	protected:
 		SDL_Event e;
 	};

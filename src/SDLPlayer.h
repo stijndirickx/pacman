@@ -2,11 +2,12 @@
 #define SDLPLAYER_H_
 #include "Player.h"
 
-using namespace Logic;
+using namespace logic;
 
-namespace Graphics{
+namespace graphics_SDL{
 
-	class SDLPlayer: public Player{
+	class SDLPlayer: public Player
+	{
 	public:
 		SDLPlayer();
 		~SDLPlayer();

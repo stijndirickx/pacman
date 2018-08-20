@@ -3,10 +3,15 @@
 #include "Entity.h"
 
 using namespace std;
-using namespace Logic;
-Entity::~Entity(){}
+using namespace logic;
 
-Entity::Entity(){
+Entity::~Entity()
+{
+
+}
+
+Entity::Entity()
+{
 	x = 0;
 	y = 0;
 }

@@ -1,5 +1,6 @@
 #include "SDLAbstractFactory.h"
-using namespace Graphics;
+
+using namespace graphics_SDL;
 
 SDLAbstractFactory::~SDLAbstractFactory(){}
 SDLAbstractFactory::SDLAbstractFactory(){}
@@ -8,8 +9,8 @@ Player* SDLAbstractFactory::createPlayer(){
 	return new SDLPlayer();
 }
 
-Window* SDLAbstractFactory::createWindow(){
+/*Window* SDLAbstractFactory::createWindow(){
 	return new SDLWindow();
-}
+}*/
 
 

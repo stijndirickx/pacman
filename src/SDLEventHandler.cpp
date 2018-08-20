@@ -1,25 +1,37 @@
 #include "SDLEventHandler.h"
-using namespace Graphics;
 
-SDLEventHandler::SDLEventHandler() {}
-SDLEventHandler::~SDLEventHandler() {}
+using namespace graphics_SDL;
+
+SDLEventHandler::SDLEventHandler()
+{
+
+}
+
+SDLEventHandler::~SDLEventHandler()
+{
+
+}
 
 
-int SDLEventHandler::PollEvent(){
+int SDLEventHandler::PollEvent()
+{
 	return SDL_PollEvent(&e);
 }
 
-bool SDLEventHandler::QuitEvent() {
+bool SDLEventHandler::QuitEvent()
+{
 	if( e.type == SDL_QUIT ){return true;}
 	return false;
 }
 
-bool SDLEventHandler::KeyDown() {
+bool SDLEventHandler::KeyDown()
+{
 	if (e.type == SDL_KEYDOWN){return true;}
 	return false;
 }
 
-int SDLEventHandler::GetKeyDown() {
+int SDLEventHandler::GetKeyDown()
+{
 	int key;
 	enum KeyPresses
 	{

@@ -1,5 +1,5 @@
 #include "AbstractFactory.h"
-using namespace Logic;
+using namespace logic;
 AbstractFactory::~AbstractFactory(){}
 AbstractFactory::AbstractFactory(){}
 

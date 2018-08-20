@@ -3,17 +3,23 @@
 
 #include "EventHandler.h"
 #include "Player.h"
-#include "Window.h"
+//#include "Window.h"
 
-namespace Logic{
-	class AbstractFactory{
+namespace logic{
+	class Player;
+	//class Window;
+	class EventHandler;
+	class AbstractFactory
+	{
 	public:
 		AbstractFactory();
 		virtual ~AbstractFactory();
 
-		virtual Window* createWindow()=0;
+
+
+		//virtual Window* createWindow()=0;
 		virtual Player* createPlayer()=0;
-		//virtual EventHandler* createEventHandler()=0;
+		virtual EventHandler* createEventHandler()=0;
 	};
 }
 

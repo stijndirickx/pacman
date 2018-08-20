@@ -2,28 +2,28 @@
 #include "AbstractFactory.h"
 #include "Game.h"
 
-namespace Logic{
-
+namespace logic
+{
 	Game::~Game(){};
 
 	Game::Game(AbstractFactory* abstractFactory){
 		f = abstractFactory;
 		quit = false;
 		CPlayer = NULL;
-		CWindow = NULL;
+		//CWindow = NULL;
 	}
 
 	void Game::Start(){
-		CWindow = f->createWindow(); //Gets class Window
+		//CWindow = f->createWindow(); //Gets class Window
 		CPlayer = f->createPlayer();
 		CPlayer->Paint();
 
-		if(CWindow == NULL){
+		/*if(CWindow == NULL){
 			std::cout << "Window not created." << std::endl;
 			quit = true;
 		}
 
-		CWindow->getWindow();
+		CWindow->getWindow();*/
 
 
 //		while(!quit && CWindow::_mainEvent->type != SDL_QUIT){

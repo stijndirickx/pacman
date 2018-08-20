@@ -1,5 +1,14 @@
 #include "EventHandler.h"
-using namespace Logic;
-EventHandler::EventHandler() {}
-EventHandler::~EventHandler() {}
+
+using namespace logic;
+
+EventHandler::EventHandler()
+{
+
+}
+
+EventHandler::~EventHandler()
+{
+
+}
 

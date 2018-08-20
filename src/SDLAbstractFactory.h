@@ -1,18 +1,18 @@
 #ifndef SDLABSTRACTFACTORY_H_
 #define SDLABSTRACTFACTORY_H_
 #include "SDLPlayer.h"
-#include "SDLWindow.h"
+//#include "SDLWindow.h"
 #include "AbstractFactory.h"
 
-using namespace Logic;
+using namespace logic;
 
-namespace Graphics{
+namespace graphics_SDL{
 	class SDLAbstractFactory:public AbstractFactory{
 	public:
 		SDLAbstractFactory();
 		~SDLAbstractFactory();
 		Player* createPlayer();
-		Window* createWindow();
+		//Window* createWindow();
 	};
 }
 

@@ -1,13 +1,14 @@
 #ifndef INC_ENTITY_H_
 #define INC_ENTITY_H_
 
-namespace Logic{
-	class Entity{
+namespace logic{
+	class Entity
+	{
 	public:
 		Entity();
 		virtual ~Entity();
 		virtual void Paint() = 0;
-	private:
+	protected: //derived classes can access
 		int x;
 		int y;
 	};

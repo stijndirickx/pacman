@@ -1,8 +1,10 @@
 #ifndef EVENTHANDLER_H_
 #define EVENTHANDLER_H_
 
-namespace Logic{
-	class EventHandler {
+namespace logic
+{
+	class EventHandler
+	{
 	public:
 		EventHandler();
 		virtual ~EventHandler();
