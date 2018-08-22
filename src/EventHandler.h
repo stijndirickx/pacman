@@ -5,14 +5,15 @@ namespace logic
 {
 	class EventHandler
 	{
-	public:
-		EventHandler();
-		virtual ~EventHandler();
-		virtual int PollEvent() = 0;
-		virtual bool QuitEvent() = 0;
-		virtual bool KeyDown() = 0;
-		virtual int GetKeyDown() = 0;
+		public:
+			EventHandler();
+			virtual ~EventHandler();
+
+			virtual int getKeyDown() = 0;
+			virtual bool keyDown() = 0;
+			virtual int pollEvent() = 0;
+			virtual bool quitEvent() = 0;
 	};
 }
 
-#endif /* EVENTHANDLER_H_ */
+#endif

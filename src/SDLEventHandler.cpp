@@ -13,24 +13,24 @@ SDLEventHandler::~SDLEventHandler()
 }
 
 
-int SDLEventHandler::PollEvent()
+int SDLEventHandler::pollEvent()
 {
 	return SDL_PollEvent(&e);
 }
 
-bool SDLEventHandler::QuitEvent()
+bool SDLEventHandler::quitEvent()
 {
 	if( e.type == SDL_QUIT ){return true;}
 	return false;
 }
 
-bool SDLEventHandler::KeyDown()
+bool SDLEventHandler::keyDown()
 {
 	if (e.type == SDL_KEYDOWN){return true;}
 	return false;
 }
 
-int SDLEventHandler::GetKeyDown()
+int SDLEventHandler::getKeyDown()
 {
 	int key;
 	enum KeyPresses

@@ -1,31 +1,34 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <SDL2/SDL.h> 		//TODO DELETE THIS, SEPRATE SDL/LOGIC
-#include <SDL2/SDL_image.h> //TODO DELETE THIS, SEPRATE SDL/LOGIC
-#include <string> 			//TODO DELETE THIS PART OF LOADTEXTURE
+#include <time.h> //TODO Find out why?
+
+#include "AbstractFactory.h"
+#include "Config.h"
+#include "Enemy.h"
+#include "EventHandler.h"
+#include "SDLEventHandler.h"
+#include "House.h"
+
+using namespace std;
 
 namespace logic
 {
 	class Game
 	{
-	public:
-		Game(AbstractFactory* abstractFactory);
-		virtual ~Game();
-		void Start();
+		public:
+			AbstractFactory* mAbstractFactory;
+			Game(AbstractFactory* pAbstractFactory);
+			virtual ~Game();
+			void Start();
 
-	private:
-		AbstractFactory* f;
-		bool quit;				//Controls gameloop
-		Player* CPlayer;
-		//Window* CWindow;
-
-		SDL_Texture* loadTexture(std::string path ); //TODO SPLIT SDL
-
-
-		SDL_Renderer* _renderer = NULL;				//TODO SPLIT SDL
-		SDL_Texture* _TextureBob = NULL;
-		SDL_Texture* _TextureGrass = NULL;
+		protected:
+			Config* mConfig;
+			int animationSpeed;
+			int countToAttacking;
+			int fps;
+			int mspf;
+			int numOfEnemies;
 	};
 }
 

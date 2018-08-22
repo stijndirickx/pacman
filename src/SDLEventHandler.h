@@ -5,7 +5,6 @@
 
 #include "EventHandler.h"
 
-
 using namespace logic;
 
 namespace graphics_SDL
@@ -15,10 +14,11 @@ namespace graphics_SDL
 	public:
 		SDLEventHandler();
 		virtual ~SDLEventHandler();
-		int PollEvent();
-		bool QuitEvent();
-		bool KeyDown();
-		int GetKeyDown();
+
+		int pollEvent();
+		bool quitEvent();
+		bool keyDown();
+		int getKeyDown();
 
 	protected:
 		SDL_Event e;
