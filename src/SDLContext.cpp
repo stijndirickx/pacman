@@ -8,8 +8,8 @@ namespace graphics_SDL
 		renderer = mSDLHelper->getRenderer();
 		surface = mSDLHelper->getSurface();
 
-		fontText = TTF_OpenFont("Fonts/emulogic.ttf", 10);
-		fontTitle = TTF_OpenFont("Fonts/emulogic.ttf", 40);
+		fontText = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 10);
+		fontTitle = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 40);
 		msgColor = {255, 255, 255}; //white
 		msgTexture = NULL;
 		msgSurface = NULL;
