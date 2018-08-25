@@ -1,18 +1,16 @@
-/*
- * InitSDL.cpp
- *
- *  Created on: May 15, 2018
- *      Author: ruben
- */
-
 #include "InitSDL.h"
 
-namespace PACMAN {
-	InitSDL::InitSDL(int screenWidth, int screenHeight) {
-		if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 ){
-			printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
-		} else {
-			if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
+namespace PACMAN
+{
+	InitSDL::InitSDL(int screenWidth, int screenHeight)
+	{
+		if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
+		{
+			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			if(!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ))
 			{
 				printf( "Warning: Linear texture filtering not enabled!" );
 			}

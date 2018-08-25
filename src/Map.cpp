@@ -1,10 +1,3 @@
-/*
- * Map.cpp
- *
- *  Created on: Mar 14, 2018
- *      Author: ruben
- */
-
 #include "Map.h"
 
 namespace PACMAN {
@@ -22,10 +15,10 @@ namespace PACMAN {
 
 		char line[256];
 		map.getline(line, 256); //get position at first line
-		int lineLength = map.tellg()/2;
+		int lineLength = map.tellg()/3;
 
 		map.seekg(0, ios::end); //to the end of the file
-		totalTiles = map.tellg()/2; //get the number of tiles
+		totalTiles = map.tellg()/3; //get the number of tiles
 
 		screenWidth = lineLength * tileSize;
 		screenHeight = (totalTiles/lineLength) * tileSize;
@@ -54,7 +47,7 @@ namespace PACMAN {
 			int tileType = 0;
 			map >> tileType;
 			tileSet[tile] = aFactory->CreateTile(x, y, tileType, tileSize, tileSize);
-			if(tileType == 0){
+			if(tileType == 2){
 				numOfPellets++;
 			}
 			x += tileSize;
@@ -64,7 +57,7 @@ namespace PACMAN {
 				y += tileSize;
 			}
 		}
-		numOfPelletsLeft = (numOfPellets-15);
+		numOfPelletsLeft = numOfPellets; //TODO deleted -15
 		map.close();
 	}
 
@@ -90,18 +83,18 @@ namespace PACMAN {
 	void Map::DestroyTile(int tile){
 		if(destroyedTiles[tile] != 1){
 			int* tileBoxInt = tileSet[tile]->GetBoxInt();
-			if(tileBoxInt[4] == 9){ // PELLET TODO get variable int of pellet
+			if(tileBoxInt[4] == 3){ // PELLET TODO get variable int of pellet
 				gContext->PlaySound("eat");
 				std::vector<Ghost*>ghosts = gContext->GetGhosts();
 				for(size_t i = 0; i <= (ghosts.size()-1); i++){
 					ghosts[i]->SetAttackingState(false);
 				}
 				destroyedTiles[tile] = 1;
-			} else if(tileBoxInt[4] == 8){ // CHERRY
+			} else if(tileBoxInt[4] == 25){ // CHERRY
 				gContext->PlaySound("eat");
 				gContext->AddToScore(10);
 				destroyedTiles[tile] = 1;
-			} else if(tileBoxInt[4] == 0){ //PAC-DOT
+			} else if(tileBoxInt[4] == 2){ //PAC-DOT
 				gContext->AddToScore(1);
 				destroyedTiles[tile] = 1;
 				numOfPelletsLeft--;

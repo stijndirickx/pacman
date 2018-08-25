@@ -1,67 +1,97 @@
-/*
- * WallSDL.cpp
- *
- *  Created on: Mar 15, 2018
- *      Author: ruben
- */
-
 #include "TileSDL.h"
 
-namespace PACMAN {
-	TileSDL::TileSDL(SDL_Renderer* sdlRendererTEMP, SDL_Texture* tileTexture) {
+namespace PACMAN
+{
+	TileSDL::TileSDL(SDL_Renderer* sdlRendererTEMP, SDL_Texture* tileTexture)
+	{
 		sdlRenderer = sdlRendererTEMP;
 		texture = tileTexture;
 	}
 
-	TileSDL::~TileSDL() {
+	TileSDL::~TileSDL()
+	{
 		// TODO Auto-generated destructor stub
 	}
 
 	void TileSDL::Visualize()
 	{
-		if(boxInt[4] == WALL_VERT){
-			tileSprite.x = 228;
-			tileSprite.y = 12;
-			tileSprite.w = 5;
-			tileSprite.h = 5;
-		} else if(boxInt[4] == WALL_HORI){
-			tileSprite.x = 234;
-			tileSprite.y = 0;
-			tileSprite.w = 5;
-			tileSprite.h = 5;
-		} else if(boxInt[4] == WALL_COR_UP_LR){
-			tileSprite.x = 228;
-			tileSprite.y = 0;
-			tileSprite.w = 5;
-			tileSprite.h = 5;
-		} else if(boxInt[4] == WALL_COR_UP_RL){
-			tileSprite.x = 448;
-			tileSprite.y = 0;
-			tileSprite.w = 5;
-			tileSprite.h = 5;
-		} else if(boxInt[4] == WALL_COR_DOWN_RL){
-			tileSprite.x = 448;
-			tileSprite.y = 74;
-			tileSprite.w = 5;
-			tileSprite.h = 5;
-		} else if(boxInt[4] == WALL_COR_DOWN_LR){
-			tileSprite.x = 228;
-			tileSprite.y = 74;
-			tileSprite.w = 5;
-			tileSprite.h = 5;
-		} else if(boxInt[4] == CHERRY){
-			tileSprite.x = 487;
-			tileSprite.y = 48;
-			tileSprite.w = 15;
-			tileSprite.h = 15;
-		} else if((boxInt[4] == PELLET)||(boxInt[4] == PATH)){ //PELLET OR DOT
-			tileSprite.x = 8;
-			tileSprite.y = 24;
-			tileSprite.w = 8;
-			tileSprite.h = 8;
-		}
 
-		tileRect = { boxInt[0], boxInt[1], boxInt[2], boxInt[3] };
-		SDL_RenderCopy( sdlRenderer, texture, &tileSprite, &tileRect );
+		switch(boxInt[4])
+		{
+			case 1:
+				brickSprite = {0,0,8,8};
+				break;
+			case 2:
+				brickSprite = {8,0,8,8};
+				break;
+			case 3:
+				brickSprite = {16,0,8,8};
+				break;
+			case 4:
+				brickSprite = {24,0,8,8};
+				break;
+			case 5:
+				brickSprite = {0,8,8,8};
+				break;
+			case 6:
+				brickSprite = {8,8,8,8};
+				break;
+			case 7:
+				brickSprite = {16,8,8,8};
+				break;
+			case 8:
+				brickSprite = {24,8,8,8};
+				break;
+			case 9:
+				brickSprite = {0,16,8,8};
+				break;
+			case 10:
+				brickSprite = {8,16,8,8};
+				break;
+			case 11:
+				brickSprite = {16,16,8,8};
+				break;
+			case 12:
+				brickSprite = {24,16,8,8};
+				break;
+			case 13:
+				brickSprite = {0,24,8,8};
+				break;
+			case 14:
+				brickSprite = {8,24,8,8};
+				break;
+			case 15:
+				brickSprite = {16,24,8,8};
+				break;
+			case 16:
+				brickSprite = {24,24,8,8};
+				break;
+			case 17:
+				brickSprite = {0,32,8,8};
+				break;
+			case 18:
+				brickSprite = {8,32,8,8};
+				break;
+			case 19:
+				brickSprite = {16,32,8,8};
+				break;
+			case 20:
+				brickSprite = {24,32,8,8};
+				break;
+			case 21:
+				brickSprite = {0,40,8,8};
+				break;
+			case 22:
+				brickSprite = {8,40,8,8};
+				break;
+			case 23:
+				brickSprite = {16,40,8,8};
+				break;
+			case 24:
+				brickSprite = {24,40,8,8};
+				break;
+		}
+		brickRect = { boxInt[0], boxInt[1], boxInt[2], boxInt[3] };
+		SDL_RenderCopy( sdlRenderer, texture, &brickSprite, &brickRect );
 	}
 }

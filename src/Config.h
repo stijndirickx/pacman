@@ -1,10 +1,3 @@
-/*
- * Config.h
- *
- *  Created on: May 13, 2018
- *      Author: ruben
- */
-
 #ifndef CONFIG_H_
 #define CONFIG_H_
 

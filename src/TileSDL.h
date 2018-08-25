@@ -1,10 +1,3 @@
-/*
- * WallSDL.h
- *
- *  Created on: Mar 15, 2018
- *      Author: ruben
- */
-
 #ifndef TILESDL_H_
 #define TILESDL_H_
 
@@ -14,19 +7,23 @@
 
 using namespace std;
 
-namespace PACMAN {
-	class TileSDL : public Tile{
-	public:
-		TileSDL(SDL_Renderer* sdlRendererTEMP, SDL_Texture* tileTexture);
-		virtual ~TileSDL();
-		void Visualize();
-	protected:
-		SDL_Renderer* sdlRenderer;
-		SDL_Texture* texture;
+namespace PACMAN
+{
+	class TileSDL : public Tile
+	{
+		public:
+			TileSDL(SDL_Renderer* sdlRendererTEMP, SDL_Texture* tileTexture);
+			virtual ~TileSDL();
 
-		SDL_Rect tileSprite;
-		SDL_Rect tileRect;
+			void Visualize();
+
+		protected:
+			SDL_Renderer* sdlRenderer;
+			SDL_Texture* texture;
+
+			SDL_Rect brickSprite;
+			SDL_Rect brickRect;
 	};
 }
 
-#endif /* TILESDL_H_ */
+#endif
