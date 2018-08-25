@@ -15,25 +15,27 @@ namespace PACMAN
 			virtual ~Config();
 
 			void getConfig();
-			int getNumOfGhost();
+
+			string getMapFile();
+			string getSpritesFile();
+
+			int getBrickSize();
 			int getFps();
-			int getAnimationSpeed();
-			string getMapName();
-			int getTileSize();
-			int getLives();
+			int getFpa();
+
+			int getEnemiesCount();
+			int getLivesCount();
 
 		protected:
-
-			int numOfGhosts = 4;
-			int fps = 30; //best 30
-			int animationSpeed = 3; //every x frames sprite change
+			string mapFile = "Assets/Maps/house.map";
+			string spritesFile = "Assets/Sprites/sprites.png";
 
 			int brickSize = 20;
-			int lives = 4;
+			int fpa = 3; 		//frames per animation
+			int fps = 30; 		//frames per second
 
-
-			string mapFile = "Assets/Maps/house.map";
-			string spriteFile = "Assets/Sprites/sprites.png";
+			int enemiesCount = 4;
+			int livesCount = 4;
 	};
 }
 

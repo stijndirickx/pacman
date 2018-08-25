@@ -1,10 +1,3 @@
-/*
- * Game.cpp
- *
- *  Created on: Mar 12, 2018
- *      Author: ruben
- */
-
 #include "Game.h"
 #include <fstream>
 
@@ -13,8 +6,8 @@ namespace PACMAN {
 		aFactory = abstractFactory;
 
 		cFile = aFactory->CreateConfig();
-		numOfGhosts = cFile->getNumOfGhost();
-		animationSpeed = cFile->getAnimationSpeed(); //every x frames sprite change
+		numOfGhosts = cFile->getEnemiesCount();
+		animationSpeed = cFile->getFpa(); //every x frames sprite change
 		fps = cFile->getFps();
 		mspf = 1000/fps; //ms per f: 30FPS --> every 33.3 ms a frame
 		countToAttacking = 8000 / mspf; // 8 sec / ms per frame = # frames to go
@@ -27,8 +20,8 @@ namespace PACMAN {
 	void Game::Start(){
 		Map* map = aFactory->CreateMap();
 		GameContext* gContext = aFactory->CreateGameContext();
-		gContext->SetTileSize(cFile->getTileSize());
-		gContext->SetLives(cFile->getLives());
+		gContext->SetTileSize(cFile->getBrickSize());
+		gContext->SetLives(cFile->getLivesCount());
 		gContext->SetNumOfGhosts(numOfGhosts);
 
 		Pacman* pacman = aFactory->CreatePacman();
@@ -63,7 +56,7 @@ namespace PACMAN {
 								}
 								if(gContext->GetLives() <= 0){
 									gContext->ResetGame();
-									gContext->SetLives(cFile->getLives());
+									gContext->SetLives(cFile->getLivesCount());
 									map->Load();
 								}
 								pacman->SetDirection(4);

@@ -11,46 +11,59 @@ namespace PACMAN
 
 	void Config::getConfig()
 	{
-		ifstream configFile;
-		configFile.open("Assets/config.cfg");
 		string line;
-		while(getline(configFile, line))
+		ifstream file;
+		file.open("Assets/config.cfg");
+		while(getline(file, line))
 		{
-			if(line[0] != '#' || !line.empty())
+			if(line[0] != '#' || !line.empty()) // '#'-char gives a comment line
 			{
-				int delimiterPos = line.find("=");
-				int pId = atoi(line.substr(0, delimiterPos).c_str());
-				string value = line.substr(delimiterPos + 1);
+				int split = line.find("|");
+				int id = atoi(line.substr(0, split).c_str());
+				string value = line.substr(split + 1);
 
-				switch(pId)
+				switch(id)
 				{
 					case 1:
-						numOfGhosts = atoi(value.c_str());
-						break;
-					case 2:
-						fps = atoi(value.c_str());
-						break;
-					case 3:
-						animationSpeed = atoi(value.c_str());
-						break;
-					case 4:
 						mapFile = value;
 						break;
-					case 5:
+					case 2:
+						spritesFile = value;
+						break;
+					case 11:
 						brickSize = atoi(value.c_str());
 						break;
-					case 6:
-						lives = atoi(value.c_str());
+					case 12:
+						fpa = atoi(value.c_str());
+						break;
+					case 13:
+						fps = atoi(value.c_str());
+						break;
+					case 21:
+						enemiesCount = atoi(value.c_str());
+						break;
+					case 22:
+						livesCount = atoi(value.c_str());
 						break;
 				}
 			}
 		}
-		configFile.close();
+		file.close();
 	}
 
-	int Config::getNumOfGhost()
+	string Config::getMapFile()
 	{
-		return numOfGhosts;
+		return mapFile;
+	}
+
+	string Config::getSpritesFile()
+	{
+		return spritesFile;
+	}
+
+	int Config::getBrickSize()
+	{
+		return brickSize;
 	}
 
 	int Config::getFps()
@@ -58,23 +71,18 @@ namespace PACMAN
 		return fps;
 	}
 
-	int Config::getAnimationSpeed()
+	int Config::getFpa()
 	{
-		return animationSpeed;
+		return fpa;
 	}
 
-	string Config::getMapName()
+	int Config::getEnemiesCount()
 	{
-		return mapFile;
+		return enemiesCount;
 	}
 
-	int Config::getTileSize()
+	int Config::getLivesCount()
 	{
-		return brickSize;
-	}
-
-	int Config::getLives()
-	{
-		return lives;
+		return livesCount;
 	}
 }
