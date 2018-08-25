@@ -1,71 +1,80 @@
-/*
- * Config.cpp
- *
- *  Created on: May 13, 2018
- *      Author: ruben
- */
-
 #include "Config.h"
-#include <fstream>
 
-namespace PACMAN {
-	Config::Config() {
-		this->GetConfig();
+namespace PACMAN
+{
+	Config::Config()
+	{
+		this->getConfig();
 	}
 
-	Config::~Config() {
-		// TODO Auto-generated destructor stub
-	}
+	Config::~Config() {	}
 
-	void Config::GetConfig() {
+	void Config::getConfig()
+	{
 		ifstream configFile;
 		configFile.open("Assets/config.cfg");
 		string line;
-		while(getline(configFile, line)){
+		while(getline(configFile, line))
+		{
 			if(line[0] != '#' || !line.empty())
 			{
 				int delimiterPos = line.find("=");
-				string param = line.substr(0, delimiterPos);
+				int pId = atoi(line.substr(0, delimiterPos).c_str());
 				string value = line.substr(delimiterPos + 1);
-				if(param == "numberOfGhosts"){
-					numOfGhosts = atoi(value.c_str());
-				} else if (param == "fps") {
-					fps = atoi(value.c_str());
-				} else if (param == "animationSpeed") {
-					animationSpeed = atoi(value.c_str());
-				} else if (param == "mapName") {
-					mapName = value;
-				} else if (param == "tileSize") {
-					tileSize = atoi(value.c_str());
-				} else if (param == "lives") {
-					lives = atoi(value.c_str());
+
+				switch(pId)
+				{
+					case 1:
+						numOfGhosts = atoi(value.c_str());
+						break;
+					case 2:
+						fps = atoi(value.c_str());
+						break;
+					case 3:
+						animationSpeed = atoi(value.c_str());
+						break;
+					case 4:
+						mapFile = value;
+						break;
+					case 5:
+						brickSize = atoi(value.c_str());
+						break;
+					case 6:
+						lives = atoi(value.c_str());
+						break;
 				}
 			}
 		}
 		configFile.close();
 	}
 
-	int Config::GetNumOfGhost(){
+	int Config::getNumOfGhost()
+	{
 		return numOfGhosts;
 	}
 
-	int Config::GetFps(){
+	int Config::getFps()
+	{
 		return fps;
 	}
 
-	int Config::GetAnimationSpeed(){
+	int Config::getAnimationSpeed()
+	{
 		return animationSpeed;
 	}
 
-	string Config::GetMapName(){
-		return mapName;
+	string Config::getMapName()
+	{
+		return mapFile;
 	}
 
-	int Config::GetTileSize(){
-		return tileSize;
+	int Config::getTileSize()
+	{
+		return brickSize;
 	}
 
-	int Config::GetLives(){
+	int Config::getLives()
+	{
 		return lives;
 	}
 }

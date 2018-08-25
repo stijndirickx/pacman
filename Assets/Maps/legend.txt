@@ -1,0 +1,33 @@
+00 = nothing
+
+01 = path
+02 = pacdot
+03 = pellet
+04 = barrier
+
+05 = double wall - topleft
+06 = double wall - topright
+07 = double wall - bottomleft
+08 = double wall - bottomright
+
+09 = double wall - top
+10 = double wall - right
+11 = double wall - bottom
+12 = double wall - left
+
+13 = single wall - topleft
+14 = single wall - topright
+15 = single wall - bottomleft
+16 = single wall - bottomright
+
+17 = single wall - top
+18 = single wall - right
+19 = single wall - bottom
+20 = single wall - left
+
+21 = inner wall - topleft
+22 = inner wall - topright
+23 = inner wall - bottomleft
+24 = inner wall - bottomright
+
+25 = cherry

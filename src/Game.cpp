@@ -13,9 +13,9 @@ namespace PACMAN {
 		aFactory = abstractFactory;
 
 		cFile = aFactory->CreateConfig();
-		numOfGhosts = cFile->GetNumOfGhost();
-		animationSpeed = cFile->GetAnimationSpeed(); //every x frames sprite change
-		fps = cFile->GetFps();
+		numOfGhosts = cFile->getNumOfGhost();
+		animationSpeed = cFile->getAnimationSpeed(); //every x frames sprite change
+		fps = cFile->getFps();
 		mspf = 1000/fps; //ms per f: 30FPS --> every 33.3 ms a frame
 		countToAttacking = 8000 / mspf; // 8 sec / ms per frame = # frames to go
 	}
@@ -27,8 +27,8 @@ namespace PACMAN {
 	void Game::Start(){
 		Map* map = aFactory->CreateMap();
 		GameContext* gContext = aFactory->CreateGameContext();
-		gContext->SetTileSize(cFile->GetTileSize());
-		gContext->SetLives(cFile->GetLives());
+		gContext->SetTileSize(cFile->getTileSize());
+		gContext->SetLives(cFile->getLives());
 		gContext->SetNumOfGhosts(numOfGhosts);
 
 		Pacman* pacman = aFactory->CreatePacman();
@@ -63,7 +63,7 @@ namespace PACMAN {
 								}
 								if(gContext->GetLives() <= 0){
 									gContext->ResetGame();
-									gContext->SetLives(cFile->GetLives());
+									gContext->SetLives(cFile->getLives());
 									map->Load();
 								}
 								pacman->SetDirection(4);

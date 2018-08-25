@@ -45,7 +45,7 @@ namespace PACMAN
 
 				//this->ClearScreen();
 
-				loadedSurface = IMG_Load("Assets/sprites.png");
+				loadedSurface = IMG_Load("Assets/Sprites/sprites.png");
 				SDL_SetColorKey(loadedSurface, SDL_TRUE, 0x000000 );
 
 				tileTexture = SDL_CreateTextureFromSurface( sdlRendererTEMP, loadedSurface );

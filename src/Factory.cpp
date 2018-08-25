@@ -26,7 +26,7 @@ namespace PACMAN {
 	}
 
 	Map* Factory::CreateMap() {
-		tileMap = new Map(this, cFile->GetMapName(), cFile->GetTileSize());
+		tileMap = new Map(this, cFile->getMapName(), cFile->getTileSize());
 		this->CreateVis();
 		tileMap->CreateMap();
 		return tileMap;
