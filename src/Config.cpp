@@ -1,87 +1,71 @@
-#include "Config.h"
-#include <fstream> //TODO move to config.h?
+/*
+ * Config.cpp
+ *
+ *  Created on: May 13, 2018
+ *      Author: ruben
+ */
 
-namespace logic
-{
-	Config::Config()
-	{
-		this->getConfig(); //TODO try getconfig method here?
+#include "Config.h"
+#include <fstream>
+
+namespace PACMAN {
+	Config::Config() {
+		this->GetConfig();
 	}
 
-	Config::~Config()
-	{
+	Config::~Config() {
 		// TODO Auto-generated destructor stub
 	}
 
-	void Config::getConfig()
-	{
-		ifstream stream;
-		stream.open("Assets/config.cfg");
+	void Config::GetConfig() {
+		ifstream configFile;
+		configFile.open("Assets/config.cfg");
 		string line;
-		while(getline(stream, line))
-		{
-			if(line[0] != '#' || !line.empty()) //# gives commentline
+		while(getline(configFile, line)){
+			if(line[0] != '#' || !line.empty())
 			{
 				int delimiterPos = line.find("=");
 				string param = line.substr(0, delimiterPos);
 				string value = line.substr(delimiterPos + 1);
-
-				if(param == "animationSpeed")
-				{
-					animationSpeed = atoi(value.c_str());
-				}
-				else if(param == "brickSize")
-				{
-					brickSize = atoi(value.c_str());
-				}
-				else if(param == "fileName")
-				{
-					fileName = atoi(value.c_str());
-				}
-				else if(param == "fps")
-				{
+				if(param == "numberOfGhosts"){
+					numOfGhosts = atoi(value.c_str());
+				} else if (param == "fps") {
 					fps = atoi(value.c_str());
-				}
-				else if(param == "lives")
-				{
+				} else if (param == "animationSpeed") {
+					animationSpeed = atoi(value.c_str());
+				} else if (param == "mapName") {
+					mapName = value;
+				} else if (param == "tileSize") {
+					tileSize = atoi(value.c_str());
+				} else if (param == "lives") {
 					lives = atoi(value.c_str());
-				}
-				else if(param == "numOfEnemies")
-				{
-					numOfEnemies = atoi(value.c_str());
 				}
 			}
 		}
-		stream.close();
+		configFile.close();
 	}
 
-	int Config::getAnimationSpeed()
-	{
-		return animationSpeed;
+	int Config::GetNumOfGhost(){
+		return numOfGhosts;
 	}
 
-	int Config::getBrickSize()
-	{
-		return brickSize;
-	}
-
-	string Config::getFileName()
-	{
-		return fileName;
-	}
-
-	int Config::getFps()
-	{
+	int Config::GetFps(){
 		return fps;
 	}
 
-	int Config::getLives()
-	{
-		return lives;
+	int Config::GetAnimationSpeed(){
+		return animationSpeed;
 	}
 
-	int Config::getNumOfEnemies()
-	{
-		return numOfEnemies;
+	string Config::GetMapName(){
+		return mapName;
+	}
+
+	int Config::GetTileSize(){
+		return tileSize;
+	}
+
+	int Config::GetLives(){
+		return lives;
 	}
 }

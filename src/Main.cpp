@@ -1,22 +1,25 @@
+//============================================================================
+// Name        : PacMan
+// Author      : Ruben DS
+// Version     :
+// Copyright   : 
+// Description : PacMan
+//============================================================================
+
 #include <iostream>
 
-
-#include "AbstractFactory.h"
+#include "Factory.h"
+#include "FactorySDL.h"
 #include "Game.h"
-#include "SDLAbstractFactory.h"
-
 
 using namespace std;
 
-int main(int argc, char* args[])
-{
-	cout << "t";
-	logic::AbstractFactory* f = new graphics_SDL::SDLAbstractFactory();
-	Game* g = new Game(f);
-	g->Start();
-	delete g;
-	delete f;
+int main(int argc, char* args[]) { //parameters for SDL
+	PACMAN::Factory* aFactory = new PACMAN::FactorySDL();
+	PACMAN::Game* game = new PACMAN::Game(aFactory);
+	game->Start();
+	delete aFactory;
+	delete game;
+
 	return 0;
 }
-
-

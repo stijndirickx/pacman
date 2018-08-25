@@ -1,71 +1,75 @@
-#include "AbstractFactory.h"
-//#include "Entity.h" TODO
+/*
+ * Entity.cpp
+ *
+ *  Created on: Apr 2, 2018
+ *      Author: ruben
+ */
 
-namespace logic
-{
-	Entity::Entity()
-	{
-		mAbstractFactory = NULL;
-		mContext = NULL;
-	}
+#include "Factory.h"
 
-	Entity::~Entity()
-	{
-		delete box;
-	}
-
-	bool Entity::checkCollisions()
-	{
+namespace PACMAN {
+	Entity::Entity() {
 		collision = false;
-		Brick** bricks = mContext->getBricks();
-		int* brickInfo = 0;
+		aFactory = NULL;
+		gContext = NULL;
 
-		for(int i = 0; i < totalBricks; i++)
-		{
-			brickInfo = bricks[i]->readBrickInfo();
-			bool temp = mContext->checkCollision(this->getCollisionBox(), brickInfo);
 
-			if(!collision && temp)
-			{
-				if(brickInfo[4] > 0 && brickInfo[4] <= 6) //TODO (is wall?) dirty code?
-				{
+		mPosX = 0;
+		mPosY = 0;
+		mWidth = 0;
+		mHeight = 0;
+	}
+
+	Entity::~Entity() {
+		delete entityBox;
+	}
+
+	void Entity::SetGameContext(GameContext* gameContext){
+		gContext = gameContext;
+		totalTiles = gContext->GetTotalTiles();
+		screenWidth = gContext->GetScreenWidth();
+		screenHeight = gContext->GetScreenHeight();
+		mWidth = gContext->GetTileSize();
+		mHeight = gContext->GetTileSize();
+		numOfGhosts = gContext->GetNumOfGhosts();
+	}
+
+	void Entity::SetFactory(Factory* fac){
+		aFactory = fac;
+	}
+
+	int* Entity::GetCollisionBox(){
+		entityBox[0] = mPosX;
+		entityBox[1] = mPosY;
+		entityBox[2] = mWidth;
+		entityBox[3] = mHeight;
+
+		return entityBox;
+	}
+
+
+	bool Entity::CheckCollisions(){
+		Tile** tileSet = gContext->GetMapTiles();
+
+		collision = false;
+		int* tileBoxInt = 0;
+
+		for(int j = 0; j < totalTiles; j++){ //CHECK TILES
+			tileBoxInt = tileSet[j]->GetBoxInt();
+
+			bool tempCollide = gContext->CheckCollision(this->GetCollisionBox(), tileBoxInt);
+
+			if(!collision && tempCollide){
+				if(tileBoxInt[4] > 0 && tileBoxInt[4] <= 6){ //is wall
 					collision = true;
 				}
-
-				if(isPlayer)
-				{
-					mContext->destroyBrick(i);
+				if(isPac){ //entity is pacman
+					gContext->DestroyTile(j);
 				}
 			}
 		}
 
-		delete brickInfo;
+		delete tileBoxInt;
 		return collision;
 	}
-
-	int* Entity::getCollisionBox()
-	{
-		box[0] = x;
-		box[1] = y;
-		box[2] = w;
-		box[3] = h;
-		return box;
-	}
-
-	void Entity::setAbstractFactory(AbstractFactory* pAbstractFactory)
-	{
-		mAbstractFactory = pAbstractFactory;
-	}
-
-	void Entity::setContext(Context* pContext)
-	{
-		mContext = pContext;
-		totalBricks = mContext->getTotalBricks();
-		screenWidth = mContext->getScreenWidth();
-		screenHeight = mContext->getScreenHeight();
-		w = mContext->getBrickSize();					//TODO check to make easier
-		h = mContext->getBrickSize();
-		numOfEnemies = mContext->getNumOfEnemies();
-	}
 }
-

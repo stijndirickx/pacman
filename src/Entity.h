@@ -1,41 +1,42 @@
+/*
+ * Entity.h
+ *
+ *  Created on: Apr 2, 2018
+ *      Author: ruben
+ */
+
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
 #include <iostream>
-
-//#include "AbstractFactory.h"
-#include "Brick.h"
-#include "Context.h"
-
+#include "Tile.h"
+#include "GameContext.h"
 using namespace std;
 
-namespace logic
-{
-	class AbstractFactory; //TODO del?
-	class Context;			//TODO del?
-	class Entity
-	{
-		public:
-			Entity();
-			virtual ~Entity();
-
-			bool checkCollisions();
-			int* getCollisionBox();
-			void setAbstractFactory(AbstractFactory* pAbstractFactory);
-			void setContext(Context* pContext);
-
-		protected:
-			AbstractFactory* mAbstractFactory;
-			Context* mContext;
-			int x = 0, y = 0, w = 0, h = 0;
-			int* box = new int [4];
-			bool collision = false;
-			bool isPlayer = false;
-			int totalBricks = 0;
-			int screenWidth = 0;
-			int screenHeight = 0;
-			int numOfEnemies = 0;
+namespace PACMAN {
+	class GameContext;
+	class Factory; //Forward declaration so the compiler knows what Factory is --> to use CheckCollision
+	class Entity {
+	public:
+		Entity();
+		virtual ~Entity();
+		void SetFactory(Factory* fac);
+		bool CheckCollisions();
+		int* GetCollisionBox();
+		void SetGameContext(GameContext* gameContext);
+	protected:
+		Factory* aFactory;
+		GameContext* gContext;
+		bool collision;
+		int mPosX, mPosY;
+		int mWidth, mHeight;
+		int* entityBox = new int [4];
+		bool isPac = false;
+		int totalTiles = 0;
+		int screenWidth = 0;
+		int screenHeight = 0;
+		int numOfGhosts = 0;
 	};
 }
 
-#endif
+#endif /* ENTITY_H_ */

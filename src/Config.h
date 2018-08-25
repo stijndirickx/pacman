@@ -1,36 +1,38 @@
+/*
+ * Config.h
+ *
+ *  Created on: May 13, 2018
+ *      Author: ruben
+ */
+
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
 #include <iostream>
-//#include <fstream>
-
 using namespace std;
 
-namespace logic
-{
-	class Config
-	{
-		public:
-			Config();
-			virtual ~Config();
-			void getConfig();
+namespace PACMAN {
+	class Config {
+	public:
+		Config();
+		virtual ~Config();
 
-			int getAnimationSpeed();
-			int getBrickSize();
-			string getFileName(); //For house
-			int getFps();
-			int getLives();
-			int getNumOfEnemies();
-
-		protected:
-			//DEFAULT VALUES //TODO other parameters? why these parameters?
-			int animationSpeed = 3;
-			int brickSize = 20;
-			string fileName = "Assets/house.map";
-			int fps = 30;
-			int lives = 4;
-			int numOfEnemies = 4;
+		void GetConfig();
+		int GetNumOfGhost();
+		int GetFps();
+		int GetAnimationSpeed();
+		string GetMapName();
+		int GetTileSize();
+		int GetLives();
+	protected:
+		// DEFAULT VALUES
+		int numOfGhosts = 4;
+		int fps = 30; //best 30
+		int animationSpeed = 3; //every x frames sprite change
+		string mapName = "Assets/Map2.map";
+		int tileSize = 20;
+		int lives = 4;
 	};
 }
 
-#endif
+#endif /* CONFIG_H_ */
