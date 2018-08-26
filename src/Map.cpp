@@ -1,7 +1,9 @@
 #include "Map.h"
 
-namespace PACMAN {
-	Map::Map(Factory* abstractFactory, string mapName, int size) {
+namespace PACMAN
+{
+	Map::Map(Factory* abstractFactory, string mapName, int size)
+	{
 		aFactory = abstractFactory;
 		gContext = NULL;
 		tileSize = size;
@@ -24,30 +26,36 @@ namespace PACMAN {
 		screenHeight = (totalTiles/lineLength) * tileSize;
 	}
 
-	Map::~Map() {
+	Map::~Map()
+	{
 		delete [] destroyedTiles;
-		for(int tile = 0; tile < totalTiles; tile++){
+		for(int tile = 0; tile < totalTiles; tile++)
+		{
 			delete tileSet[tile];
 		}
 		delete [] tileSet;
 	}
 
-	void Map::SetContext(GameContext* GameContext){
+	void Map::SetContext(GameContext* GameContext)
+	{
 		gContext = GameContext;
 		gContext->SetScreenWidth(screenWidth);
 		gContext->SetScreenHeight(screenHeight);
 		gContext->SetTotalTiles(totalTiles);
 	}
 
-	void Map::CreateMap() {
+	void Map::CreateMap()
+	{
 		map.seekg(0, ios::beg);
 		int x = 0, y = 0;
 
-		for(int tile = 0; tile < totalTiles; tile++){
+		for(int tile = 0; tile < totalTiles; tile++)
+		{
 			int tileType = 0;
 			map >> tileType;
 			tileSet[tile] = aFactory->CreateTile(x, y, tileType, tileSize, tileSize);
-			if(tileType == 2){
+			if(tileType == 2)
+			{
 				numOfPellets++;
 			}
 			x += tileSize;
@@ -61,40 +69,54 @@ namespace PACMAN {
 		map.close();
 	}
 
-	void Map::Load() {
-		for(int tile = 0; tile < totalTiles; tile++){
+	void Map::Load()
+	{
+		for(int tile = 0; tile < totalTiles; tile++)
+		{
 			destroyedTiles[tile] = 0;
 		}
 		numOfPelletsLeft = numOfPellets;
 	}
 
-	void Map::Draw() {
-		for(int tile = 0; tile < totalTiles; tile++){
-			if(destroyedTiles[tile] != 1){
+	void Map::Draw()
+	{
+		for(int tile = 0; tile < totalTiles; tile++)
+		{
+			if(destroyedTiles[tile] != 1)
+			{
 				tileSet[tile]->Visualize();
 			}
 		}
 	}
 
-	Tile** Map::GetTiles(){
+	Tile** Map::GetTiles()
+	{
 		return tileSet;
 	}
 
-	void Map::DestroyTile(int tile){
-		if(destroyedTiles[tile] != 1){
+	void Map::DestroyTile(int tile)
+	{
+		if(destroyedTiles[tile] != 1)
+		{
 			int* tileBoxInt = tileSet[tile]->GetBoxInt();
-			if(tileBoxInt[4] == 3){ // PELLET TODO get variable int of pellet
+			if(tileBoxInt[4] == 3) // PELLET TODO get variable int of pellet
+			{
 				gContext->PlaySound("eat");
 				std::vector<Ghost*>ghosts = gContext->GetGhosts();
-				for(size_t i = 0; i <= (ghosts.size()-1); i++){
+				for(size_t i = 0; i <= (ghosts.size()-1); i++)
+				{
 					ghosts[i]->SetAttackingState(false);
 				}
 				destroyedTiles[tile] = 1;
-			} else if(tileBoxInt[4] == 25){ // CHERRY
+			}
+			else if(tileBoxInt[4] == 25) // CHERRY
+			{
 				gContext->PlaySound("eat");
 				gContext->AddToScore(10);
 				destroyedTiles[tile] = 1;
-			} else if(tileBoxInt[4] == 2){ //PAC-DOT
+			}
+			else if(tileBoxInt[4] == 2) //PAC-DOT
+			{
 				gContext->AddToScore(1);
 				destroyedTiles[tile] = 1;
 				numOfPelletsLeft--;
@@ -103,15 +125,18 @@ namespace PACMAN {
 		}
 	}
 
-	int Map::GetScreenWidth(){
+	int Map::GetScreenWidth()
+	{
 		return screenWidth;
 	}
 
-	int Map::GetScreenHeight(){
+	int Map::GetScreenHeight()
+	{
 		return screenHeight;
 	}
 
-	int Map::GetNumOfPellets(){
+	int Map::GetNumOfPellets()
+	{
 		return numOfPelletsLeft;
 	}
 }

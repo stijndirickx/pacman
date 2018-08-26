@@ -1,11 +1,3 @@
-//============================================================================
-// Name        : PacMan
-// Author      : Ruben DS
-// Version     :
-// Copyright   : 
-// Description : PacMan
-//============================================================================
-
 #include <iostream>
 
 #include "Factory.h"
@@ -14,7 +6,8 @@
 
 using namespace std;
 
-int main(int argc, char* args[]) { //parameters for SDL
+int main(int argc, char* args[])  //parameters for SDL
+{
 	PACMAN::Factory* aFactory = new PACMAN::FactorySDL();
 	PACMAN::Game* game = new PACMAN::Game(aFactory);
 	game->Start();

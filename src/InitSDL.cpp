@@ -28,12 +28,15 @@ namespace PACMAN
 				if( !( IMG_Init( imgFlags ) & imgFlags ) )
 				{
 					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-				} else {
+				}
+				else
+				{
 					sdlScreenSurface = SDL_GetWindowSurface( sdlWindow );
 				}
 
 				//Initialize SDL_ttf
-				if(TTF_Init() < 0){
+				if(TTF_Init() < 0)
+				{
 					printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", IMG_GetError() );
 				}
 
@@ -48,32 +51,39 @@ namespace PACMAN
 				loadedSurface = IMG_Load(spritesFile.c_str());
 				SDL_SetColorKey(loadedSurface, SDL_TRUE, 0x000000 );
 
-				tileTexture = SDL_CreateTextureFromSurface( sdlRendererTEMP, loadedSurface );
+				tileTexture = SDL_CreateTextureFromSurface(sdlRendererTEMP, loadedSurface);
 			}
 		}
 
 	}
 
-	InitSDL::~InitSDL() {
-		// TODO Auto-generated destructor stub
-	}
+	InitSDL::~InitSDL() {}
 
-	SDL_Renderer* InitSDL::GetRenderer(){
+	SDL_Renderer* InitSDL::GetRenderer()
+	{
 		return sdlRendererTEMP;
 	}
-	SDL_Surface* InitSDL::GetSurface(){
+
+	SDL_Surface* InitSDL::GetSurface()
+	{
 		return loadedSurface;
 	}
-	SDL_Texture* InitSDL::GetTileTexture(){
+
+	SDL_Texture* InitSDL::GetTileTexture()
+	{
 		return tileTexture;
 	}
-	SDL_Renderer* InitSDL::GetVisibleRenderer(){
+
+	SDL_Renderer* InitSDL::GetVisibleRenderer()
+	{
 		return sdlRenderer;
 	}
-	void InitSDL::QuitVis(){
-		SDL_DestroyRenderer( sdlRendererTEMP );
-		SDL_DestroyRenderer( sdlRenderer );
-		SDL_DestroyWindow( sdlWindow );
+
+	void InitSDL::QuitVis()
+	{
+		SDL_DestroyRenderer(sdlRendererTEMP);
+		SDL_DestroyRenderer(sdlRenderer);
+		SDL_DestroyWindow(sdlWindow);
 		sdlRendererTEMP = NULL;
 		sdlRenderer = NULL;
 		sdlWindow = NULL;

@@ -1,8 +1,10 @@
 #include "Game.h"
 #include <fstream>
 
-namespace PACMAN {
-	Game::Game(Factory*& abstractFactory) {
+namespace PACMAN
+{
+	Game::Game(Factory*& abstractFactory)
+	{
 		aFactory = abstractFactory;
 
 		cFile = aFactory->CreateConfig();
@@ -13,11 +15,10 @@ namespace PACMAN {
 		countToAttacking = 8000 / mspf; // 8 sec / ms per frame = # frames to go
 	}
 
-	Game::~Game(){
+	Game::~Game(){}
 
-	}
-
-	void Game::Start(){
+	void Game::Start()
+	{
 		Map* map = aFactory->CreateMap();
 		GameContext* gContext = aFactory->CreateGameContext();
 		gContext->SetTileSize(cFile->getBrickSize());
@@ -26,7 +27,8 @@ namespace PACMAN {
 
 		Pacman* pacman = aFactory->CreatePacman();
 		Ghost* ghosts[numOfGhosts];
-		for(int i = 0; i < numOfGhosts; i++){
+		for(int i = 0; i < numOfGhosts; i++)
+		{
 			ghosts[i] = aFactory->CreateGhost(i);
 		}
 
@@ -37,60 +39,78 @@ namespace PACMAN {
 		int countingAttack = 0;
 		bool quit = false;
 
-		while( !quit )
+		while(!quit)
 		{
-			while( ev->PollEvent() != 0 )
+			while(ev->PollEvent() != 0)
 			{
 				//User requests quit
-				if( ev->QuitEvent() )
+				if(ev->QuitEvent())
 				{
 					quit = true;
-				} else if(ev->KeyDown()){
-					if(ev->GetKeyDown() == 6){ //pressed enter
-						if(map->GetNumOfPellets() > 0){
+				}
+				else if(ev->KeyDown())
+				{
+					if(ev->GetKeyDown() == 6) //pressed enter
+					{
+						if(map->GetNumOfPellets() > 0)
+						{
 							gContext->SetPlaying(!gContext->GetPlaying(), "Paused");
-							if(!pacman->GetLiving()){
+							if(!pacman->GetLiving())
+							{
 								pacman->SetLiving(true);
-								for(int j=0; j < numOfGhosts;j++){
+								for(int j=0; j < numOfGhosts;j++)
+								{
 									ghosts[j]->ResetGhost();
 								}
-								if(gContext->GetLives() <= 0){
+								if(gContext->GetLives() <= 0)
+								{
 									gContext->ResetGame();
 									gContext->SetLives(cFile->getLivesCount());
 									map->Load();
 								}
 								pacman->SetDirection(4);
 							}
-						} else {
+						}
+						else
+						{
 							map->Load();
 							pacman->SetLiving(true);
 							pacman->SetDirection(4);
 							gContext->SetPlaying(true, "Paused");
 						}
-					} else if (gContext->GetPlaying()) { //not changing direction while paused
+					}
+					else if (gContext->GetPlaying()) //not changing direction while paused
+					{
 						pacman->SetDirection(ev->GetKeyDown());
 					}
 				}
 			}
 
-			if(!ghosts[0]->GetAttackingState()){ //if ghosts vulnerable
-				if(countingAttack == 0){
+			if(!ghosts[0]->GetAttackingState()) //if ghosts vulnerable
+			{
+				if(countingAttack == 0)
+				{
 					countingAttack = countToAttacking;
-				} else if(countingAttack == 1){
-					for(int j=0; j < numOfGhosts;j++){ // set ghosts back to attacking
+				}
+				else if(countingAttack == 1)
+				{
+					for(int j=0; j < numOfGhosts;j++) // set ghosts back to attacking
+					{
 						ghosts[j]->SetAttackingState(true);
 					}
 				}
 			}
 
-			if(map->GetNumOfPellets() == 0){
+			if(map->GetNumOfPellets() == 0)
+			{
 				gContext->SetPlaying(false, "Winner");
 			}
 
 			ticks = clock(); //#clock ticks since running
 			clock_ms = (ticks/(double)CLOCKS_PER_SEC)*1000.0; //#ms since running
 
-			if(last_frame != clock_ms && clock_ms % mspf == 0){
+			if(last_frame != clock_ms && clock_ms % mspf == 0)
+			{
 				last_frame = clock_ms; //make sure not multiple frames in same ms
 
 				gContext->ClearScreen();
@@ -101,25 +121,34 @@ namespace PACMAN {
 					ghosts[0]->MoveTo(pacman->GetX(), pacman->GetY());
 					ghosts[1]->MoveInFront(pacman->GetX(), pacman->GetY());
 					pacman->GotCaptured(ghosts, numOfGhosts);
-					for(int j=2; j < numOfGhosts;j++){
+					for(int j=2; j < numOfGhosts;j++)
+					{
 						ghosts[j]->Move();
 					}
 					gContext->PlaySound("pacman");
-				} else {
+				}
+				else
+				{
 					pacman->Visualize();
-					for(int j=0; j < numOfGhosts;j++){
+					for(int j=0; j < numOfGhosts;j++)
+					{
 						ghosts[j]->Visualize();
 					}
 					gContext->PlaySound("beginning");
 				}
-				if(clock_ms % (animationSpeed*mspf) == 0){ //every x frames animation
+
+				if(clock_ms % (animationSpeed*mspf) == 0) //every x frames animation
+				{
 					pacman->Animate();
 				}
 
-				if(countingAttack > 0){
+				if(countingAttack > 0)
+				{
 					countingAttack--;
-					if(countingAttack <= 30 && clock_ms % (animationSpeed*mspf) == 0){
-						for(int j=0; j < numOfGhosts;j++){
+					if(countingAttack <= 30 && clock_ms % (animationSpeed*mspf) == 0)
+					{
+						for(int j=0; j < numOfGhosts;j++)
+						{
 							ghosts[j]->SetFlashingState(!ghosts[j]->GetFlashingState());
 						}
 					}
@@ -131,7 +160,8 @@ namespace PACMAN {
 		}
 
 		// Game ended
-		for(int i = 0; i < numOfGhosts; i++){
+		for(int i = 0; i < numOfGhosts; i++)
+		{
 			delete ghosts[i];
 		}
 		gContext->QuitVis();

@@ -1,10 +1,3 @@
-/*
- * FactorySDL.h
- *
- *  Created on: Mar 12, 2018
- *      Author: ruben
- */
-
 #ifndef FACTORYSDL_H_
 #define FACTORYSDL_H_
 
@@ -17,8 +10,11 @@
 #include "EventHandlerSDL.h"
 
 using namespace std;
-namespace PACMAN {
-	class FactorySDL : public Factory{
+
+namespace PACMAN
+{
+	class FactorySDL : public Factory
+	{
 		public:
 			FactorySDL();
 			virtual ~FactorySDL();
@@ -29,9 +25,10 @@ namespace PACMAN {
 			GameContext* CreateGameContext();
 			EventHandler* CreateEventHandler();
 			void CreateVis();
+
 		protected:
 			PACMAN::InitSDL* sdlInit;
 	};
 }
 
-#endif /* FACTORYSDL_H_ */
+#endif

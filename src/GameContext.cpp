@@ -1,96 +1,119 @@
 #include "GameContext.h"
 
-namespace PACMAN {
-	GameContext::GameContext() {
+namespace PACMAN
+{
+	GameContext::GameContext()
+	{
 		this->GetHighscore();
 	}
 
-	GameContext::~GameContext() {
+	GameContext::~GameContext() {}
 
-	}
-
-	int GameContext::GetLives(){
+	int GameContext::GetLives()
+	{
 		return lives;
 	}
 
 
-	int GameContext::SubtractLives(int subtraction){
+	int GameContext::SubtractLives(int subtraction)
+	{
 		lives = lives - subtraction;
 		return lives;
 	}
 
-	int GameContext::SetLives(int numOfLives){
+	int GameContext::SetLives(int numOfLives)
+	{
 		lives = numOfLives;
 		return lives;
 	}
 
-	bool GameContext::GetPlaying(){
+	bool GameContext::GetPlaying()
+	{
 		return playing;
 	}
 
-	bool GameContext::SetPlaying(bool play, string text){
-		if(lives <= 0){
+	bool GameContext::SetPlaying(bool play, string text)
+	{
+		if(lives <= 0)
+		{
 			playing = false;
 			startText = "Game Over";
-			if(score > highScore){
+			if(score > highScore)
+			{
 				this->SetHighscore(score);
 			}
-		} else {
+		}
+		else
+		{
 			playing = play;
 			startText = text;
 		}
 		return playing;
 	}
 
-	int GameContext::GetScore(){
+	int GameContext::GetScore()
+	{
 		return score;
 	}
 
-	int GameContext::AddToScore(int addition){
+	int GameContext::AddToScore(int addition)
+	{
 		score = score + addition;
 		return score;
 	}
 
-	int GameContext::SetScreenWidth(int sWidth){
+	int GameContext::SetScreenWidth(int sWidth)
+	{
 		screenWidth = sWidth;
 		return screenWidth;
 	}
-	int GameContext::SetScreenHeight(int sHeight){
+
+	int GameContext::SetScreenHeight(int sHeight)
+	{
 		screenHeight = sHeight;
 		return screenHeight;
 	}
 
-	int GameContext::GetScreenWidth(){
+	int GameContext::GetScreenWidth()
+	{
 		return screenWidth;
 	}
 
-	int GameContext::GetScreenHeight(){
+	int GameContext::GetScreenHeight()
+	{
 		return screenHeight;
 	}
 
-	int GameContext::SetTotalTiles(int totalTiles){
+	int GameContext::SetTotalTiles(int totalTiles)
+	{
 		numOfTiles = totalTiles;
 		return numOfTiles;
 	}
-	int GameContext::GetTotalTiles(){
+
+	int GameContext::GetTotalTiles()
+	{
 		return numOfTiles;
 	}
 
-	int GameContext::SetTileSize(int size){
+	int GameContext::SetTileSize(int size)
+	{
 		tileSize = size;
 		return tileSize;
 	}
 
-	int GameContext::GetTileSize(){
+	int GameContext::GetTileSize()
+	{
 		return tileSize;
 	}
 
-	void GameContext::ResetGame(){
+	void GameContext::ResetGame()
+	{
 		score = 0;
 		startText = "Start again";
 	}
 
-	bool GameContext::CheckCollision(int* entityBox, int* tileBox){
+	bool GameContext::CheckCollision(int* entityBox, int* tileBox)
+	{
 		int leftA, leftB;
 		int rightA, rightB;
 		int topA, topB;
@@ -110,31 +133,36 @@ namespace PACMAN {
 		{
 			return true;
 		}
-
 		return false;
 	}
 
-	void GameContext::AddGhost(Ghost* ghost){
+	void GameContext::AddGhost(Ghost* ghost)
+	{
 		ghosts.push_back(ghost);
 	}
 
-	std::vector<Ghost*> GameContext::GetGhosts(){
+	std::vector<Ghost*> GameContext::GetGhosts()
+	{
 		return ghosts;
 	}
 
-	void GameContext::SetMap(Map* map){
+	void GameContext::SetMap(Map* map)
+	{
 		tileMap = map;
 	}
 
-	Tile** GameContext::GetMapTiles() {
+	Tile** GameContext::GetMapTiles()
+	{
 		return tileMap->GetTiles();
 	}
 
-	void GameContext::DestroyTile(int tile){
+	void GameContext::DestroyTile(int tile)
+	{
 		tileMap->DestroyTile(tile);
 	}
 
-	int GameContext::SetHighscore(int hscore){
+	int GameContext::SetHighscore(int hscore)
+	{
 		highScore = hscore;
 		hs.open("Assets/highscore.ini", std::ios::out);
 		hs << hscore;
@@ -142,19 +170,22 @@ namespace PACMAN {
 		return highScore;
 	}
 
-	int GameContext::GetHighscore(){
+	int GameContext::GetHighscore()
+	{
 		hs.open("Assets/highscore.ini", std::ios::in);
 		hs >> highScore;
 		hs.close();
 		return highScore;
 	}
 
-	int GameContext::SetNumOfGhosts(int nrGhosts){
+	int GameContext::SetNumOfGhosts(int nrGhosts)
+	{
 		numOfGhosts = nrGhosts;
 		return numOfGhosts;
 	}
 
-	int GameContext::GetNumOfGhosts(){
+	int GameContext::GetNumOfGhosts()
+	{
 		return numOfGhosts;
 	}
 }

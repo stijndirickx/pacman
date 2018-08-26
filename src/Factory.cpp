@@ -1,31 +1,29 @@
-/*
- * Factory.cpp
- *
- *  Created on: Mar 12, 2018
- *      Author: ruben
- */
-
 #include "Factory.h"
 
-namespace PACMAN {
-	Factory::Factory() {
+namespace PACMAN
+{
+	Factory::Factory()
+	{
 		tileMap = NULL;
 		cFile = NULL;
 		gContext = NULL;
 	}
 
-	Factory::~Factory() {
+	Factory::~Factory()
+	{
 		delete tileMap;
 		delete gContext;
 		delete cFile;
 	}
 
-	Config* Factory::CreateConfig() {
+	Config* Factory::CreateConfig()
+	{
 		cFile = new Config();
 		return cFile;
 	}
 
-	Map* Factory::CreateMap() {
+	Map* Factory::CreateMap()
+	{
 		tileMap = new Map(this, cFile->getMapFile(), cFile->getBrickSize());
 		this->CreateVis();
 		tileMap->CreateMap();

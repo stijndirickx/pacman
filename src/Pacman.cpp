@@ -1,81 +1,95 @@
-/*
- * Pacman.cpp
- *
- *  Created on: Mar 12, 2018
- *      Author: ruben
- */
-
 #include "Pacman.h"
 
-namespace PACMAN {
-	Pacman::Pacman() {
+namespace PACMAN
+{
+	Pacman::Pacman()
+	{
 		isPac = true;
 	}
 
-	Pacman::~Pacman() {
-		// TODO Auto-generated destructor stub
-	}
+	Pacman::~Pacman() {}
 
-	int Pacman::GetX() {
+	int Pacman::GetX()
+	{
 		return mPosX;
 	}
 
-	int Pacman::GetY() {
+	int Pacman::GetY()
+	{
 		return mPosY;
 	}
 
-	void Pacman::SetDirection(int key){
-		if(direction != key){
+	void Pacman::SetDirection(int key)
+	{
+		if(direction != key)
+		{
 			direction = key;
 		}
 	}
 
-	bool Pacman::GetLiving(){
+	bool Pacman::GetLiving()
+	{
 		return living;
 	}
 
-	bool Pacman::SetLiving(bool alive){
+	bool Pacman::SetLiving(bool alive)
+	{
 		living = alive;
-		if(alive){
+		if(alive)
+		{
 			mPosX = (screenWidth/2);
 			mPosY = floor(3*screenHeight/4);
 		}
 		return living;
 	}
 
-	void Pacman::Animate(){
-		if(living){
-			if(collision){ //stuck
+	void Pacman::Animate()
+	{
+		if(living)
+		{
+			if(collision)  //stuck
+			{
 				frame = 1;
-			}else {
+			}
+			else
+			{
 				frame++;
-				if(frame > 2){
+				if(frame > 2)
+				{
 					frame = 0;
 				}
 			}
-		} else {
+		}
+		else
+		{
 			frame++;
-			if(frame > 14){
+			if(frame > 14)
+			{
 				frame = 2;
 			}
 		}
 	}
 
-	void Pacman::Move(){
+	void Pacman::Move()
+	{
 		int tempPosX = mPosX;
 		int tempPosY = mPosY;
 
 		this->MoveInDir(direction);
-		if(this->CheckCollisions()){ //not possible to go to direction
+		if(this->CheckCollisions()) //not possible to go to direction
+		{
 			mPosX = tempPosX;
 			mPosY = tempPosY;
 
 			this->MoveInDir(prevDirection); //keep going prev direction
-			if(this->CheckCollisions()){
+			if(this->CheckCollisions())
+			{
 				mPosX = tempPosX;
 				mPosY = tempPosY;
 			}
-		} else {
+		}
+		else
+		{
 			prevDirection = direction;
 		}
 
@@ -83,6 +97,7 @@ namespace PACMAN {
 		{
 			mPosX = screenWidth;
 		}
+
 		if(mPosX > screenWidth)
 		{
 			mPosX = -20;
@@ -91,21 +106,29 @@ namespace PACMAN {
 		this->Visualize();
 	}
 
-	void Pacman::GotCaptured(Ghost* ghosts[], int numOfGhosts) {
-		for(int i = 0; i<numOfGhosts; i++){
+	void Pacman::GotCaptured(Ghost* ghosts[], int numOfGhosts)
+	{
+		for(int i = 0; i<numOfGhosts; i++)
+		{
 			int* ghostBoxInt = ghosts[i]->GetCollisionBox();
 			bool captured = gContext->CheckCollision(this->GetCollisionBox(), ghostBoxInt);
-			if(captured){
-				if(ghosts[i]->GetAttackingState()){
+			if(captured)
+			{
+				if(ghosts[i]->GetAttackingState())
+				{
 					gContext->SubtractLives(1);
 					gContext->SetPlaying(false, "Dead");
 					gContext->PlaySound("dead");
 					living = false;
-				} else {
+				}
+
+				else
+				{
 					ghosts[i]->SetLivingState(false);
 					gContext->PlaySound("kill");
 				}
 			}
+
 			delete ghostBoxInt;
 		}
 	}

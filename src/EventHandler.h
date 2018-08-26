@@ -1,10 +1,3 @@
-/*
- * EventHandler.h
- *
- *  Created on: Mar 12, 2018
- *      Author: ruben
- */
-
 #ifndef EVENTHANDLER_H_
 #define EVENTHANDLER_H_
 
@@ -20,4 +13,4 @@ namespace PACMAN {
 	};
 }
 
-#endif /* EVENTHANDLER_H_ */
+#endif

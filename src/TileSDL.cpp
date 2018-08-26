@@ -8,10 +8,7 @@ namespace PACMAN
 		texture = tileTexture;
 	}
 
-	TileSDL::~TileSDL()
-	{
-		// TODO Auto-generated destructor stub
-	}
+	TileSDL::~TileSDL(){}
 
 	void TileSDL::Visualize()
 	{

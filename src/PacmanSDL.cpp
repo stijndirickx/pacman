@@ -1,15 +1,18 @@
 #include "PacmanSDL.h"
 
-namespace PACMAN {
-	PacmanSDL::PacmanSDL(SDL_Renderer* sdlRendererTEMP, SDL_Surface* loadedSurface) {
+namespace PACMAN
+{
+	PacmanSDL::PacmanSDL(SDL_Renderer* sdlRendererTEMP, SDL_Surface* loadedSurface)
+	{
 		sdlRenderer = sdlRendererTEMP;
 		surface = loadedSurface;
-		pacTexture = SDL_CreateTextureFromSurface( sdlRenderer, surface );
+		pacTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
 
 		//SPRITES
 		//living: 0-2
 		//dead: 3-11
-		for(int i = 0; i <= 14; i++){
+		for(int i = 0; i <= 14; i++)
+		{
 			pacmanSprite[i].x = 37+(15*i);
 			pacmanSprite[i].y = 0;
 			pacmanSprite[i].w = 15;
@@ -17,20 +20,21 @@ namespace PACMAN {
 		}
 	}
 
-	PacmanSDL::~PacmanSDL() {
-		// TODO Auto-generated destructor stub
-	}
+	PacmanSDL::~PacmanSDL() {}
 
-	void PacmanSDL::Visualize(){
-		if(mPosX == 0 && mPosY == 0){
+	void PacmanSDL::Visualize()
+	{
+		if(mPosX == 0 && mPosY == 0)
+		{
 			mPosX = (screenWidth/2);
 			mPosY = floor(3*screenHeight/4); //TODO better position here
 		}
-		renderQuad = { mPosX, mPosY, mWidth, mHeight };
-		SDL_RenderCopy( sdlRenderer, pacTexture, &pacmanSprite[frame], &renderQuad );
+		renderQuad = {mPosX, mPosY, mWidth, mHeight};
+		SDL_RenderCopy(sdlRenderer, pacTexture, &pacmanSprite[frame], &renderQuad);
 	}
 
-	void PacmanSDL::MoveInDir(int direction){
+	void PacmanSDL::MoveInDir(int direction)
+	{
 		int velocity = mWidth / pacmanVel;
 		switch(direction)
 		{
@@ -70,8 +74,6 @@ namespace PACMAN {
 				pacmanSprite[1].y = 0;
 				pacmanSprite[2].x = 67;
 				pacmanSprite[2].y = 0;
-				break;
-			default:
 				break;
 		}
 	}
