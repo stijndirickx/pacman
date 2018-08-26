@@ -21,12 +21,12 @@ namespace PACMAN
 		return ghost;
 	}
 
-	Pacman* FactorySDL::CreatePacman()
+	Player* FactorySDL::createPlayer()
 	{
-		Pacman* pacman = new PacmanSDL(sdlInit->GetRenderer(), sdlInit->GetSurface());
-		pacman->SetFactory(this);
-		pacman->SetGameContext(gContext);
-		return pacman;
+		Player* player = new SDLPlayer(sdlInit->GetRenderer(), sdlInit->GetSurface());
+		player->SetFactory(this);
+		player->SetGameContext(gContext);
+		return player;
 	}
 
 	Tile* FactorySDL::CreateTile(int x, int y, int type, int width, int height)

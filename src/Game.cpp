@@ -25,7 +25,7 @@ namespace PACMAN
 		gContext->SetLives(cFile->getLivesCount());
 		gContext->SetNumOfGhosts(numOfGhosts);
 
-		Pacman* pacman = aFactory->CreatePacman();
+		Player* player = aFactory->createPlayer();
 		Ghost* ghosts[numOfGhosts];
 		for(int i = 0; i < numOfGhosts; i++)
 		{
@@ -55,9 +55,9 @@ namespace PACMAN
 						if(map->GetNumOfPellets() > 0)
 						{
 							gContext->SetPlaying(!gContext->GetPlaying(), "Paused");
-							if(!pacman->GetLiving())
+							if(!player->getLiving())
 							{
-								pacman->SetLiving(true);
+								player->setLiving(true);
 								for(int j=0; j < numOfGhosts;j++)
 								{
 									ghosts[j]->ResetGhost();
@@ -68,20 +68,20 @@ namespace PACMAN
 									gContext->SetLives(cFile->getLivesCount());
 									map->Load();
 								}
-								pacman->SetDirection(4);
+								player->setDirection(4);
 							}
 						}
 						else
 						{
 							map->Load();
-							pacman->SetLiving(true);
-							pacman->SetDirection(4);
+							player->setLiving(true);
+							player->setDirection(4);
 							gContext->SetPlaying(true, "Paused");
 						}
 					}
 					else if (gContext->GetPlaying()) //not changing direction while paused
 					{
-						pacman->SetDirection(ev->GetKeyDown());
+						player->setDirection(ev->GetKeyDown());
 					}
 				}
 			}
@@ -117,10 +117,10 @@ namespace PACMAN
 				map->Draw();
 				if(gContext->GetPlaying())
 				{
-					pacman->Move();
-					ghosts[0]->MoveTo(pacman->GetX(), pacman->GetY());
-					ghosts[1]->MoveInFront(pacman->GetX(), pacman->GetY());
-					pacman->GotCaptured(ghosts, numOfGhosts);
+					player->move();
+					ghosts[0]->MoveTo(player->getX(), player->getY());
+					ghosts[1]->MoveInFront(player->getX(), player->getY());
+					player->gotCaptured(ghosts, numOfGhosts);
 					for(int j=2; j < numOfGhosts;j++)
 					{
 						ghosts[j]->Move();
@@ -129,7 +129,7 @@ namespace PACMAN
 				}
 				else
 				{
-					pacman->Visualize();
+					player->paint();
 					for(int j=0; j < numOfGhosts;j++)
 					{
 						ghosts[j]->Visualize();
@@ -139,7 +139,7 @@ namespace PACMAN
 
 				if(clock_ms % (animationSpeed*mspf) == 0) //every x frames animation
 				{
-					pacman->Animate();
+					player->animate();
 				}
 
 				if(countingAttack > 0)
@@ -165,7 +165,7 @@ namespace PACMAN
 			delete ghosts[i];
 		}
 		gContext->QuitVis();
-		delete pacman;
+		delete player;
 		delete ev;
 	}
 }

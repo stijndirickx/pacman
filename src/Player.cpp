@@ -1,25 +1,25 @@
-#include "Pacman.h"
+#include "Player.h"
 
 namespace PACMAN
 {
-	Pacman::Pacman()
+	Player::Player()
 	{
 		isPac = true;
 	}
 
-	Pacman::~Pacman() {}
+	Player::~Player() {}
 
-	int Pacman::GetX()
+	int Player::getX()
 	{
 		return mPosX;
 	}
 
-	int Pacman::GetY()
+	int Player::getY()
 	{
 		return mPosY;
 	}
 
-	void Pacman::SetDirection(int key)
+	void Player::setDirection(int key)
 	{
 		if(direction != key)
 		{
@@ -27,12 +27,12 @@ namespace PACMAN
 		}
 	}
 
-	bool Pacman::GetLiving()
+	bool Player::getLiving()
 	{
 		return living;
 	}
 
-	bool Pacman::SetLiving(bool alive)
+	bool Player::setLiving(bool alive)
 	{
 		living = alive;
 		if(alive)
@@ -43,7 +43,7 @@ namespace PACMAN
 		return living;
 	}
 
-	void Pacman::Animate()
+	void Player::animate()
 	{
 		if(living)
 		{
@@ -70,18 +70,18 @@ namespace PACMAN
 		}
 	}
 
-	void Pacman::Move()
+	void Player::move()
 	{
 		int tempPosX = mPosX;
 		int tempPosY = mPosY;
 
-		this->MoveInDir(direction);
+		this->moveDir(direction);
 		if(this->CheckCollisions()) //not possible to go to direction
 		{
 			mPosX = tempPosX;
 			mPosY = tempPosY;
 
-			this->MoveInDir(prevDirection); //keep going prev direction
+			this->moveDir(prevDirection); //keep going prev direction
 			if(this->CheckCollisions())
 			{
 				mPosX = tempPosX;
@@ -103,10 +103,10 @@ namespace PACMAN
 			mPosX = -20;
 		}
 
-		this->Visualize();
+		this->paint();
 	}
 
-	void Pacman::GotCaptured(Ghost* ghosts[], int numOfGhosts)
+	void Player::gotCaptured(Ghost* ghosts[], int numOfGhosts)
 	{
 		for(int i = 0; i<numOfGhosts; i++)
 		{

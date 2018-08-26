@@ -2,12 +2,12 @@
 #define FACTORYSDL_H_
 
 #include "Factory.h"
-#include "PacmanSDL.h"
 #include "GhostSDL.h"
 #include "TileSDL.h"
 #include "GameContextSDL.h"
 #include "initSDL.h"
 #include "EventHandlerSDL.h"
+#include "SDLPlayer.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ namespace PACMAN
 			virtual ~FactorySDL();
 
 			Ghost* CreateGhost(int type);
-			Pacman* CreatePacman();
+			Player* createPlayer();
 			Tile* CreateTile(int x, int y, int type, int width, int height);
 			GameContext* CreateGameContext();
 			EventHandler* CreateEventHandler();
