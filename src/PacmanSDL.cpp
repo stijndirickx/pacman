@@ -44,8 +44,8 @@ namespace PACMAN
 				pacmanSprite[0].y = 30;
 				pacmanSprite[1].x = 52;
 				pacmanSprite[1].y = 30;
-				pacmanSprite[1].x = 67;
-				pacmanSprite[1].y = 30;
+				pacmanSprite[2].x = 67;
+				pacmanSprite[2].y = 30;
 				break;
 			case 2: //DOWN
 				mPosY += velocity;
@@ -54,8 +54,8 @@ namespace PACMAN
 				pacmanSprite[0].y = 45;
 				pacmanSprite[1].x = 52;
 				pacmanSprite[1].y = 45;
-				pacmanSprite[1].x = 67;
-				pacmanSprite[1].y = 45;
+				pacmanSprite[2].x = 67;
+				pacmanSprite[2].y = 45;
 				break;
 			case 3: //LEFT
 				mPosX -= velocity;
@@ -63,8 +63,8 @@ namespace PACMAN
 				pacmanSprite[0].y = 15;
 				pacmanSprite[1].x = 52;
 				pacmanSprite[1].y = 15;
-				pacmanSprite[1].x = 67;
-				pacmanSprite[1].y = 15;
+				pacmanSprite[2].x = 67;
+				pacmanSprite[2].y = 15;
 				break;
 			case 4: //RIGHT
 				mPosX += velocity;
