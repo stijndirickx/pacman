@@ -8,10 +8,9 @@ namespace PACMAN
 		aFactory = NULL;
 		gContext = NULL;
 
-		mPosX = 0;
-		mPosY = 0;
-		mWidth = 0;
-		mHeight = 0;
+		x = 0;
+		y = 0;
+		size = 0;
 	}
 
 	Entity::~Entity()
@@ -25,8 +24,7 @@ namespace PACMAN
 		totalTiles = gContext->GetTotalTiles();
 		screenWidth = gContext->GetScreenWidth();
 		screenHeight = gContext->GetScreenHeight();
-		mWidth = gContext->GetTileSize();
-		mHeight = gContext->GetTileSize();
+		size = gContext->GetTileSize();
 		numOfGhosts = gContext->GetNumOfGhosts();
 	}
 
@@ -37,10 +35,10 @@ namespace PACMAN
 
 	int* Entity::GetCollisionBox()
 	{
-		entityBox[0] = mPosX;
-		entityBox[1] = mPosY;
-		entityBox[2] = mWidth;
-		entityBox[3] = mHeight;
+		entityBox[0] = x;
+		entityBox[1] = y;
+		entityBox[2] = size;
+		entityBox[3] = size;
 		return entityBox;
 	}
 

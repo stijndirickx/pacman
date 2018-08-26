@@ -18,10 +18,10 @@ namespace PACMAN
 
 	void GhostSDL::Visualize()
 	{
-		if(mPosX == 0 && mPosY == 0) //default setting when factory was unknown.
+		if(x == 0 && y == 0) //default setting when factory was unknown.
 		{
-			mPosX = (screenWidth/2)-(floor(numOfGhosts/2) * mWidth)+(type*mWidth);
-			mPosY = (screenHeight/2);
+			x = (screenWidth/2)-(floor(numOfGhosts/2) * size)+(type*size);
+			y = (screenHeight/2);
 		}
 
 		ghostSprite[0].y = 15;
@@ -63,7 +63,7 @@ namespace PACMAN
 				ghostSprite[0].x = 172;
 			}
 		}
-		renderQuadG = {mPosX, mPosY, mWidth, mHeight};
+		renderQuadG = {x, y, size, size};
 		SDL_RenderCopy(sdlRenderer, ghostTexture, &ghostSprite[0], &renderQuadG);
 	}
 }

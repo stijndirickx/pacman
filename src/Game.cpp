@@ -55,9 +55,9 @@ namespace PACMAN
 						if(map->GetNumOfPellets() > 0)
 						{
 							gContext->SetPlaying(!gContext->GetPlaying(), "Paused");
-							if(!player->getLiving())
+							if(!player->getAliveState())
 							{
-								player->setLiving(true);
+								player->setAliveState(true);
 								for(int j=0; j < numOfGhosts;j++)
 								{
 									ghosts[j]->ResetGhost();
@@ -74,7 +74,7 @@ namespace PACMAN
 						else
 						{
 							map->Load();
-							player->setLiving(true);
+							player->setAliveState(true);
 							player->setDirection(4);
 							gContext->SetPlaying(true, "Paused");
 						}

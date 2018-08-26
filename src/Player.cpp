@@ -11,12 +11,12 @@ namespace PACMAN
 
 	int Player::getX()
 	{
-		return mPosX;
+		return x;
 	}
 
 	int Player::getY()
 	{
-		return mPosY;
+		return y;
 	}
 
 	void Player::setDirection(int key)
@@ -27,65 +27,65 @@ namespace PACMAN
 		}
 	}
 
-	bool Player::getLiving()
+	bool Player::getAliveState()
 	{
-		return living;
+		return aliveState;
 	}
 
-	bool Player::setLiving(bool alive)
+	bool Player::setAliveState(bool pAliveState)
 	{
-		living = alive;
-		if(alive)
+		aliveState = pAliveState;
+		if(pAliveState)
 		{
-			mPosX = (screenWidth/2);
-			mPosY = floor(3*screenHeight/4);
+			x = (screenWidth/2);
+			y = floor(3*screenHeight/4);
 		}
-		return living;
+		return aliveState;
 	}
 
 	void Player::animate()
 	{
-		if(living)
+		if(aliveState)
 		{
 			if(collision)  //stuck
 			{
-				frame = 1;
+				spriteSelector = 1;
 			}
-			else
+			else	//moving between 0-2
 			{
-				frame++;
-				if(frame > 2)
+				spriteSelector++;
+				if(spriteSelector > 2)
 				{
-					frame = 0;
+					spriteSelector = 0;
 				}
 			}
 		}
-		else
+		else //dead
 		{
-			frame++;
-			if(frame > 14)
+			spriteSelector++;
+			if(spriteSelector > 14)
 			{
-				frame = 2;
+				spriteSelector = 14; //= 2 for repeating dead animation
 			}
 		}
 	}
 
 	void Player::move()
 	{
-		int tempPosX = mPosX;
-		int tempPosY = mPosY;
+		int tempX = x;
+		int tempY = y;
 
 		this->moveDir(direction);
-		if(this->CheckCollisions()) //not possible to go to direction
+		if(this->CheckCollisions())
 		{
-			mPosX = tempPosX;
-			mPosY = tempPosY;
+			x = tempX;
+			y = tempY;
 
-			this->moveDir(prevDirection); //keep going prev direction
+			this->moveDir(prevDirection);
 			if(this->CheckCollisions())
 			{
-				mPosX = tempPosX;
-				mPosY = tempPosY;
+				x = tempX;
+				y = tempY;
 			}
 		}
 		else
@@ -93,14 +93,14 @@ namespace PACMAN
 			prevDirection = direction;
 		}
 
-		if(mPosX < -20) //pacman went to far
+		if(x < 0)
 		{
-			mPosX = screenWidth;
+			x = screenWidth;
 		}
 
-		if(mPosX > screenWidth)
+		if(x > screenWidth)
 		{
-			mPosX = -20;
+			x = 0;
 		}
 
 		this->paint();
@@ -119,7 +119,7 @@ namespace PACMAN
 					gContext->SubtractLives(1);
 					gContext->SetPlaying(false, "Dead");
 					gContext->PlaySound("dead");
-					living = false;
+					aliveState = false; //poor thing died :(
 				}
 
 				else

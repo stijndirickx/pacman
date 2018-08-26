@@ -24,8 +24,7 @@ namespace PACMAN
 			Factory* aFactory;
 			GameContext* gContext;
 			bool collision;
-			int mPosX, mPosY;
-			int mWidth, mHeight;
+			int x, y, size;
 			int* entityBox = new int [4];
 			bool isPac = false;
 			int totalTiles = 0;

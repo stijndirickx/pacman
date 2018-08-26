@@ -35,8 +35,8 @@ namespace PACMAN
 
 	void Ghost::ResetGhost()
 	{
-		mPosX = (screenWidth/2)-(floor(numOfGhosts/2) * mWidth)+(type*mWidth);
-		mPosY = (screenHeight/2);
+		x = (screenWidth/2)-(floor(numOfGhosts/2) * size)+(type*size);
+		y = (screenHeight/2);
 		living = true;
 		attacking = true;
 	}
@@ -54,11 +54,11 @@ namespace PACMAN
 
 	void Ghost::Move() //RANDOM MOVEMENT
 	{
-		int velocity = mWidth / ghostVel;
+		int velocity = size / ghostVel;
 		if(living)
 		{
-			int tempPosX = mPosX;
-			int tempPosY = mPosY;
+			int tempx = x;
+			int tempy = y;
 			if(changeDir >= 15 ) //after x movements change direction
 			{
 				dir[type] = rand()%(4) + 1;
@@ -69,44 +69,44 @@ namespace PACMAN
 			switch(dir[type])
 			{
 				case 1:
-					mPosY -= velocity;
+					y -= velocity;
 					break;
 				case 2:
-					mPosY += velocity;
+					y += velocity;
 					break;
 				case 3:
-					mPosX -= velocity;
+					x -= velocity;
 					break;
 				case 4:
-					mPosX += velocity;
+					x += velocity;
 					break;
 			}
 
 			if(this->CheckCollisions()) //not possible to go to direction
 			{
-					mPosX = tempPosX;
-					mPosY = tempPosY;
+					x = tempx;
+					y = tempy;
 
 					switch(prevDir[type])
 					{
 						case 1:
-							mPosY -= velocity;
+							y -= velocity;
 							break;
 						case 2:
-							mPosY += velocity;
+							y += velocity;
 							break;
 						case 3:
-							mPosX -= velocity;
+							x -= velocity;
 							break;
 						case 4:
-							mPosX += velocity;
+							x += velocity;
 							break;
 					}
 
 					if(this->CheckCollisions())
 					{
-						mPosX = tempPosX;
-						mPosY = tempPosY;
+						x = tempx;
+						y = tempy;
 						dir[type] = rand()%(4) + 1; //if stuck, change direction
 					}
 			}
@@ -120,14 +120,14 @@ namespace PACMAN
 			this->ReturnToCenter();
 		}
 
-		if(mPosX < -30) //ghost went to far
+		if(x < -30) //ghost went to far
 		{
-			mPosX = screenWidth;
+			x = screenWidth;
 		}
 
-		if(mPosX > screenWidth)
+		if(y > screenWidth)
 		{
-			mPosX = -30;
+			y = -30;
 		}
 
 		this->Visualize();
@@ -135,12 +135,12 @@ namespace PACMAN
 
 	void Ghost::ReturnToCenter()
 	{
-		int x = (screenWidth/2);
-		int y = (screenHeight/2);
+		int tempx = (screenWidth/2);
+		int tempy = (screenHeight/2);
 
-		this->MoveToCoordinates(x, y);
+		this->MoveToCoordinates(tempx, tempy);
 
-		if(mPosX == x && mPosY == y)
+		if(x == tempx && y == tempy)
 		{
 			living = true;
 			attacking = true;
@@ -148,42 +148,42 @@ namespace PACMAN
 		}
 	}
 
-	void Ghost::MoveToCoordinates(int x, int y)
+	void Ghost::MoveToCoordinates(int coordx, int coordy)
 	{
-		int tempPosX = mPosX;
-		int tempPosY = mPosY;
-		int velocity = mWidth / ghostVel;
+		int tempx = x;
+		int tempy = y;
+		int velocity = size / ghostVel;
 
-		if(mPosX - x > 0) //TRY HORIZONTALLY;
+		if(x - coordx > 0) //TRY HORIZONTALLY;
 		{
-			mPosX -= velocity;
+			x -= velocity;
 		}
-		else if (mPosX - x < 0)
+		else if (x - coordx < 0)
 		{
-			mPosX += velocity;
-		}
-
-		if(this->CheckCollisions())
-		{
-			mPosX = tempPosX;
-		}
-
-
-		if(mPosY - y > 0) //TRY VERTICALLY
-		{
-			mPosY -= velocity;
-		}
-		else if (mPosY - y < 0)
-		{
-			mPosY += velocity;
+			x += velocity;
 		}
 
 		if(this->CheckCollisions())
 		{
-			mPosY = tempPosY;
+			x = tempx;
 		}
 
-		if(mPosY == tempPosY && mPosX == tempPosX)
+
+		if(y - coordy > 0) //TRY VERTICALLY
+		{
+			y -= velocity;
+		}
+		else if (y - coordy < 0)
+		{
+			y += velocity;
+		}
+
+		if(this->CheckCollisions())
+		{
+			y = tempy;
+		}
+
+		if(y == tempy && x == tempx)
 		{
 			//this->Move();
 		}
@@ -202,49 +202,49 @@ namespace PACMAN
 		this->Visualize();
 	}
 
-	void Ghost::MoveInFront(int x, int y)
+	void Ghost::MoveInFront(int pX, int pY)
 	{
 		if(living)
 		{
-			int toX, toY;
+			int tempx, tempy;
 			int further = 4;
-			if(mPosX - x > 0) //pacman to the left of the ghost
+			if(x - pX > 0) //pacman to the left of the ghost
 			{
-				toX = x - (further*mWidth);
+				tempx = pX - (further*size);
 			}
 			else
 			{
-				toX = x + (further*mWidth);
+				tempx = pX + (further*size);
 			}
 
-			if(toX < 0)
+			if(tempx < 0)
 			{
-				toX = 0;
+				tempx = 0;
 			}
-			else if (toX > screenWidth)
+			else if (tempx > screenWidth)
 			{
-				toX = screenWidth;
+				tempx = screenWidth;
 			}
 
-			if(mPosY - y > 0) //pacman above the ghost
+			if(y - pY > 0) //pacman above the ghost
 			{
-				toY = y - (further*mHeight);
+				tempy = pY - (further*size);
 			}
 			else
 			{
-				toY = y + (further*mHeight);
+				tempy = pY + (further*size);
 			}
 
-			if(toY < 0)
+			if(tempy < 0)
 			{
-				toY = 0;
+				tempy = 0;
 			}
-			else if (toY > screenHeight)
+			else if (tempy > screenHeight)
 			{
-				toY = screenHeight;
+				tempy = screenHeight;
 			}
 
-			this->MoveToCoordinates(toX, toY);
+			this->MoveToCoordinates(tempx, tempy);
 		}
 		else
 		{
