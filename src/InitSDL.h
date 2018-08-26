@@ -20,7 +20,7 @@ using namespace std;
 namespace PACMAN {
 	class InitSDL {
 	public:
-		InitSDL(int screenWidth, int screenHeight);
+		InitSDL(int screenWidth, int screenHeight, string spritesFile);
 		virtual ~InitSDL();
 		void ClearScreen();
 		void UpdateScreen();

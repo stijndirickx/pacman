@@ -12,7 +12,7 @@ namespace PACMAN
 
 	void Tile::RenderTile(int x, int y, int tileType, int width, int height)
 	{
-		if (tileType == 25)
+/*		if (tileType == 25)
 		{
 			int defWidth = width;
 			width = defWidth * 0.75; // only 3/4 size of square
@@ -20,7 +20,8 @@ namespace PACMAN
 			x = x+((defWidth-width)/2); //center of square
 			y = y+((defWidth-width)/2);
 		}
-		else if (tileType == 2)   // PAC DOT
+		else */
+		if (tileType == 2)   // PAC DOT
 		{
 			int defWidth = width;
 			width = defWidth * 0.75; // only 1/4 size of square

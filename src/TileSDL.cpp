@@ -90,6 +90,9 @@ namespace PACMAN
 			case 24:
 				brickSprite = {24,40,8,8};
 				break;
+			case 25:
+				brickSprite = {0,48,15,15};
+				break;
 		}
 		brickRect = { boxInt[0], boxInt[1], boxInt[2], boxInt[3] };
 		SDL_RenderCopy( sdlRenderer, texture, &brickSprite, &brickRect );

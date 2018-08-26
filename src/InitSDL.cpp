@@ -2,7 +2,7 @@
 
 namespace PACMAN
 {
-	InitSDL::InitSDL(int screenWidth, int screenHeight)
+	InitSDL::InitSDL(int screenWidth, int screenHeight, string spritesFile)
 	{
 		if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 		{
@@ -45,7 +45,7 @@ namespace PACMAN
 
 				//this->ClearScreen();
 
-				loadedSurface = IMG_Load("Assets/Sprites/sprites.png");
+				loadedSurface = IMG_Load(spritesFile.c_str());
 				SDL_SetColorKey(loadedSurface, SDL_TRUE, 0x000000 );
 
 				tileTexture = SDL_CreateTextureFromSurface( sdlRendererTEMP, loadedSurface );

@@ -60,7 +60,7 @@ namespace PACMAN {
 			bool tempCollide = gContext->CheckCollision(this->GetCollisionBox(), tileBoxInt);
 
 			if(!collision && tempCollide){
-				if(!(tileBoxInt[4] > 0 && tileBoxInt[4] <= 5)){ //is wall
+				if(tileBoxInt[4] >= 5 && tileBoxInt[4] <= 24){ //is wall
 					collision = true;
 				}
 				if(isPac){ //entity is pacman

@@ -1,10 +1,3 @@
-/*
- * GameContext.cpp
- *
- *  Created on: May 15, 2018
- *      Author: ruben
- */
-
 #include "GameContext.h"
 
 namespace PACMAN {

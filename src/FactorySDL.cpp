@@ -39,7 +39,7 @@ namespace PACMAN {
 	}
 
 	void FactorySDL::CreateVis() {
-		sdlInit = new InitSDL(tileMap->GetScreenWidth(), tileMap->GetScreenHeight());
+		sdlInit = new InitSDL(tileMap->GetScreenWidth(), tileMap->GetScreenHeight(), cFile->getSpritesFile());
 	}
 
 	GameContext* FactorySDL::CreateGameContext(){
