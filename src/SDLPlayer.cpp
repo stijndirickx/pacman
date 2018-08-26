@@ -8,14 +8,14 @@ namespace PACMAN
 		mSurface = pSurface;
 		playerTexture = SDL_CreateTextureFromSurface(mRenderer, mSurface);
 
-
 		for(int i = 0; i <= 14; i++)
 		{
-			playerSprite[i].x = 37+(15*i);
-			playerSprite[i].y = 0;
-			playerSprite[i].w = 15;
-			playerSprite[i].h = 15;
+			playerSprites[i].x = 37+(15*i);
+			playerSprites[i].y = 0;
+			playerSprites[i].w = 15;
+			playerSprites[i].h = 15;
 		}
+
 	}
 
 	SDLPlayer::~SDLPlayer() {}
@@ -26,39 +26,35 @@ namespace PACMAN
 		{
 			mPosX = (screenWidth/2);
 			mPosY = floor(3*screenHeight/4); //TODO better position here
+			this->moveDir(4);
 		}
 		renderRect = {mPosX, mPosY, mWidth, mHeight};
-		SDL_RenderCopy(mRenderer, playerTexture, &playerSprite[frame], &renderRect);
+		SDL_RenderCopy(mRenderer, playerTexture, &playerSprites[frame], &renderRect);
 	}
 
 	void SDLPlayer::moveDir(int direction)
 	{
+		//direction: 1 = up, 2 = down, 3 = left, 4 = right
+
 		int velocity = mWidth / pacmanVel;
+		for(int i=0; i< 3 ; i++)
+		{
+			playerSprites[i].y = (direction-1)*15;
+		}
+
 		switch(direction)
 		{
-			case 1: //UP
+			case 1:
 				mPosY -= velocity;
-				playerSprite[0].y = 30;
-				playerSprite[1].y = 30;
-				playerSprite[2].y = 30;
 				break;
-			case 2: //DOWN
+			case 2:
 				mPosY += velocity;
-				playerSprite[0].y = 45;
-				playerSprite[1].y = 45;
-				playerSprite[2].y = 45;
 				break;
-			case 3: //LEFT
+			case 3:
 				mPosX -= velocity;
-				playerSprite[0].y = 15;
-				playerSprite[1].y = 15;
-				playerSprite[2].y = 15;
 				break;
-			case 4: //RIGHT
+			case 4:
 				mPosX += velocity;
-				playerSprite[0].y = 0;
-				playerSprite[1].y = 0;
-				playerSprite[2].y = 0;
 				break;
 		}
 	}

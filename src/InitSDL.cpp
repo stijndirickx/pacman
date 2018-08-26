@@ -14,7 +14,7 @@ namespace PACMAN
 			{
 				printf( "Warning: Linear texture filtering not enabled!" );
 			}
-			sdlWindow = SDL_CreateWindow( "PacMan", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN );
+			sdlWindow = SDL_CreateWindow( "C++Man", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN );
 			if( sdlWindow == NULL )
 			{
 				printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
