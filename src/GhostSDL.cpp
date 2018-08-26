@@ -23,24 +23,26 @@ namespace PACMAN
 			mPosX = (screenWidth/2)-(floor(numOfGhosts/2) * mWidth)+(type*mWidth);
 			mPosY = (screenHeight/2);
 		}
+
+		ghostSprite[0].y = 15;
+
 		if(attacking)
 		{
-			ghostSprite[0].x = 455;
 			if(type == 0)
 			{
-				ghostSprite[0].y = 64;
+				ghostSprite[0].x = 82;
 			}
 			else if (type == 1)
 			{
-				ghostSprite[0].y = 80;
+				ghostSprite[0].x = 97;
 			}
 			else if (type == 2)
 			{
-				ghostSprite[0].y = 96;
+				ghostSprite[0].x = 112;
 			}
 			else
 			{
-				ghostSprite[0].y = 112;
+				ghostSprite[0].x = 127;
 			}
 		}
 		else
@@ -49,19 +51,16 @@ namespace PACMAN
 			{
 				if(!flashing)
 				{
-					ghostSprite[0].x = 584;
-					ghostSprite[0].y = 64;
+					ghostSprite[0].x = 142;
 				}
 				else
 				{
-					ghostSprite[0].x = 616;
-					ghostSprite[0].y = 64;
+					ghostSprite[0].x = 157;
 				}
 			}
 			else
 			{
-				ghostSprite[0].x = 584;
-				ghostSprite[0].y = 80;
+				ghostSprite[0].x = 172;
 			}
 		}
 		renderQuadG = {mPosX, mPosY, mWidth, mHeight};
