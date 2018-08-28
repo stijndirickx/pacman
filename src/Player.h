@@ -13,7 +13,7 @@ namespace logic
 	class Player : public Entity
 	{
 		public:
-		Player();
+			Player();
 			virtual ~Player();
 
 			int getX();
@@ -24,13 +24,13 @@ namespace logic
 			void animate();
 			void move();
 			void gotCaptured(Enemy* enemies[], int numOfEnemies);
-			void setSpeed(int pSpeed);
+			//void setSpeed(int pSpeed);
 
 			virtual void paint() = 0;
 			virtual void moveDir(int direction) = 0;
 
 		protected:
-			int playerSpeed = 1;
+			//int playerSpeed = 1;
 			bool aliveState = true;
 			int direction = 4;
 			int prevDirection = 4;

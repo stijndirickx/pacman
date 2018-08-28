@@ -48,6 +48,9 @@ namespace logic
 					case 23:
 						playerSpeed = atoi(value.c_str());
 						break;
+					case 24:
+						enemySpeed = atoi(value.c_str());
+						break;
 				}
 			}
 		}
@@ -92,5 +95,10 @@ namespace logic
 	int Config::getPlayerSpeed()
 	{
 		return playerSpeed;
+	}
+
+	int Config::getEnemySpeed()
+	{
+		return enemySpeed;
 	}
 }

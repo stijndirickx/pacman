@@ -28,9 +28,11 @@ namespace logic
 		Player* player = aFactory->createPlayer();
 		player->setSpeed(cFile->getPlayerSpeed());
 		Enemy* enemies[numOfEnemies];
+
 		for(int i = 0; i < numOfEnemies; i++)
 		{
 			enemies[i] = aFactory->createEnemy(i);
+			enemies[i]->setSpeed(cFile->getEnemySpeed());
 		}
 
 		EventHandler* ev = aFactory->createEventHandler();

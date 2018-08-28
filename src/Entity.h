@@ -22,6 +22,7 @@ namespace logic
 			bool checkCollisions();
 			int* getCollisionBox();
 			void setContext(Context* pContext);
+			void setSpeed(int pSpeed);
 
 		protected:
 			AbstractFactory* aFactory;
@@ -34,6 +35,7 @@ namespace logic
 			int screenWidth = 0;
 			int screenHeight = 0;
 			int numOfEnemies = 0;
+			int mSpeed = 1;
 	};
 }
 

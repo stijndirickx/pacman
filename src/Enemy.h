@@ -16,6 +16,7 @@ namespace logic
 		public:
 			Enemy();
 			virtual ~Enemy();
+
 			bool getAttackingState();
 			void setAttackingState(bool attack);
 			bool getLivingState();
@@ -40,7 +41,7 @@ namespace logic
 			int dir[4] = { 1, 1, 1, 1 };
 			int changeDir = 0;
 
-			int ghostVel = 5; // velocity = tilesize / ghostVel
+			//int ghostVel = 5; // velocity = tilesize / ghostVel
 	};
 }
 

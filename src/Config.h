@@ -26,8 +26,12 @@ namespace logic
 			int getEnemiesCount();
 			int getLivesCount();
 			int getPlayerSpeed();
+			int getEnemySpeed();
 
 		protected:
+
+			//Default values:
+
 			string mapFile = "Assets/Maps/house.map";
 			string spritesFile = "Assets/Sprites/sprites.png";
 
@@ -38,6 +42,7 @@ namespace logic
 			int enemiesCount = 4;
 			int livesCount = 4;
 			int playerSpeed = 4;
+			int enemySpeed = 4;
 	};
 }
 

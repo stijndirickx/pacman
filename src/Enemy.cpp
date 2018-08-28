@@ -54,7 +54,7 @@ namespace logic
 
 	void Enemy::move() //RANDOM MOVEMENT
 	{
-		int velocity = size / ghostVel;
+		int velocity = size / mSpeed;
 		if(living)
 		{
 			int tempx = x;
@@ -152,7 +152,7 @@ namespace logic
 	{
 		int tempx = x;
 		int tempy = y;
-		int velocity = size / ghostVel;
+		int velocity = size / mSpeed;
 
 		if(x - coordx > 0) //TRY HORIZONTALLY;
 		{

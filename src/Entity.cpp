@@ -72,4 +72,9 @@ namespace logic
 		delete tileBoxInt;
 		return collision;
 	}
+
+	void Entity::setSpeed(int pSpeed)
+	{
+		mSpeed =  pSpeed;
+	}
 }

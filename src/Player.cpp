@@ -133,8 +133,8 @@ namespace logic
 		}
 	}
 
-	void Player::setSpeed(int pSpeed)
+/*	void Player::setSpeed(int pSpeed)
 	{
 		playerSpeed = pSpeed;
-	}
+	}*/
 }
