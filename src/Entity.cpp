@@ -21,10 +21,10 @@ namespace logic
 	void Entity::setContext(Context* pContext)
 	{
 		mContext = pContext;
-		totalTiles = mContext->getTotalTiles();
+		totalTiles = mContext->getTotalBricks();
 		screenWidth = mContext->getScreenWidth();
 		screenHeight = mContext->getScreenHeight();
-		size = mContext->getTileSize();
+		size = mContext->getBrickSize();
 		numOfEnemies = mContext->getNumOfEnemies();
 	}
 

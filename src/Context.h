@@ -20,32 +20,45 @@ namespace logic
 			Context();
 			virtual ~Context();
 
+			void resetGame();
+			bool checkCollision(int* a, int* b);
+
+			//Lives
 			int getLives();
 			int subtractLives(int subtraction);
 			int setLives(int numOfLives);
+
+			//Pause
 			bool getPlaying();
 			bool setPlaying(bool play, string text);
+
+			//Score
 			int getScore();
 			int addToScore(int addition);
+			int setHighscore(int score);
+			int getHighscore();
+
+			//Screen
 			int setScreenWidth(int sWidth);
 			int setScreenHeight(int sHeight);
 			int getScreenWidth();
 			int getScreenHeight();
-			int setTotalTiles(int totalTiles);
-			int getTotalTiles();
-			int setTileSize(int size);
-			int getTileSize();
-			void resetGame();
-			bool checkCollision(int* a, int* b);
-			void addEnemy(Enemy* enemy);
-			std::vector<Enemy*> getEnemies();
-			void setMap(House* pHouse);
+
+			//Bricks & House
+			int setTotalBricks(int totalBricks);
+			int getTotalBricks();
+			int setBrickSize(int brickSize);
+			int getBrickSize();
 			Brick** getBricks();
 			void destroyBrick(int brickId);
-			int setHighscore(int score);
-			int getHighscore();
+			void setHouse(House* pHouse);
+
+			//Enemies
+			void addEnemy(Enemy* enemy);
+			std::vector<Enemy*> getEnemies();
 			int setNumOfEnemies(int pNumber);
 			int getNumOfEnemies();
+
 
 			virtual void updateText() = 0;
 			virtual void playSound(string sound) = 0;
@@ -65,7 +78,8 @@ namespace logic
 			int highScore = 0;
 			int score = 0;
 			bool playing = false;
-			string startText = "Start";
+
+			string displayString = "Start";
 
 			int brickSize = 20;
 			int lives = 3;

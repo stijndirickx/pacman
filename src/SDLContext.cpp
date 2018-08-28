@@ -42,7 +42,7 @@ namespace graphics_SDL
 
 		if(!playing)
 		{
-			textSurface = TTF_RenderText_Solid(fontBig, startText.c_str(), white);
+			textSurface = TTF_RenderText_Solid(fontBig, displayString.c_str(), white);
 			messageTexture = SDL_CreateTextureFromSurface(sdlRendererTemp, textSurface);
 			messageRect = {screenWidth/2 - (textSurface->w/2), screenHeight/2 - (textSurface->h/2) - 40, textSurface->w, textSurface->h};
 			SDL_RenderCopy(sdlRendererTemp, messageTexture, NULL, &messageRect);

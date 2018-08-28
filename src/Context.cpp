@@ -37,7 +37,7 @@ namespace logic
 		if(lives <= 0)
 		{
 			playing = false;
-			startText = "Game Over";
+			displayString = "Game Over";
 			if(score > highScore)
 			{
 				this->setHighscore(score);
@@ -46,7 +46,7 @@ namespace logic
 		else
 		{
 			playing = play;
-			startText = text;
+			displayString = text;
 		}
 		return playing;
 	}
@@ -84,24 +84,24 @@ namespace logic
 		return screenHeight;
 	}
 
-	int Context::setTotalTiles(int totalTiles)
+	int Context::setTotalBricks(int totalTiles)
 	{
 		numOfBricks = totalTiles;
 		return numOfBricks;
 	}
 
-	int Context::getTotalTiles()
+	int Context::getTotalBricks()
 	{
 		return numOfBricks;
 	}
 
-	int Context::setTileSize(int size)
+	int Context::setBrickSize(int size)
 	{
 		brickSize = size;
 		return brickSize;
 	}
 
-	int Context::getTileSize()
+	int Context::getBrickSize()
 	{
 		return brickSize;
 	}
@@ -109,7 +109,7 @@ namespace logic
 	void Context::resetGame()
 	{
 		score = 0;
-		startText = "Start again";
+		displayString = "Start again";
 	}
 
 	bool Context::checkCollision(int* entityBox, int* tileBox)
@@ -146,7 +146,7 @@ namespace logic
 		return enemies;
 	}
 
-	void Context::setMap(House* pHouse)
+	void Context::setHouse(House* pHouse)
 	{
 		mHouse = pHouse;
 	}

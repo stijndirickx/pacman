@@ -44,7 +44,7 @@ namespace graphics_SDL
 	Context* SDLAbstractFactory::createContext()
 	{
 		context = new SDLContext(helper);
-		context->setMap(house);
+		context->setHouse(house);
 		house->setContext(context);
 		return context;
 	}

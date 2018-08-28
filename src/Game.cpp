@@ -3,59 +3,62 @@
 
 namespace logic
 {
-	Game::Game(AbstractFactory*& abstractFactory)
+	Game::Game(AbstractFactory*& pAbstractFactory)
 	{
-		aFactory = abstractFactory;
-
-		cFile = aFactory->createConfig();
-		numOfEnemies = cFile->getEnemiesCount();
-		animationSpeed = cFile->getFpa(); //every x frames sprite change
-		fps = cFile->getFps();
-		mspf = 1000/fps; //ms per f: 30FPS --> every 33.3 ms a frame
-		countToAttacking = 8000 / mspf; // 8 sec / ms per frame = # frames to go
+		mAbstractFactory = pAbstractFactory;
+		config = mAbstractFactory->createConfig();
 	}
 
 	Game::~Game(){}
 
 	void Game::start()
 	{
-		House* map = aFactory->createHouse();
-		Context* context = aFactory->createContext();
-		context->setTileSize(cFile->getBrickSize());
-		context->setLives(cFile->getLivesCount());
+		EventHandler* eventHandler = mAbstractFactory->createEventHandler();
+		House* house = mAbstractFactory->createHouse();
+		Context* context = mAbstractFactory->createContext();
+
+		//Set data from config file
+		context->setBrickSize(config->getBrickSize());
+		context->setLives(config->getLivesCount());
+
+		//Create player + set its speed
+		Player* player = mAbstractFactory->createPlayer();
+		player->setSpeed(config->getPlayerSpeed());
+
+		//Create enemies + their speed
+		int numOfEnemies = config->getEnemiesCount();
 		context->setNumOfEnemies(numOfEnemies);
-
-		Player* player = aFactory->createPlayer();
-		player->setSpeed(cFile->getPlayerSpeed());
 		Enemy* enemies[numOfEnemies];
-
 		for(int i = 0; i < numOfEnemies; i++)
 		{
-			enemies[i] = aFactory->createEnemy(i);
-			enemies[i]->setSpeed(cFile->getEnemySpeed());
+			enemies[i] = mAbstractFactory->createEnemy(i);
+			enemies[i]->setSpeed(config->getEnemySpeed());
 		}
 
-		EventHandler* ev = aFactory->createEventHandler();
+
+		// Timing
+		int fpa = config->getFpa(); // frames per animationSprite
+		int timePerFrame = 1000/config->getFps(); // in ms
 		int last_frame = 0;
 		clock_t ticks = 0;
 		int clock_ms = 0; //clock in ms
 		int countingAttack = 0;
 		bool quit = false;
 
-		while(!quit)
+		while(!quit) // Start of gameloop
 		{
-			while(ev->pollEvent() != 0)
+			while(eventHandler->pollEvent() != 0)
 			{
 				//User requests quit
-				if(ev->quitEvent())
+				if(eventHandler->quitEvent())
 				{
 					quit = true;
 				}
-				else if(ev->keyDown())
+				else if(eventHandler->keyDown())
 				{
-					if(ev->getKeyDown() == 6) //pressed enter
+					if(eventHandler->getKeyDown() == 6) //pressed enter
 					{
-						if(map->getNumOfPellets() > 0)
+						if(house->getNumOfPellets() > 0)
 						{
 							context->setPlaying(!context->getPlaying(), "Paused");
 							if(!player->getAliveState())
@@ -68,15 +71,15 @@ namespace logic
 								if(context->getLives() <= 0)
 								{
 									context->resetGame();
-									context->setLives(cFile->getLivesCount());
-									map->load();
+									context->setLives(config->getLivesCount());
+									house->load();
 								}
 								player->setDirection(4);
 							}
 						}
 						else
 						{
-							map->load();
+							house->load();
 							player->setAliveState(true);
 							player->setDirection(4);
 							context->setPlaying(true, "Paused");
@@ -84,7 +87,7 @@ namespace logic
 					}
 					else if (context->getPlaying()) //not changing direction while paused
 					{
-						player->setDirection(ev->getKeyDown());
+						player->setDirection(eventHandler->getKeyDown());
 					}
 				}
 			}
@@ -93,7 +96,7 @@ namespace logic
 			{
 				if(countingAttack == 0)
 				{
-					countingAttack = countToAttacking;
+					countingAttack = 8000 / timePerFrame; //8s
 				}
 				else if(countingAttack == 1)
 				{
@@ -104,7 +107,7 @@ namespace logic
 				}
 			}
 
-			if(map->getNumOfPellets() == 0)
+			if(house->getNumOfPellets() == 0)
 			{
 				context->setPlaying(false, "Winner");
 			}
@@ -112,12 +115,12 @@ namespace logic
 			ticks = clock(); //#clock ticks since running
 			clock_ms = (ticks/(double)CLOCKS_PER_SEC)*1000.0; //#ms since running
 
-			if(last_frame != clock_ms && clock_ms % mspf == 0)
+			if(last_frame != clock_ms && clock_ms % timePerFrame == 0)
 			{
 				last_frame = clock_ms; //make sure not multiple frames in same ms
 
 				context->clearScreen();
-				map->draw();
+				house->draw();
 				if(context->getPlaying())
 				{
 					player->move();
@@ -140,7 +143,7 @@ namespace logic
 					context->playSound("beginning");
 				}
 
-				if(clock_ms % (animationSpeed*mspf) == 0) //every x frames animation
+				if(clock_ms % (fpa*timePerFrame) == 0) //every x frames animation
 				{
 					player->animate();
 					//TODO enemies too
@@ -149,7 +152,7 @@ namespace logic
 				if(countingAttack > 0)
 				{
 					countingAttack--;
-					if(countingAttack <= 30 && clock_ms % (animationSpeed*mspf) == 0)
+					if(countingAttack <= 30 && clock_ms % (fpa*timePerFrame) == 0)
 					{
 						for(int j=0; j < numOfEnemies;j++)
 						{
@@ -170,7 +173,6 @@ namespace logic
 		}
 		context->quitVis();
 		delete player;
-		delete ev;
+		delete eventHandler;
 	}
 }
-

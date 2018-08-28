@@ -29,9 +29,9 @@ namespace logic
 	House::~House()
 	{
 		delete [] destroyedBricks;
-		for(int tile = 0; tile < totalBricks; tile++)
+		for(int i = 0; i < totalBricks; i++)
 		{
-			delete bricks[tile];
+			delete bricks[i];
 		}
 		delete [] bricks;
 	}
@@ -41,7 +41,7 @@ namespace logic
 		mContext = pContext;
 		mContext->setScreenWidth(screenWidth);
 		mContext->setScreenHeight(screenHeight);
-		mContext->setTotalTiles(totalBricks);
+		mContext->setTotalBricks(totalBricks);
 	}
 
 	void House::createMap()
@@ -65,7 +65,7 @@ namespace logic
 				y += tileSize;
 			}
 		}
-		numOfPelletsLeft = numOfPellets; //TODO deleted -15
+		numOfPelletsLeft = numOfPellets;
 		map.close();
 	}
 
@@ -98,8 +98,8 @@ namespace logic
 	{
 		if(destroyedBricks[brickId] != 1)
 		{
-			int* tileBoxInt = bricks[brickId]->getProp();
-			if(tileBoxInt[3] == 3) // PELLET TODO get variable int of pellet
+			int* brickInfo = bricks[brickId]->getProp();
+			if(brickInfo[3] == 3) // Big plus
 			{
 				mContext->playSound("eat");
 				std::vector<Enemy*>enemies = mContext->getEnemies();
@@ -109,19 +109,19 @@ namespace logic
 				}
 				destroyedBricks[brickId] = 1;
 			}
-			else if(tileBoxInt[3] == 25) // CHERRY
+			else if(brickInfo[3] == 25) // Eclipse
 			{
 				mContext->playSound("eat");
 				mContext->addToScore(10);
 				destroyedBricks[brickId] = 1;
 			}
-			else if(tileBoxInt[3] == 2) //PAC-DOT
+			else if(brickInfo[3] == 2) // Plus
 			{
 				mContext->addToScore(1);
 				destroyedBricks[brickId] = 1;
 				numOfPelletsLeft--;
 			}
-			delete tileBoxInt;
+			delete brickInfo;
 		}
 	}
 

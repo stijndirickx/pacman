@@ -18,6 +18,7 @@ namespace graphics_SDL
 		public:
 			SDLContext(SDLHelper* pHelper);
 			virtual ~SDLContext();
+
 			void updateText();
 			void playSound(string sound);
 			void clearScreen();

@@ -17,19 +17,14 @@ namespace logic
 	class Game
 	{
 		public:
-			AbstractFactory* aFactory;
-			Game(AbstractFactory*& abstractFactory);
+			Game(AbstractFactory*& pAbstractFactory);
 			virtual ~Game();
 
 			void start();
 
 		protected:
-			Config* cFile;
-			int fps;
-			int mspf;
-			int countToAttacking;
-			int numOfEnemies;
-			int animationSpeed;
+			AbstractFactory* mAbstractFactory;
+			Config* config;
 	};
 }
 
