@@ -14,13 +14,13 @@ namespace logic
 			virtual ~Brick();
 
 			void setType(int type);
-			int* getBoxInt();
-			void renderTile(int x, int y, int tileType, int width, int height);
+			int* getProp();
+			void renderBrick(int x, int y, int size, int type);
 
 			virtual void paint() = 0;
 
 		protected:
-			int boxInt [5];
+			int brickProp [4]; //x, y , size, type
 	};
 }
 #endif

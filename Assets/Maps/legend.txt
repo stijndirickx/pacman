@@ -1,8 +1,8 @@
 00 = nothing
 
 01 = path
-02 = pacdot
-03 = pellet
+02 = +
+03 = big +
 04 = barrier
 
 05 = double wall - topleft
@@ -30,4 +30,4 @@
 23 = inner wall - bottomleft
 24 = inner wall - bottomright
 
-25 = cherry
+25 = Eclipse

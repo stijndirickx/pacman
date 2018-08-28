@@ -32,7 +32,7 @@ namespace graphics_SDL
 	Brick* SDLAbstractFactory::createBrick(int x, int y, int type, int width, int height)
 	{
 		Brick* brick = new SDLBrick(helper->getRenderer(), helper->getBrickTexture());
-		brick->renderTile(x, y, type, width, height);
+		brick->renderBrick(x, y, width, type);
 		return brick;
 	}
 

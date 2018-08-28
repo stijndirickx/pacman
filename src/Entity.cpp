@@ -38,7 +38,6 @@ namespace logic
 		entityBox[0] = x;
 		entityBox[1] = y;
 		entityBox[2] = size;
-		entityBox[3] = size;
 		return entityBox;
 	}
 
@@ -52,13 +51,13 @@ namespace logic
 
 		for(int j = 0; j < totalTiles; j++) //CHECK TILES
 		{
-			tileBoxInt = bricks[j]->getBoxInt();
+			tileBoxInt = bricks[j]->getProp();
 
 			bool tempCollide = mContext->checkCollision(this->getCollisionBox(), tileBoxInt);
 
 			if(!collision && tempCollide)
 			{
-				if(tileBoxInt[4] >= 5 && tileBoxInt[4] <= 24) //is wall
+				if(tileBoxInt[3] >= 5 && tileBoxInt[3] <= 24) //is wall
 				{
 					collision = true;
 				}

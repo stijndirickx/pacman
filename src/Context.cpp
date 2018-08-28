@@ -122,12 +122,12 @@ namespace logic
 		leftA = entityBox[0];
 		rightA = entityBox[0] + entityBox[2]; // + width
 		topA = entityBox[1];
-		bottomA = entityBox[1] + entityBox[3]; // + height
+		bottomA = entityBox[1] + entityBox[2]; // + height
 
 		leftB = tileBox[0];
 		rightB = tileBox[0] + tileBox[2]; // + width
 		topB = tileBox[1];
-		bottomB = tileBox[1] + tileBox[3]; // + height
+		bottomB = tileBox[1] + tileBox[2]; // + height
 
 		if( rightA > leftB && leftA < rightB && topA < bottomB && bottomA > topB)
 		{

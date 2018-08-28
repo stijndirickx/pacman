@@ -98,8 +98,8 @@ namespace logic
 	{
 		if(destroyedBricks[brickId] != 1)
 		{
-			int* tileBoxInt = bricks[brickId]->getBoxInt();
-			if(tileBoxInt[4] == 3) // PELLET TODO get variable int of pellet
+			int* tileBoxInt = bricks[brickId]->getProp();
+			if(tileBoxInt[3] == 3) // PELLET TODO get variable int of pellet
 			{
 				mContext->playSound("eat");
 				std::vector<Enemy*>enemies = mContext->getEnemies();
@@ -109,13 +109,13 @@ namespace logic
 				}
 				destroyedBricks[brickId] = 1;
 			}
-			else if(tileBoxInt[4] == 25) // CHERRY
+			else if(tileBoxInt[3] == 25) // CHERRY
 			{
 				mContext->playSound("eat");
 				mContext->addToScore(10);
 				destroyedBricks[brickId] = 1;
 			}
-			else if(tileBoxInt[4] == 2) //PAC-DOT
+			else if(tileBoxInt[3] == 2) //PAC-DOT
 			{
 				mContext->addToScore(1);
 				destroyedBricks[brickId] = 1;

@@ -38,7 +38,7 @@ namespace logic
 			Context* mContext;
 			bool collision;
 			int x, y, size;
-			int* entityBox = new int [4];
+			int* entityBox = new int [3];
 			bool isPac = false;
 			int totalTiles = 0;
 			int screenWidth = 0;

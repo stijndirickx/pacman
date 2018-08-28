@@ -7,40 +7,28 @@ namespace logic
 
 	void Brick::setType(int type)
 	{
-		boxInt[4] = type;
+		brickProp[3] = type;
 	}
 
-	void Brick::renderTile(int x, int y, int tileType, int width, int height)
+	void Brick::renderBrick(int x, int y, int size, int type)
 	{
-/*		if (tileType == 25)
+		if (type == 2)   // = Plus
 		{
-			int defWidth = width;
-			width = defWidth * 0.75; // only 3/4 size of square
-			height = width; //still a little square border box
-			x = x+((defWidth-width)/2); //center of square
-			y = y+((defWidth-width)/2);
-		}
-		else */
-		if (tileType == 2)   // PAC DOT
-		{
-			int defWidth = width;
-			width = defWidth * 0.75; // only 1/4 size of square
-			height = width; //still a little square border box
-			x = x+((defWidth-width)/2); //center of square
-			y = y+((defWidth-height)/2);
+			x = x+(size/4); // Center x-axis
+			y = y+(size/4); // Center y-axis
+			size = size * 0.5; //Make smaller
 		}
 
-		boxInt[0] = x;
-		boxInt[1] = y;
-		boxInt[2] = width;
-		boxInt[3] = height;
-		boxInt[4] = tileType;
+		brickProp[0] = x;
+		brickProp[1] = y;
+		brickProp[2] = size;
+		brickProp[3] = type;
 
 		this->paint();
 	}
 
-	int* Brick::getBoxInt()
+	int* Brick::getProp()
 	{
-		return boxInt;
+		return brickProp;
 	}
 }
