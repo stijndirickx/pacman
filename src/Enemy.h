@@ -19,9 +19,11 @@ namespace logic
 
 			bool getAttackingState();
 			void setAttackingState(bool attack);
-			void resetEnemy();
-			bool setFlashingState(bool flash);
 			bool getFlashingState();
+			bool setFlashingState(bool flash);
+
+
+			void resetEnemy();
 			void move();
 			void returnToCenter();
 			void moveTo(int x, int y);
@@ -34,6 +36,7 @@ namespace logic
 			int type;
 			bool attacking = true;
 			bool flashing = false;
+
 			int prevDir[4] = { 1, 1, 1, 1 };
 			int dir[4] = { 1, 1, 1, 1 };
 			int changeDir = 0;

@@ -143,6 +143,7 @@ namespace logic
 				if(clock_ms % (animationSpeed*mspf) == 0) //every x frames animation
 				{
 					player->animate();
+					//TODO enemies too
 				}
 
 				if(countingAttack > 0)

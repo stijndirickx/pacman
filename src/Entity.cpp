@@ -87,4 +87,27 @@ namespace logic
 	{
 		return mAliveState;
 	}
+
+	void Entity::speedUp(int factor)
+	{
+		mSpeed = mSpeed * factor;
+	}
+
+	void Entity::slowDown(int factor)
+	{
+		if(factor != 0)
+		{
+			mSpeed = mSpeed / factor;
+		}
+	}
+
+	int Entity::getX()
+	{
+		return x;
+	}
+
+	int Entity::getY()
+	{
+		return y;
+	}
 }

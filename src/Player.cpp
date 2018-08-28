@@ -9,16 +9,6 @@ namespace logic
 
 	Player::~Player() {}
 
-	int Player::getX()
-	{
-		return x;
-	}
-
-	int Player::getY()
-	{
-		return y;
-	}
-
 	void Player::setDirection(int key)
 	{
 		if(direction != key)
@@ -26,18 +16,6 @@ namespace logic
 			direction = key;
 		}
 	}
-
-
-/*	bool Player::setAliveState(bool pAliveState)
-	{
-		aliveState = pAliveState;
-		if(pAliveState)
-		{
-			x = (screenWidth/2);
-			y = floor(3*screenHeight/4);
-		}
-		return aliveState;
-	}*/
 
 	void Player::animate()
 	{

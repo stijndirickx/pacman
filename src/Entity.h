@@ -18,12 +18,18 @@ namespace logic
 			Entity();
 			virtual ~Entity();
 
+			int getX();
+			int getY();
+
 			void setAbstractFactory(AbstractFactory* fac);
 			bool checkCollisions();
 			int* getCollisionBox();
 			void setContext(Context* pContext);
 
 			void setSpeed(int pSpeed);
+			void speedUp(int factor);
+			void slowDown(int factor);
+
 			void setAliveState(bool pAliveState);
 			bool getAliveState();
 

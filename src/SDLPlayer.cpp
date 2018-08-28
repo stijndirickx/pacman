@@ -36,7 +36,6 @@ namespace graphics_SDL
 	void SDLPlayer::moveDir(int direction)
 	{
 		//direction: 1 = up, 2 = down, 3 = left, 4 = right
-		int scaledSpeed = size / mSpeed;
 		for(int i=0; i< 3 ; i++)
 		{
 			playerSprites[i].y = (direction-1)*15;
@@ -45,16 +44,16 @@ namespace graphics_SDL
 		switch(direction)
 		{
 			case 1:
-				y -= scaledSpeed;
+				y -= mSpeed;
 				break;
 			case 2:
-				y += scaledSpeed;
+				y += mSpeed;
 				break;
 			case 3:
-				x -= scaledSpeed;
+				x -= mSpeed;
 				break;
 			case 4:
-				x += scaledSpeed;
+				x += mSpeed;
 				break;
 		}
 	}

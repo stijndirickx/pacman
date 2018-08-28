@@ -21,6 +21,14 @@ namespace logic
 			attacking = attack;
 			flashing = false;
 		}
+
+		//TODO
+		/*if(!attack){
+			this->slowDown(2);
+		}
+		else{
+			this->speedUp(2);
+		}*/
 	}
 
 	void Enemy::resetEnemy()
@@ -44,7 +52,6 @@ namespace logic
 
 	void Enemy::move() //RANDOM MOVEMENT
 	{
-		int velocity = size / mSpeed;
 		if(mAliveState)
 		{
 			int tempx = x;
@@ -59,16 +66,16 @@ namespace logic
 			switch(dir[type])
 			{
 				case 1:
-					y -= velocity;
+					y -= mSpeed;
 					break;
 				case 2:
-					y += velocity;
+					y += mSpeed;
 					break;
 				case 3:
-					x -= velocity;
+					x -= mSpeed;
 					break;
 				case 4:
-					x += velocity;
+					x += mSpeed;
 					break;
 			}
 
@@ -80,16 +87,16 @@ namespace logic
 					switch(prevDir[type])
 					{
 						case 1:
-							y -= velocity;
+							y -= mSpeed;
 							break;
 						case 2:
-							y += velocity;
+							y += mSpeed;
 							break;
 						case 3:
-							x -= velocity;
+							x -= mSpeed;
 							break;
 						case 4:
-							x += velocity;
+							x += mSpeed;
 							break;
 					}
 
@@ -142,15 +149,14 @@ namespace logic
 	{
 		int tempx = x;
 		int tempy = y;
-		int velocity = size / mSpeed;
 
 		if(x - coordx > 0) //TRY HORIZONTALLY;
 		{
-			x -= velocity;
+			x -= mSpeed;
 		}
 		else if (x - coordx < 0)
 		{
-			x += velocity;
+			x += mSpeed;
 		}
 
 		if(this->checkCollisions())
@@ -161,11 +167,11 @@ namespace logic
 
 		if(y - coordy > 0) //TRY VERTICALLY
 		{
-			y -= velocity;
+			y -= mSpeed;
 		}
 		else if (y - coordy < 0)
 		{
-			y += velocity;
+			y += mSpeed;
 		}
 
 		if(this->checkCollisions())
