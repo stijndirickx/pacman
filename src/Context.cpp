@@ -62,26 +62,26 @@ namespace logic
 		return score;
 	}
 
-	int Context::setScreenWidth(int sWidth)
+	int Context::setwindowWidth(int sWidth)
 	{
-		screenWidth = sWidth;
-		return screenWidth;
+		windowWidth = sWidth;
+		return windowWidth;
 	}
 
-	int Context::setScreenHeight(int sHeight)
+	int Context::setwindowHeight(int sHeight)
 	{
-		screenHeight = sHeight;
-		return screenHeight;
+		windowHeight = sHeight;
+		return windowHeight;
 	}
 
-	int Context::getScreenWidth()
+	int Context::getwindowWidth()
 	{
-		return screenWidth;
+		return windowWidth;
 	}
 
-	int Context::getScreenHeight()
+	int Context::getwindowHeight()
 	{
-		return screenHeight;
+		return windowHeight;
 	}
 
 	int Context::setTotalBricks(int totalTiles)

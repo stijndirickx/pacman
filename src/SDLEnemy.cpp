@@ -18,10 +18,10 @@ namespace graphics_SDL
 
 	void SDLEnemy::paint()
 	{
-		if(x == 0 && y == 0) //default setting when factory was unknown.
+		if(x == 0 && y == 0)
 		{
-			x = (screenWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
-			y = (screenHeight/2);
+			x = (windowWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
+			y = (windowHeight/2);
 		}
 
 		enemySprites[0].y = 15;

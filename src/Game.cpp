@@ -171,7 +171,7 @@ namespace logic
 		{
 			delete enemies[i];
 		}
-		context->quitVis();
+		delete context;
 		delete player;
 		delete eventHandler;
 	}

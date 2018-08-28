@@ -39,10 +39,10 @@ namespace logic
 			int getHighscore();
 
 			//Screen
-			int setScreenWidth(int sWidth);
-			int setScreenHeight(int sHeight);
-			int getScreenWidth();
-			int getScreenHeight();
+			int setwindowWidth(int sWidth);
+			int setwindowHeight(int sHeight);
+			int getwindowWidth();
+			int getwindowHeight();
 
 			//Bricks & House
 			int setTotalBricks(int totalBricks);
@@ -64,11 +64,10 @@ namespace logic
 			virtual void playSound(string sound) = 0;
 			virtual void clearScreen() = 0;
 			virtual void updateScreen() = 0;
-			virtual void quitVis() = 0;
 
 		protected:
-			int screenWidth = 0;
-			int screenHeight = 0;
+			int windowWidth = 0;
+			int windowHeight = 0;
 			int numOfBricks = 0;
 			int numOfEnemies = 0;
 			std::vector<Enemy*> enemies;

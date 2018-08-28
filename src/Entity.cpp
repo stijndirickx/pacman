@@ -22,8 +22,8 @@ namespace logic
 	{
 		mContext = pContext;
 		totalTiles = mContext->getTotalBricks();
-		screenWidth = mContext->getScreenWidth();
-		screenHeight = mContext->getScreenHeight();
+		windowWidth = mContext->getwindowWidth();
+		windowHeight = mContext->getwindowHeight();
 		size = mContext->getBrickSize();
 		numOfEnemies = mContext->getNumOfEnemies();
 	}

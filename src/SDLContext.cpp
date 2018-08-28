@@ -5,66 +5,75 @@ namespace graphics_SDL
 	SDLContext::SDLContext(SDLHelper* pHelper)
 	{
 		mHelper = pHelper;
-		sdlRendererTemp = mHelper->getRenderer();
-		loadedSurface = mHelper->getSurface();
+		renderer = mHelper->getRenderer();
+		surface = mHelper->getSurface();
 
-		font = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 10);
-		fontBig = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 40);
-		white = {255, 255, 255};
-		messageTexture = NULL;
-		textSurface = NULL;
+		fontText = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 10);
+		fontTitle = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 40);
+		msgColor = {255, 255, 255}; //White
+		msgTexture = NULL;
+		msgSurface = NULL;
 
 		pacMusic = Mix_LoadWAV("Assets/Sounds/pacman_beginning.wav");
 		pacSound = Mix_LoadWAV("Assets/Sounds/pacman_eatghost.wav");
 	}
 
-	SDLContext::~SDLContext() {}
+	SDLContext::~SDLContext()
+	{
+		Mix_FreeChunk(pacMusic);
+		pacMusic = NULL;
+		Mix_FreeChunk(pacSound);
+		pacSound = NULL;
+		delete mHelper;
+	}
 
 	void SDLContext::updateText()
 	{
+		//left top
 		printTxt = "Score: " + std::to_string(score);
-		textSurface = TTF_RenderText_Solid(font, printTxt.c_str(), white);
-		messageTexture = SDL_CreateTextureFromSurface(sdlRendererTemp, textSurface);
+		msgSurface = TTF_RenderText_Solid(fontText, printTxt.c_str(), msgColor);
+		msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
 
-		messageRect = {20, 0, textSurface->w, textSurface->h};
-		SDL_RenderCopy(sdlRendererTemp, messageTexture, NULL, &messageRect);
-		SDL_DestroyTexture(messageTexture); // MEMORY LEAKS OTHERWISE
-		SDL_FreeSurface(textSurface);
+		msgRect = {20, 0, msgSurface->w, msgSurface->h};
+		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+		SDL_DestroyTexture(msgTexture);
+		SDL_FreeSurface(msgSurface);
 
+		//right top
 		printTxt = "Lives: " + std::to_string(lives);
-		textSurface = TTF_RenderText_Solid(font, printTxt.c_str(), white);
-		messageTexture = SDL_CreateTextureFromSurface(sdlRendererTemp, textSurface);
+		msgSurface = TTF_RenderText_Solid(fontText, printTxt.c_str(), msgColor);
+		msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
 
-		messageRect = {screenWidth - textSurface->w - 20, 0, textSurface->w, textSurface->h};
-		SDL_RenderCopy(sdlRendererTemp, messageTexture, NULL, &messageRect);
-		SDL_DestroyTexture(messageTexture);
-		SDL_FreeSurface(textSurface);
+		msgRect = {windowWidth - msgSurface->w - 20, 0, msgSurface->w, msgSurface->h};
+		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+		SDL_DestroyTexture(msgTexture);
+		SDL_FreeSurface(msgSurface);
 
 		if(!playing)
 		{
-			textSurface = TTF_RenderText_Solid(fontBig, displayString.c_str(), white);
-			messageTexture = SDL_CreateTextureFromSurface(sdlRendererTemp, textSurface);
-			messageRect = {screenWidth/2 - (textSurface->w/2), screenHeight/2 - (textSurface->h/2) - 40, textSurface->w, textSurface->h};
-			SDL_RenderCopy(sdlRendererTemp, messageTexture, NULL, &messageRect);
-			SDL_DestroyTexture(messageTexture);
-			SDL_FreeSurface(textSurface);
+			msgSurface = TTF_RenderText_Solid(fontTitle, displayString.c_str(), msgColor);
+			msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
+			msgRect = {windowWidth/2 - (msgSurface->w/2), windowHeight/2 - (msgSurface->h/2) - 40, msgSurface->w, msgSurface->h};
+			SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+			SDL_DestroyTexture(msgTexture);
+			SDL_FreeSurface(msgSurface);
 
-			textSurface = TTF_RenderText_Solid(font, "Press 'enter' to play", white);
-			messageTexture = SDL_CreateTextureFromSurface(sdlRendererTemp, textSurface);
-			messageRect = {screenWidth/2 - (textSurface->w/2), screenHeight/2 - (textSurface->h/2), textSurface->w, textSurface->h};
-			SDL_RenderCopy(sdlRendererTemp, messageTexture, NULL, &messageRect);
-			SDL_DestroyTexture(messageTexture);
-			SDL_FreeSurface(textSurface);
+			msgSurface = TTF_RenderText_Solid(fontText, "Press 'space' to play", msgColor);
+			msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
+			msgRect = {windowWidth/2 - (msgSurface->w/2), windowHeight/2 - (msgSurface->h/2), msgSurface->w, msgSurface->h};
+			SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+			SDL_DestroyTexture(msgTexture);
+			SDL_FreeSurface(msgSurface);
 
 			if(lives <= 0)
 			{
 				printTxt = "High score: " + std::to_string(highScore);
-				textSurface = TTF_RenderText_Solid(font, printTxt.c_str(), white);
-				messageTexture = SDL_CreateTextureFromSurface(sdlRendererTemp, textSurface);
-				messageRect = {screenWidth/2 - (textSurface->w/2), screenHeight/2 - (textSurface->h/2) + 20, textSurface->w, textSurface->h};
-				SDL_RenderCopy(sdlRendererTemp, messageTexture, NULL, &messageRect);
-				SDL_DestroyTexture(messageTexture);
-				SDL_FreeSurface(textSurface);
+				msgSurface = TTF_RenderText_Solid(fontText, printTxt.c_str(), msgColor);
+				msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
+				msgRect = {windowWidth/2 - (msgSurface->w/2), windowHeight/2 - (msgSurface->h/2) + 20, msgSurface->w, msgSurface->h};
+				SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+				SDL_DestroyTexture(msgTexture);
+				SDL_FreeSurface(msgSurface);
 			}
 		}
 	}
@@ -122,26 +131,14 @@ namespace graphics_SDL
 
 	void SDLContext::clearScreen()
 	{
-		SDL_SetRenderDrawColor(sdlRendererTemp, 0x00, 0x00, 0x00, 0x00);
-		SDL_RenderClear(sdlRendererTemp);
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
+		SDL_RenderClear(renderer);
 	}
 
 	void SDLContext::updateScreen()
 	{
-		SDL_Renderer* sdlRenderer = mHelper->getVisibleRenderer();
-		sdlRenderer = sdlRendererTemp;
-		SDL_RenderPresent(sdlRenderer);
-	}
-
-	void SDLContext::quitVis()
-	{
-		Mix_FreeChunk(pacMusic);
-		pacMusic = NULL;
-		Mix_FreeChunk(pacSound);
-		pacSound = NULL;
-		mHelper->quitVis();
+		SDL_Renderer* shownRenderer = mHelper->getShownRenderer();
+		shownRenderer = renderer;
+		SDL_RenderPresent(shownRenderer);
 	}
 }
-
-
-

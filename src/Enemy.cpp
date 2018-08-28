@@ -33,8 +33,8 @@ namespace logic
 
 	void Enemy::resetEnemy()
 	{
-		x = (screenWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
-		y = (screenHeight/2);
+		x = (windowWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
+		y = (windowHeight/2);
 		mAliveState = true;
 		attacking = true;
 	}
@@ -119,10 +119,10 @@ namespace logic
 
 		if(x < -30) //ghost went to far
 		{
-			x = screenWidth;
+			x = windowWidth;
 		}
 
-		if(y > screenWidth)
+		if(y > windowWidth)
 		{
 			y = -30;
 		}
@@ -132,8 +132,8 @@ namespace logic
 
 	void Enemy::returnToCenter()
 	{
-		int tempx = (screenWidth/2);
-		int tempy = (screenHeight/2);
+		int tempx = (windowWidth/2);
+		int tempy = (windowHeight/2);
 
 		this->moveToCoordinates(tempx, tempy);
 
@@ -217,9 +217,9 @@ namespace logic
 			{
 				tempx = 0;
 			}
-			else if (tempx > screenWidth)
+			else if (tempx > windowWidth)
 			{
-				tempx = screenWidth;
+				tempx = windowWidth;
 			}
 
 			if(y - pY > 0) //pacman above the ghost
@@ -235,9 +235,9 @@ namespace logic
 			{
 				tempy = 0;
 			}
-			else if (tempy > screenHeight)
+			else if (tempy > windowHeight)
 			{
-				tempy = screenHeight;
+				tempy = windowHeight;
 			}
 
 			this->moveToCoordinates(tempx, tempy);

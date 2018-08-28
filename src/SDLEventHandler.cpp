@@ -40,7 +40,7 @@ namespace graphics_SDL
 			KEY_PRESS_SURFACE_LEFT,
 			KEY_PRESS_SURFACE_RIGHT,
 			KEY_PRESS_SURFACE_TOTAL,
-			KEY_PRESS_ENTER
+			KEY_PRESS_SPACE
 		};
 
 		switch(e.key.keysym.sym)
@@ -57,8 +57,8 @@ namespace graphics_SDL
 			case SDLK_RIGHT:
 				key = KEY_PRESS_SURFACE_RIGHT;
 				break;
-			case SDLK_RETURN:
-				key = KEY_PRESS_ENTER;
+			case SDLK_SPACE:
+				key = KEY_PRESS_SPACE;
 				break;
 			default:
 				key = KEY_PRESS_SURFACE_DEFAULT;

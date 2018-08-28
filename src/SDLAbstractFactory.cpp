@@ -38,7 +38,7 @@ namespace graphics_SDL
 
 	void SDLAbstractFactory::createVis()
 	{
-		helper = new SDLHelper(house->getScreenWidth(), house->getScreenHeight(), config->getSpritesFile());
+		helper = new SDLHelper(house->getwindowWidth(), house->getwindowHeight(), config->getSpritesFile());
 	}
 
 	Context* SDLAbstractFactory::createContext()

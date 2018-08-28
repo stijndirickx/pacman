@@ -14,24 +14,21 @@ namespace graphics_SDL
 	class SDLHelper
 	{
 		public:
-			SDLHelper(int screenWidth, int screenHeight, string spritesFile);
+			SDLHelper(int windowWidth, int windowHeight, string spritesFile);
 			virtual ~SDLHelper();
-			void clearScreen();
-			void updateScreen();
-			void quitVis();
-			SDL_Renderer* getRenderer();
-			SDL_Surface* getSurface();
+
 			SDL_Texture* getBrickTexture();
-			SDL_Renderer* getVisibleRenderer();
+			SDL_Renderer* getRenderer();
+			SDL_Renderer* getShownRenderer();
+			SDL_Surface* getSurface();
 
 		protected:
-			SDL_Renderer* sdlRendererTEMP;
-			SDL_Renderer* sdlRenderer;
-			SDL_Surface* loadedSurface;
-			SDL_Window* sdlWindow;
-			SDL_Surface* sdlScreenSurface;
-
-			SDL_Texture* tileTexture;
+			SDL_Renderer* renderer;
+			SDL_Renderer* shownRenderer;
+			SDL_Surface* screenSurface;
+			SDL_Surface* surface;
+			SDL_Texture* texture;
+			SDL_Window* window;
 	};
 }
 

@@ -22,8 +22,8 @@ namespace logic
 		map.seekg(0, ios::end); //to the end of the file
 		totalBricks = map.tellg()/3; //get the number of tiles
 
-		screenWidth = lineLength * tileSize;
-		screenHeight = (totalBricks/lineLength) * tileSize;
+		windowWidth = lineLength * tileSize;
+		windowHeight = (totalBricks/lineLength) * tileSize;
 	}
 
 	House::~House()
@@ -39,8 +39,8 @@ namespace logic
 	void House::setContext(Context* pContext)
 	{
 		mContext = pContext;
-		mContext->setScreenWidth(screenWidth);
-		mContext->setScreenHeight(screenHeight);
+		mContext->setwindowWidth(windowWidth);
+		mContext->setwindowHeight(windowHeight);
 		mContext->setTotalBricks(totalBricks);
 	}
 
@@ -59,7 +59,7 @@ namespace logic
 				numOfPellets++;
 			}
 			x += tileSize;
-			if(x >= screenWidth)
+			if(x >= windowWidth)
 			{
 				x = 0;
 				y += tileSize;
@@ -125,14 +125,14 @@ namespace logic
 		}
 	}
 
-	int House::getScreenWidth()
+	int House::getwindowWidth()
 	{
-		return screenWidth;
+		return windowWidth;
 	}
 
-	int House::getScreenHeight()
+	int House::getwindowHeight()
 	{
-		return screenHeight;
+		return windowHeight;
 	}
 
 	int House::getNumOfPellets()

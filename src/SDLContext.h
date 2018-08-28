@@ -23,20 +23,22 @@ namespace graphics_SDL
 			void playSound(string sound);
 			void clearScreen();
 			void updateScreen();
-			void quitVis();
 
 		protected:
+
+
+
 			SDLHelper* mHelper;
 
-			SDL_Renderer* sdlRendererTemp;
-			SDL_Surface* loadedSurface;
+			SDL_Renderer* renderer;
+			SDL_Surface* surface;
 
-			TTF_Font* font;
-			TTF_Font* fontBig;
-			SDL_Color white;
-			SDL_Surface* textSurface;
-			SDL_Texture* messageTexture;
-			SDL_Rect messageRect;
+			TTF_Font* fontText;
+			TTF_Font* fontTitle;
+			SDL_Color msgColor;
+			SDL_Surface* msgSurface;
+			SDL_Texture* msgTexture;
+			SDL_Rect msgRect;
 			std::string printTxt = "";
 
 			Mix_Chunk *pacMusic;

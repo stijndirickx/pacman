@@ -69,10 +69,10 @@ namespace logic
 
 		if(x < 0)
 		{
-			x = screenWidth;
+			x = windowWidth;
 		}
 
-		if(x > screenWidth)
+		if(x > windowWidth)
 		{
 			x = 0;
 		}

@@ -41,8 +41,8 @@ namespace logic
 			int* entityBox = new int [3];
 			bool isPac = false;
 			int totalTiles = 0;
-			int screenWidth = 0;
-			int screenHeight = 0;
+			int windowWidth = 0;
+			int windowHeight = 0;
 			int numOfEnemies = 0;
 
 			int mSpeed = 1;

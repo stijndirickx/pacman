@@ -25,8 +25,8 @@ namespace logic
 			void destroyBrick(int brickId);
 			void load();
 			void createMap();
-			int getScreenWidth();
-			int getScreenHeight();
+			int getwindowWidth();
+			int getwindowHeight();
 			int getNumOfPellets();
 
 
@@ -42,8 +42,8 @@ namespace logic
 			AbstractFactory* aFactory = NULL;
 			std::ifstream map;
 
-			int screenWidth;
-			int screenHeight;
+			int windowWidth;
+			int windowHeight;
 			int tileSize;
 	};
 }

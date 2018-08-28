@@ -2,96 +2,92 @@
 
 namespace graphics_SDL
 {
-	SDLHelper::SDLHelper(int screenWidth, int screenHeight, string spritesFile)
+	SDLHelper::SDLHelper(int windowWidth, int windowHeight, string spritesFile)
 	{
-		if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
+		if( SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 		{
-			printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+			printf("[SDLHelper]: SDL problem initializing - %s\n", SDL_GetError());
 		}
 		else
 		{
-			if(!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ))
+			if(!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 			{
-				printf( "Warning: Linear texture filtering not enabled!" );
+				printf("[SDLHelper]: Couldn't enable linear texture filtering");
 			}
-			sdlWindow = SDL_CreateWindow( "C++Man", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN );
-			if( sdlWindow == NULL )
+			window = SDL_CreateWindow("C++Man", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+			if(window == NULL)
 			{
-				printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
+				printf("[SDLHelper]: Wasn't able to create window - %s\n", SDL_GetError());
 			}
 			else
 			{
-				sdlRendererTEMP = SDL_CreateRenderer( sdlWindow, -1, SDL_RENDERER_ACCELERATED );
-				sdlRenderer = sdlRendererTEMP;
+				renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+				shownRenderer = renderer;
 				int imgFlags = IMG_INIT_PNG;
+
 				//Initialize SDL_image
-				if( !( IMG_Init( imgFlags ) & imgFlags ) )
+				if(!(IMG_Init(imgFlags)&imgFlags))
 				{
-					printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+					printf("[SDLHelper]: Wasn't able to init SDL_image - %s\n", IMG_GetError());
 				}
 				else
 				{
-					sdlScreenSurface = SDL_GetWindowSurface( sdlWindow );
+					screenSurface = SDL_GetWindowSurface(window);
 				}
 
 				//Initialize SDL_ttf
 				if(TTF_Init() < 0)
 				{
-					printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", IMG_GetError() );
+					printf("[SDLHelper]: Wasn't able to init SDL_ttf - %s\n", TTF_GetError());
 				}
 
 				//Initialize SDL_mixer
-				if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) // standard frq = 44100, hardware channels = 2 (stereo), sample size = audio chunks
+				if( Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) // 44,1kHz, 1024 bit chunks
 				{
-					printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+					printf("[SDLHelper]: Wasn't able to init SDL_mixer - %s\n", Mix_GetError());
 				}
 
-				//this->ClearScreen();
-
-				loadedSurface = IMG_Load(spritesFile.c_str());
-				SDL_SetColorKey(loadedSurface, SDL_TRUE, 0x000000 );
-
-				tileTexture = SDL_CreateTextureFromSurface(sdlRendererTEMP, loadedSurface);
+				surface = IMG_Load(spritesFile.c_str());
+				SDL_SetColorKey(surface, SDL_TRUE, 0x000000 );
+				texture = SDL_CreateTextureFromSurface(renderer, surface);
 			}
 		}
 
 	}
 
-	SDLHelper::~SDLHelper() {}
-
-	SDL_Renderer* SDLHelper::getRenderer()
+	SDLHelper::~SDLHelper()
 	{
-		return sdlRendererTEMP;
-	}
-
-	SDL_Surface* SDLHelper::getSurface()
-	{
-		return loadedSurface;
-	}
-
-	SDL_Texture* SDLHelper::getBrickTexture()
-	{
-		return tileTexture;
-	}
-
-	SDL_Renderer* SDLHelper::getVisibleRenderer()
-	{
-		return sdlRenderer;
-	}
-
-	void SDLHelper::quitVis()
-	{
-		SDL_DestroyRenderer(sdlRendererTEMP);
-		SDL_DestroyRenderer(sdlRenderer);
-		SDL_DestroyWindow(sdlWindow);
-		sdlRendererTEMP = NULL;
-		sdlRenderer = NULL;
-		sdlWindow = NULL;
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyRenderer(shownRenderer);
+		SDL_DestroyWindow(window);
+		renderer = NULL;
+		shownRenderer = NULL;
+		window = NULL;
 
 		//Quit SDL subsystems
 		TTF_Quit();
 		Mix_Quit();
 		IMG_Quit();
 		SDL_Quit();
+	}
+
+	SDL_Renderer* SDLHelper::getRenderer()
+	{
+		return renderer;
+	}
+
+	SDL_Surface* SDLHelper::getSurface()
+	{
+		return surface;
+	}
+
+	SDL_Texture* SDLHelper::getBrickTexture()
+	{
+		return texture;
+	}
+
+	SDL_Renderer* SDLHelper::getShownRenderer()
+	{
+		return shownRenderer;
 	}
 }
