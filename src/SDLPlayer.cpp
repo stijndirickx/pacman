@@ -36,8 +36,7 @@ namespace PACMAN
 	void SDLPlayer::moveDir(int direction)
 	{
 		//direction: 1 = up, 2 = down, 3 = left, 4 = right
-
-		int velocity = size / pacmanVel;
+		int scaledSpeed = size / playerSpeed;
 		for(int i=0; i< 3 ; i++)
 		{
 			playerSprites[i].y = (direction-1)*15;
@@ -46,16 +45,16 @@ namespace PACMAN
 		switch(direction)
 		{
 			case 1:
-				y -= velocity;
+				y -= scaledSpeed;
 				break;
 			case 2:
-				y += velocity;
+				y += scaledSpeed;
 				break;
 			case 3:
-				x -= velocity;
+				x -= scaledSpeed;
 				break;
 			case 4:
-				x += velocity;
+				x += scaledSpeed;
 				break;
 		}
 	}

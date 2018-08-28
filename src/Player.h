@@ -24,12 +24,13 @@ namespace PACMAN
 			void animate();
 			void move();
 			void gotCaptured(Ghost* ghosts[], int numOfGhosts);
+			void setSpeed(int pSpeed);
 
 			virtual void paint() = 0;
 			virtual void moveDir(int direction) = 0;
 
 		protected:
-			int pacmanVel = 3; // velocity = tilesize / pacmanVel
+			int playerSpeed = 1;
 			bool aliveState = true;
 			int direction = 4;
 			int prevDirection = 4;

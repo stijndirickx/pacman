@@ -26,6 +26,7 @@ namespace PACMAN
 		gContext->SetNumOfGhosts(numOfGhosts);
 
 		Player* player = aFactory->createPlayer();
+		player->setSpeed(cFile->getPlayerSpeed());
 		Ghost* ghosts[numOfGhosts];
 		for(int i = 0; i < numOfGhosts; i++)
 		{

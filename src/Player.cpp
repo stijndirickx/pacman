@@ -132,4 +132,9 @@ namespace PACMAN
 			delete ghostBoxInt;
 		}
 	}
+
+	void Player::setSpeed(int pSpeed)
+	{
+		playerSpeed = pSpeed;
+	}
 }

@@ -45,6 +45,9 @@ namespace PACMAN
 					case 22:
 						livesCount = atoi(value.c_str());
 						break;
+					case 23:
+						playerSpeed = atoi(value.c_str());
+						break;
 				}
 			}
 		}
@@ -84,5 +87,10 @@ namespace PACMAN
 	int Config::getLivesCount()
 	{
 		return livesCount;
+	}
+
+	int Config::getPlayerSpeed()
+	{
+		return playerSpeed;
 	}
 }
