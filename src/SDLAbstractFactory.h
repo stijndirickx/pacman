@@ -2,10 +2,10 @@
 #define SDLABSTRACTFACTORY_H_
 
 #include "AbstractFactory.h"
-#include "EventHandlerSDL.h"
 #include "SDLBrick.h"
 #include "SDLContext.h"
 #include "SDLEnemy.h"
+#include "SDLEventHandler.h"
 #include "SDLHelper.h"
 #include "SDLPlayer.h"
 

@@ -6,9 +6,9 @@
 #include "AbstractFactory.h"
 #include "Config.h"
 #include "Enemy.h"
-#include "EventHandlerSDL.h"
 #include "EventHandler.h"
 #include "House.h"
+#include "SDLEventHandler.h"
 
 using namespace std;
 

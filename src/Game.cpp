@@ -42,16 +42,16 @@ namespace PACMAN
 
 		while(!quit)
 		{
-			while(ev->PollEvent() != 0)
+			while(ev->pollEvent() != 0)
 			{
 				//User requests quit
-				if(ev->QuitEvent())
+				if(ev->quitEvent())
 				{
 					quit = true;
 				}
-				else if(ev->KeyDown())
+				else if(ev->keyDown())
 				{
-					if(ev->GetKeyDown() == 6) //pressed enter
+					if(ev->getKeyDown() == 6) //pressed enter
 					{
 						if(map->getNumOfPellets() > 0)
 						{
@@ -82,7 +82,7 @@ namespace PACMAN
 					}
 					else if (context->getPlaying()) //not changing direction while paused
 					{
-						player->setDirection(ev->GetKeyDown());
+						player->setDirection(ev->getKeyDown());
 					}
 				}
 			}

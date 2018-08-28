@@ -51,7 +51,7 @@ namespace PACMAN
 
 	EventHandler* SDLAbstractFactory::createEventHandler()
 	{
-		EventHandler* ev = new EventHandlerSDL();
+		EventHandler* ev = new SDLEventHandler();
 		return ev;
 	}
 }

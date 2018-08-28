@@ -1,17 +1,17 @@
-#include "EventHandlerSDL.h"
+#include "SDLEventHandler.h"
 
 namespace PACMAN
 {
-	EventHandlerSDL::EventHandlerSDL() {}
+	SDLEventHandler::SDLEventHandler() {}
 
-	EventHandlerSDL::~EventHandlerSDL() {}
+	SDLEventHandler::~SDLEventHandler() {}
 
-	int EventHandlerSDL::PollEvent()
+	int SDLEventHandler::pollEvent()
 	{
 		return SDL_PollEvent(&e);
 	}
 
-	bool EventHandlerSDL::QuitEvent()
+	bool SDLEventHandler::quitEvent()
 	{
 		if(e.type == SDL_QUIT)
 		{
@@ -20,7 +20,7 @@ namespace PACMAN
 		return false;
 	}
 
-	bool EventHandlerSDL::KeyDown()
+	bool SDLEventHandler::keyDown()
 	{
 		if (e.type == SDL_KEYDOWN)
 		{
@@ -29,7 +29,7 @@ namespace PACMAN
 		return false;
 	}
 
-	int EventHandlerSDL::GetKeyDown()
+	int SDLEventHandler::getKeyDown()
 	{
 		int key;
 		enum KeyPressSurfaces
