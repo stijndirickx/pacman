@@ -1,6 +1,6 @@
 #include "SDLBrick.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLBrick::SDLBrick(SDL_Renderer* pRenderer, SDL_Texture* pTexture)
 	{

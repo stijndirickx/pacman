@@ -1,6 +1,6 @@
 #include "Player.h"
 
-namespace PACMAN
+namespace logic
 {
 	Player::Player()
 	{

@@ -9,7 +9,7 @@
 
 using namespace std;
 
-namespace PACMAN
+namespace logic
 {
 	class AbstractFactory; //TO USE
 	class Context;

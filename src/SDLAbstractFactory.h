@@ -10,8 +10,9 @@
 #include "SDLPlayer.h"
 
 using namespace std;
+using namespace logic;
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	class SDLAbstractFactory : public AbstractFactory
 	{
@@ -27,7 +28,7 @@ namespace PACMAN
 			void createVis();
 
 		protected:
-			PACMAN::SDLHelper* helper;
+			SDLHelper* helper;
 	};
 }
 

@@ -1,6 +1,6 @@
 #include "SDLHelper.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLHelper::SDLHelper(int screenWidth, int screenHeight, string spritesFile)
 	{

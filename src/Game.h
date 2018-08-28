@@ -12,7 +12,7 @@
 
 using namespace std;
 
-namespace PACMAN
+namespace logic
 {
 	class Game
 	{

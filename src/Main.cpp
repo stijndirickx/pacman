@@ -8,8 +8,8 @@ using namespace std;
 
 int main(int argc, char* args[])  //parameters for SDL
 {
-	PACMAN::AbstractFactory* aFactory = new PACMAN::SDLAbstractFactory();
-	PACMAN::Game* game = new PACMAN::Game(aFactory);
+	logic::AbstractFactory* aFactory = new graphics_SDL::SDLAbstractFactory();
+	Game* game = new Game(aFactory);
 	game->start();
 	delete aFactory;
 	delete game;

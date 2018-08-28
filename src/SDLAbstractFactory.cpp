@@ -1,6 +1,6 @@
 #include "SDLAbstractFactory.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLAbstractFactory::SDLAbstractFactory()
 	{

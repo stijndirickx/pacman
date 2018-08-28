@@ -1,6 +1,6 @@
 #include "SDLEnemy.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLEnemy::SDLEnemy(int pType, SDL_Renderer* pRenderer, SDL_Surface* pSurface)
 	{

@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <fstream>
 
-namespace PACMAN
+namespace logic
 {
 	Game::Game(AbstractFactory*& abstractFactory)
 	{

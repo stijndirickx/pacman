@@ -1,6 +1,6 @@
 #include "AbstractFactory.h"
 
-namespace PACMAN
+namespace logic
 {
 	AbstractFactory::AbstractFactory()
 	{

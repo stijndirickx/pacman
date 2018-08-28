@@ -7,7 +7,7 @@
 
 using namespace std;
 
-namespace PACMAN
+namespace logic
 {
 	class Enemy;
 	class Player : public Entity

@@ -1,6 +1,6 @@
 #include "SDLPlayer.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLPlayer::SDLPlayer(SDL_Renderer* pRenderer, SDL_Surface* pSurface)
 	{

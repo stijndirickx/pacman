@@ -1,6 +1,6 @@
 #include "Config.h"
 
-namespace PACMAN
+namespace logic
 {
 	Config::Config()
 	{

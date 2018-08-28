@@ -1,6 +1,6 @@
 #include "SDLEventHandler.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLEventHandler::SDLEventHandler() {}
 

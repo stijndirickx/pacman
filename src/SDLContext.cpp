@@ -1,6 +1,6 @@
 #include "SDLContext.h"
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	SDLContext::SDLContext(SDLHelper* pHelper)
 	{

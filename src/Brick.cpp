@@ -1,6 +1,6 @@
 #include "Brick.h"
 
-namespace PACMAN
+namespace logic
 {
 	Brick::Brick() {}
 	Brick::~Brick() {}

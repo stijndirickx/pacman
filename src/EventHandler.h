@@ -1,7 +1,7 @@
 #ifndef EVENTHANDLER_H_
 #define EVENTHANDLER_H_
 
-namespace PACMAN
+namespace logic
 {
 	class EventHandler
 	{

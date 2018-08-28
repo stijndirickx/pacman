@@ -9,8 +9,9 @@
 #include "Enemy.h"
 
 using namespace std;
+using namespace logic;
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	class SDLEnemy : public Enemy
 	{

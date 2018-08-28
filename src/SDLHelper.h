@@ -9,7 +9,7 @@
 
 using namespace std;
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	class SDLHelper
 	{

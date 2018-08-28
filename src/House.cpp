@@ -1,6 +1,6 @@
 #include "House.h"
 
-namespace PACMAN
+namespace logic
 {
 	House::House(AbstractFactory* abstractFactory, string mapName, int size)
 	{

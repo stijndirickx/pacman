@@ -6,7 +6,9 @@
 
 #include "Player.h"
 
-namespace PACMAN
+using namespace logic;
+
+namespace graphics_SDL
 {
 	class SDLPlayer : public Player
 	{

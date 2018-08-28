@@ -1,6 +1,6 @@
 #include "EventHandler.h"
 
-namespace PACMAN
+namespace logic
 {
 	EventHandler::EventHandler() {}
 

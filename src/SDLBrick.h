@@ -7,8 +7,9 @@
 #include "Brick.h"
 
 using namespace std;
+using namespace logic;
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	class SDLBrick : public Brick
 	{

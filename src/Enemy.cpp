@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-namespace PACMAN
+namespace logic
 {
 	Enemy::Enemy()
 	{

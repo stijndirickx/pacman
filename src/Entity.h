@@ -5,9 +5,10 @@
 
 #include "Brick.h"
 #include "Context.h"
+
 using namespace std;
 
-namespace PACMAN
+namespace logic
 {
 	class Context;
 	class AbstractFactory; //Forward declaration so the compiler knows what Factory is --> to use CheckCollision

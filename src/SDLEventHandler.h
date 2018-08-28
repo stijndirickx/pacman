@@ -4,7 +4,9 @@
 #include "EventHandler.h"
 #include <sdl2/SDL.h>
 
-namespace PACMAN
+using namespace logic;
+
+namespace graphics_SDL
 {
 	class SDLEventHandler : public EventHandler
 	{

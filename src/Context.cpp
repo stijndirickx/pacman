@@ -1,6 +1,6 @@
 #include "Context.h"
 
-namespace PACMAN
+namespace logic
 {
 	Context::Context()
 	{

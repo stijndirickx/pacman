@@ -1,19 +1,20 @@
 #ifndef ABSTRACTFACTORY_H_
 #define ABSTRACTFACTORY_H_
 
-#include "Config.h"
-#include "EventHandler.h"
-#include <iostream>
-#include <fstream>
-#include <vector>
+//#include <iostream>
+//#include <fstream>
+//#include <vector>
 
-#include "Brick.h"
-#include "Context.h"
+//#include "Brick.h"
+#include "Config.h"
+//#include "Context.h"
 #include "Enemy.h"
+//#include "EventHandler.h"
 #include "Player.h"
+
 using namespace std;
 
-namespace PACMAN
+namespace logic
 {
 	class House;
 	class Player;

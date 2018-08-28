@@ -9,8 +9,9 @@
 #include "SDLHelper.h"
 
 using namespace std;
+using namespace logic;
 
-namespace PACMAN
+namespace graphics_SDL
 {
 	class SDLContext : public Context
 	{
@@ -24,7 +25,7 @@ namespace PACMAN
 			void quitVis();
 
 		protected:
-			PACMAN::SDLHelper* mHelper;
+			SDLHelper* mHelper;
 
 			SDL_Renderer* sdlRendererTemp;
 			SDL_Surface* loadedSurface;
