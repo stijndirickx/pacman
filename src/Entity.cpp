@@ -1,4 +1,4 @@
-#include "Factory.h"
+#include "AbstractFactory.h"
 
 namespace PACMAN
 {
@@ -6,7 +6,7 @@ namespace PACMAN
 	{
 		collision = false;
 		aFactory = NULL;
-		gContext = NULL;
+		mContext = NULL;
 
 		x = 0;
 		y = 0;
@@ -18,22 +18,22 @@ namespace PACMAN
 		delete entityBox;
 	}
 
-	void Entity::SetGameContext(GameContext* gameContext)
+	void Entity::setContext(Context* pContext)
 	{
-		gContext = gameContext;
-		totalTiles = gContext->GetTotalTiles();
-		screenWidth = gContext->GetScreenWidth();
-		screenHeight = gContext->GetScreenHeight();
-		size = gContext->GetTileSize();
-		numOfGhosts = gContext->GetNumOfGhosts();
+		mContext = pContext;
+		totalTiles = mContext->getTotalTiles();
+		screenWidth = mContext->getScreenWidth();
+		screenHeight = mContext->getScreenHeight();
+		size = mContext->getTileSize();
+		numOfEnemies = mContext->getNumOfEnemies();
 	}
 
-	void Entity::SetFactory(Factory* fac)
+	void Entity::setAbstractFactory(AbstractFactory* fac)
 	{
 		aFactory = fac;
 	}
 
-	int* Entity::GetCollisionBox()
+	int* Entity::getCollisionBox()
 	{
 		entityBox[0] = x;
 		entityBox[1] = y;
@@ -43,18 +43,18 @@ namespace PACMAN
 	}
 
 
-	bool Entity::CheckCollisions()
+	bool Entity::checkCollisions()
 	{
-		Tile** tileSet = gContext->GetMapTiles();
+		Brick** bricks = mContext->getBricks();
 
 		collision = false;
 		int* tileBoxInt = 0;
 
 		for(int j = 0; j < totalTiles; j++) //CHECK TILES
 		{
-			tileBoxInt = tileSet[j]->GetBoxInt();
+			tileBoxInt = bricks[j]->getBoxInt();
 
-			bool tempCollide = gContext->CheckCollision(this->GetCollisionBox(), tileBoxInt);
+			bool tempCollide = mContext->checkCollision(this->getCollisionBox(), tileBoxInt);
 
 			if(!collision && tempCollide)
 			{
@@ -64,7 +64,7 @@ namespace PACMAN
 				}
 				if(isPac) //entity is pacman
 				{
-					gContext->DestroyTile(j);
+					mContext->destroyBrick(j);
 				}
 			}
 		}

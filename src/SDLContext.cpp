@@ -1,12 +1,12 @@
-#include "GameContextSDL.h"
+#include "SDLContext.h"
 
 namespace PACMAN
 {
-	GameContextSDL::GameContextSDL(InitSDL* init)
+	SDLContext::SDLContext(SDLHelper* pHelper)
 	{
-		sdlInit = init;
-		sdlRendererTemp = sdlInit->GetRenderer();
-		loadedSurface = sdlInit->GetSurface();
+		mHelper = pHelper;
+		sdlRendererTemp = mHelper->getRenderer();
+		loadedSurface = mHelper->getSurface();
 
 		font = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 10);
 		fontBig = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 40);
@@ -18,9 +18,9 @@ namespace PACMAN
 		pacSound = Mix_LoadWAV("Assets/Sounds/pacman_eatghost.wav");
 	}
 
-	GameContextSDL::~GameContextSDL() {}
+	SDLContext::~SDLContext() {}
 
-	void GameContextSDL::UpdateText()
+	void SDLContext::updateText()
 	{
 		printTxt = "Score: " + std::to_string(score);
 		textSurface = TTF_RenderText_Solid(font, printTxt.c_str(), white);
@@ -69,7 +69,7 @@ namespace PACMAN
 		}
 	}
 
-	void GameContextSDL::PlaySound(string sound)
+	void SDLContext::playSound(string sound)
 	{
 		if(sound == "pacman")
 		{
@@ -120,26 +120,26 @@ namespace PACMAN
 
 	}
 
-	void GameContextSDL::ClearScreen()
+	void SDLContext::clearScreen()
 	{
 		SDL_SetRenderDrawColor(sdlRendererTemp, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderClear(sdlRendererTemp);
 	}
 
-	void GameContextSDL::UpdateScreen()
+	void SDLContext::updateScreen()
 	{
-		SDL_Renderer* sdlRenderer = sdlInit->GetVisibleRenderer();
+		SDL_Renderer* sdlRenderer = mHelper->getVisibleRenderer();
 		sdlRenderer = sdlRendererTemp;
 		SDL_RenderPresent(sdlRenderer);
 	}
 
-	void GameContextSDL::QuitVis()
+	void SDLContext::quitVis()
 	{
 		Mix_FreeChunk(pacMusic);
 		pacMusic = NULL;
 		Mix_FreeChunk(pacSound);
 		pacSound = NULL;
-		sdlInit->QuitVis();
+		mHelper->quitVis();
 	}
 }
 

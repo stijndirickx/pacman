@@ -1,8 +1,8 @@
-#include "InitSDL.h"
+#include "SDLHelper.h"
 
 namespace PACMAN
 {
-	InitSDL::InitSDL(int screenWidth, int screenHeight, string spritesFile)
+	SDLHelper::SDLHelper(int screenWidth, int screenHeight, string spritesFile)
 	{
 		if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )
 		{
@@ -57,29 +57,29 @@ namespace PACMAN
 
 	}
 
-	InitSDL::~InitSDL() {}
+	SDLHelper::~SDLHelper() {}
 
-	SDL_Renderer* InitSDL::GetRenderer()
+	SDL_Renderer* SDLHelper::getRenderer()
 	{
 		return sdlRendererTEMP;
 	}
 
-	SDL_Surface* InitSDL::GetSurface()
+	SDL_Surface* SDLHelper::getSurface()
 	{
 		return loadedSurface;
 	}
 
-	SDL_Texture* InitSDL::GetTileTexture()
+	SDL_Texture* SDLHelper::getBrickTexture()
 	{
 		return tileTexture;
 	}
 
-	SDL_Renderer* InitSDL::GetVisibleRenderer()
+	SDL_Renderer* SDLHelper::getVisibleRenderer()
 	{
 		return sdlRenderer;
 	}
 
-	void InitSDL::QuitVis()
+	void SDLHelper::quitVis()
 	{
 		SDL_DestroyRenderer(sdlRendererTEMP);
 		SDL_DestroyRenderer(sdlRenderer);

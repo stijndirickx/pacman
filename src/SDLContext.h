@@ -1,30 +1,30 @@
-#ifndef GAMECONTEXTSDL_H_
-#define GAMECONTEXTSDL_H_
+#ifndef SDLCONTEXT_H_
+#define SDLCONTEXT_H_
 
 #include <iostream>
 #include <sdl2/SDL_ttf.h>
 #include <sdl2/SDL_mixer.h>
 
-#include "GameContext.h"
-#include "InitSDL.h"
+#include "Context.h"
+#include "SDLHelper.h"
 
 using namespace std;
 
 namespace PACMAN
 {
-	class GameContextSDL : public GameContext
+	class SDLContext : public Context
 	{
 		public:
-			GameContextSDL(InitSDL* sdlInit);
-			virtual ~GameContextSDL();
-			void UpdateText();
-			void PlaySound(string sound);
-			void ClearScreen();
-			void UpdateScreen();
-			void QuitVis();
+			SDLContext(SDLHelper* pHelper);
+			virtual ~SDLContext();
+			void updateText();
+			void playSound(string sound);
+			void clearScreen();
+			void updateScreen();
+			void quitVis();
 
 		protected:
-			PACMAN::InitSDL* sdlInit;
+			PACMAN::SDLHelper* mHelper;
 
 			SDL_Renderer* sdlRendererTemp;
 			SDL_Surface* loadedSurface;

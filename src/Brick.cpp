@@ -1,16 +1,16 @@
-#include "Tile.h"
+#include "Brick.h"
 
 namespace PACMAN
 {
-	Tile::Tile() {}
-	Tile::~Tile() {}
+	Brick::Brick() {}
+	Brick::~Brick() {}
 
-	void Tile::SetTileType(int type)
+	void Brick::setType(int type)
 	{
 		boxInt[4] = type;
 	}
 
-	void Tile::RenderTile(int x, int y, int tileType, int width, int height)
+	void Brick::renderTile(int x, int y, int tileType, int width, int height)
 	{
 /*		if (tileType == 25)
 		{
@@ -36,10 +36,10 @@ namespace PACMAN
 		boxInt[3] = height;
 		boxInt[4] = tileType;
 
-		this->Visualize();
+		this->paint();
 	}
 
-	int* Tile::GetBoxInt()
+	int* Brick::getBoxInt()
 	{
 		return boxInt;
 	}

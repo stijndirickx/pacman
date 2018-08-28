@@ -1,5 +1,5 @@
-#ifndef INITSDL_H_
-#define INITSDL_H_
+#ifndef SDLHELPER_H_
+#define SDLHELPER_H_
 
 #include <iostream>
 #include <sdl2/SDL.h>
@@ -11,18 +11,18 @@ using namespace std;
 
 namespace PACMAN
 {
-	class InitSDL
+	class SDLHelper
 	{
 		public:
-			InitSDL(int screenWidth, int screenHeight, string spritesFile);
-			virtual ~InitSDL();
-			void ClearScreen();
-			void UpdateScreen();
-			void QuitVis();
-			SDL_Renderer* GetRenderer();
-			SDL_Surface* GetSurface();
-			SDL_Texture* GetTileTexture();
-			SDL_Renderer* GetVisibleRenderer();
+			SDLHelper(int screenWidth, int screenHeight, string spritesFile);
+			virtual ~SDLHelper();
+			void clearScreen();
+			void updateScreen();
+			void quitVis();
+			SDL_Renderer* getRenderer();
+			SDL_Surface* getSurface();
+			SDL_Texture* getBrickTexture();
+			SDL_Renderer* getVisibleRenderer();
 
 		protected:
 			SDL_Renderer* sdlRendererTEMP;

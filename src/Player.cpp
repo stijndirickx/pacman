@@ -76,13 +76,13 @@ namespace PACMAN
 		int tempY = y;
 
 		this->moveDir(direction);
-		if(this->CheckCollisions())
+		if(this->checkCollisions())
 		{
 			x = tempX;
 			y = tempY;
 
 			this->moveDir(prevDirection);
-			if(this->CheckCollisions())
+			if(this->checkCollisions())
 			{
 				x = tempX;
 				y = tempY;
@@ -106,26 +106,26 @@ namespace PACMAN
 		this->paint();
 	}
 
-	void Player::gotCaptured(Ghost* ghosts[], int numOfGhosts)
+	void Player::gotCaptured(Enemy* enemies[], int numOfEnemies)
 	{
-		for(int i = 0; i<numOfGhosts; i++)
+		for(int i = 0; i<numOfEnemies; i++)
 		{
-			int* ghostBoxInt = ghosts[i]->GetCollisionBox();
-			bool captured = gContext->CheckCollision(this->GetCollisionBox(), ghostBoxInt);
+			int* ghostBoxInt = enemies[i]->getCollisionBox();
+			bool captured = mContext->checkCollision(this->getCollisionBox(), ghostBoxInt);
 			if(captured)
 			{
-				if(ghosts[i]->GetAttackingState())
+				if(enemies[i]->getAttackingState())
 				{
-					gContext->SubtractLives(1);
-					gContext->SetPlaying(false, "Dead");
-					gContext->PlaySound("dead");
+					mContext->subtractLives(1);
+					mContext->setPlaying(false, "Dead");
+					mContext->playSound("dead");
 					aliveState = false; //poor thing died :(
 				}
 
 				else
 				{
-					ghosts[i]->SetLivingState(false);
-					gContext->PlaySound("kill");
+					enemies[i]->setLivingState(false);
+					mContext->playSound("kill");
 				}
 			}
 

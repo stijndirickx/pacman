@@ -3,12 +3,12 @@
 
 #include <time.h>
 
-#include "Factory.h"
-#include "Ghost.h"
-#include "Map.h"
+#include "AbstractFactory.h"
 #include "Config.h"
+#include "Enemy.h"
 #include "EventHandlerSDL.h"
 #include "EventHandler.h"
+#include "House.h"
 
 using namespace std;
 
@@ -17,17 +17,18 @@ namespace PACMAN
 	class Game
 	{
 		public:
-			Factory* aFactory;
-			Game(Factory*& abstractFactory);
+			AbstractFactory* aFactory;
+			Game(AbstractFactory*& abstractFactory);
 			virtual ~Game();
-			void Start();
+
+			void start();
 
 		protected:
 			Config* cFile;
 			int fps;
 			int mspf;
 			int countToAttacking;
-			int numOfGhosts;
+			int numOfEnemies;
 			int animationSpeed;
 	};
 }

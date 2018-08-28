@@ -1,16 +1,16 @@
 #include <iostream>
 
-#include "Factory.h"
-#include "FactorySDL.h"
+#include "AbstractFactory.h"
 #include "Game.h"
+#include "SDLAbstractFactory.h"
 
 using namespace std;
 
 int main(int argc, char* args[])  //parameters for SDL
 {
-	PACMAN::Factory* aFactory = new PACMAN::FactorySDL();
+	PACMAN::AbstractFactory* aFactory = new PACMAN::SDLAbstractFactory();
 	PACMAN::Game* game = new PACMAN::Game(aFactory);
-	game->Start();
+	game->start();
 	delete aFactory;
 	delete game;
 

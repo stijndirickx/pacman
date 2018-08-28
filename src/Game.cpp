@@ -3,12 +3,12 @@
 
 namespace PACMAN
 {
-	Game::Game(Factory*& abstractFactory)
+	Game::Game(AbstractFactory*& abstractFactory)
 	{
 		aFactory = abstractFactory;
 
-		cFile = aFactory->CreateConfig();
-		numOfGhosts = cFile->getEnemiesCount();
+		cFile = aFactory->createConfig();
+		numOfEnemies = cFile->getEnemiesCount();
 		animationSpeed = cFile->getFpa(); //every x frames sprite change
 		fps = cFile->getFps();
 		mspf = 1000/fps; //ms per f: 30FPS --> every 33.3 ms a frame
@@ -17,23 +17,23 @@ namespace PACMAN
 
 	Game::~Game(){}
 
-	void Game::Start()
+	void Game::start()
 	{
-		Map* map = aFactory->CreateMap();
-		GameContext* gContext = aFactory->CreateGameContext();
-		gContext->SetTileSize(cFile->getBrickSize());
-		gContext->SetLives(cFile->getLivesCount());
-		gContext->SetNumOfGhosts(numOfGhosts);
+		House* map = aFactory->createHouse();
+		Context* context = aFactory->createContext();
+		context->setTileSize(cFile->getBrickSize());
+		context->setLives(cFile->getLivesCount());
+		context->setNumOfEnemies(numOfEnemies);
 
 		Player* player = aFactory->createPlayer();
 		player->setSpeed(cFile->getPlayerSpeed());
-		Ghost* ghosts[numOfGhosts];
-		for(int i = 0; i < numOfGhosts; i++)
+		Enemy* enemies[numOfEnemies];
+		for(int i = 0; i < numOfEnemies; i++)
 		{
-			ghosts[i] = aFactory->CreateGhost(i);
+			enemies[i] = aFactory->createEnemy(i);
 		}
 
-		EventHandler* ev = aFactory->CreateEventHandler();
+		EventHandler* ev = aFactory->createEventHandler();
 		int last_frame = 0;
 		clock_t ticks = 0;
 		int clock_ms = 0; //clock in ms
@@ -53,41 +53,41 @@ namespace PACMAN
 				{
 					if(ev->GetKeyDown() == 6) //pressed enter
 					{
-						if(map->GetNumOfPellets() > 0)
+						if(map->getNumOfPellets() > 0)
 						{
-							gContext->SetPlaying(!gContext->GetPlaying(), "Paused");
+							context->setPlaying(!context->getPlaying(), "Paused");
 							if(!player->getAliveState())
 							{
 								player->setAliveState(true);
-								for(int j=0; j < numOfGhosts;j++)
+								for(int j=0; j < numOfEnemies;j++)
 								{
-									ghosts[j]->ResetGhost();
+									enemies[j]->resetEnemy();
 								}
-								if(gContext->GetLives() <= 0)
+								if(context->getLives() <= 0)
 								{
-									gContext->ResetGame();
-									gContext->SetLives(cFile->getLivesCount());
-									map->Load();
+									context->resetGame();
+									context->setLives(cFile->getLivesCount());
+									map->load();
 								}
 								player->setDirection(4);
 							}
 						}
 						else
 						{
-							map->Load();
+							map->load();
 							player->setAliveState(true);
 							player->setDirection(4);
-							gContext->SetPlaying(true, "Paused");
+							context->setPlaying(true, "Paused");
 						}
 					}
-					else if (gContext->GetPlaying()) //not changing direction while paused
+					else if (context->getPlaying()) //not changing direction while paused
 					{
 						player->setDirection(ev->GetKeyDown());
 					}
 				}
 			}
 
-			if(!ghosts[0]->GetAttackingState()) //if ghosts vulnerable
+			if(!enemies[0]->getAttackingState()) //if ghosts vulnerable
 			{
 				if(countingAttack == 0)
 				{
@@ -95,16 +95,16 @@ namespace PACMAN
 				}
 				else if(countingAttack == 1)
 				{
-					for(int j=0; j < numOfGhosts;j++) // set ghosts back to attacking
+					for(int j=0; j < numOfEnemies;j++) // set ghosts back to attacking
 					{
-						ghosts[j]->SetAttackingState(true);
+						enemies[j]->setAttackingState(true);
 					}
 				}
 			}
 
-			if(map->GetNumOfPellets() == 0)
+			if(map->getNumOfPellets() == 0)
 			{
-				gContext->SetPlaying(false, "Winner");
+				context->setPlaying(false, "Winner");
 			}
 
 			ticks = clock(); //#clock ticks since running
@@ -114,28 +114,28 @@ namespace PACMAN
 			{
 				last_frame = clock_ms; //make sure not multiple frames in same ms
 
-				gContext->ClearScreen();
-				map->Draw();
-				if(gContext->GetPlaying())
+				context->clearScreen();
+				map->draw();
+				if(context->getPlaying())
 				{
 					player->move();
-					ghosts[0]->MoveTo(player->getX(), player->getY());
-					ghosts[1]->MoveInFront(player->getX(), player->getY());
-					player->gotCaptured(ghosts, numOfGhosts);
-					for(int j=2; j < numOfGhosts;j++)
+					enemies[0]->moveTo(player->getX(), player->getY());
+					enemies[1]->moveInFront(player->getX(), player->getY());
+					player->gotCaptured(enemies, numOfEnemies);
+					for(int j=2; j < numOfEnemies;j++)
 					{
-						ghosts[j]->Move();
+						enemies[j]->move();
 					}
-					gContext->PlaySound("pacman");
+					context->playSound("pacman");
 				}
 				else
 				{
 					player->paint();
-					for(int j=0; j < numOfGhosts;j++)
+					for(int j=0; j < numOfEnemies;j++)
 					{
-						ghosts[j]->Visualize();
+						enemies[j]->paint();
 					}
-					gContext->PlaySound("beginning");
+					context->playSound("beginning");
 				}
 
 				if(clock_ms % (animationSpeed*mspf) == 0) //every x frames animation
@@ -148,24 +148,24 @@ namespace PACMAN
 					countingAttack--;
 					if(countingAttack <= 30 && clock_ms % (animationSpeed*mspf) == 0)
 					{
-						for(int j=0; j < numOfGhosts;j++)
+						for(int j=0; j < numOfEnemies;j++)
 						{
-							ghosts[j]->SetFlashingState(!ghosts[j]->GetFlashingState());
+							enemies[j]->setFlashingState(!enemies[j]->getFlashingState());
 						}
 					}
 				}
 
-				gContext->UpdateText();
-				gContext->UpdateScreen();
+				context->updateText();
+				context->updateScreen();
 			}
 		}
 
 		// Game ended
-		for(int i = 0; i < numOfGhosts; i++)
+		for(int i = 0; i < numOfEnemies; i++)
 		{
-			delete ghosts[i];
+			delete enemies[i];
 		}
-		gContext->QuitVis();
+		context->quitVis();
 		delete player;
 		delete ev;
 	}

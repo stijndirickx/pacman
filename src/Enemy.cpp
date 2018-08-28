@@ -1,20 +1,20 @@
-#include "Ghost.h"
+#include "Enemy.h"
 
 namespace PACMAN
 {
-	Ghost::Ghost()
+	Enemy::Enemy()
 	{
 		type = 0;
 	}
 
-	Ghost::~Ghost() {}
+	Enemy::~Enemy() {}
 
-	bool Ghost::GetAttackingState()
+	bool Enemy::getAttackingState()
 	{
 		return attacking;
 	}
 
-	void Ghost::SetAttackingState(bool attack)
+	void Enemy::setAttackingState(bool attack)
 	{
 		if(living)
 		{
@@ -23,36 +23,36 @@ namespace PACMAN
 		}
 	}
 
-	bool Ghost::GetLivingState()
+	bool Enemy::getLivingState()
 	{
 		return living;
 	}
 
-	void Ghost::SetLivingState(bool live)
+	void Enemy::setLivingState(bool live)
 	{
 		living = live;
 	}
 
-	void Ghost::ResetGhost()
+	void Enemy::resetEnemy()
 	{
-		x = (screenWidth/2)-(floor(numOfGhosts/2) * size)+(type*size);
+		x = (screenWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
 		y = (screenHeight/2);
 		living = true;
 		attacking = true;
 	}
 
-	bool Ghost::GetFlashingState()
+	bool Enemy::getFlashingState()
 	{
 		return flashing;
 	}
 
-	bool Ghost::SetFlashingState(bool flash)
+	bool Enemy::setFlashingState(bool flash)
 	{
 		flashing = flash;
 		return flashing;
 	}
 
-	void Ghost::Move() //RANDOM MOVEMENT
+	void Enemy::move() //RANDOM MOVEMENT
 	{
 		int velocity = size / ghostVel;
 		if(living)
@@ -82,7 +82,7 @@ namespace PACMAN
 					break;
 			}
 
-			if(this->CheckCollisions()) //not possible to go to direction
+			if(this->checkCollisions()) //not possible to go to direction
 			{
 					x = tempx;
 					y = tempy;
@@ -103,7 +103,7 @@ namespace PACMAN
 							break;
 					}
 
-					if(this->CheckCollisions())
+					if(this->checkCollisions())
 					{
 						x = tempx;
 						y = tempy;
@@ -117,7 +117,7 @@ namespace PACMAN
 		}
 		else
 		{
-			this->ReturnToCenter();
+			this->returnToCenter();
 		}
 
 		if(x < -30) //ghost went to far
@@ -130,15 +130,15 @@ namespace PACMAN
 			y = -30;
 		}
 
-		this->Visualize();
+		this->paint();
 	}
 
-	void Ghost::ReturnToCenter()
+	void Enemy::returnToCenter()
 	{
 		int tempx = (screenWidth/2);
 		int tempy = (screenHeight/2);
 
-		this->MoveToCoordinates(tempx, tempy);
+		this->moveToCoordinates(tempx, tempy);
 
 		if(x == tempx && y == tempy)
 		{
@@ -148,7 +148,7 @@ namespace PACMAN
 		}
 	}
 
-	void Ghost::MoveToCoordinates(int coordx, int coordy)
+	void Enemy::moveToCoordinates(int coordx, int coordy)
 	{
 		int tempx = x;
 		int tempy = y;
@@ -163,7 +163,7 @@ namespace PACMAN
 			x += velocity;
 		}
 
-		if(this->CheckCollisions())
+		if(this->checkCollisions())
 		{
 			x = tempx;
 		}
@@ -178,7 +178,7 @@ namespace PACMAN
 			y += velocity;
 		}
 
-		if(this->CheckCollisions())
+		if(this->checkCollisions())
 		{
 			y = tempy;
 		}
@@ -189,20 +189,20 @@ namespace PACMAN
 		}
 	}
 
-	void Ghost::MoveTo(int x, int y)
+	void Enemy::moveTo(int x, int y)
 	{
 		if(living)
 		{
-			this->MoveToCoordinates(x, y);
+			this->moveToCoordinates(x, y);
 		}
 		else
 		{
-			this->ReturnToCenter();
+			this->returnToCenter();
 		}
-		this->Visualize();
+		this->paint();
 	}
 
-	void Ghost::MoveInFront(int pX, int pY)
+	void Enemy::moveInFront(int pX, int pY)
 	{
 		if(living)
 		{
@@ -244,12 +244,12 @@ namespace PACMAN
 				tempy = screenHeight;
 			}
 
-			this->MoveToCoordinates(tempx, tempy);
+			this->moveToCoordinates(tempx, tempy);
 		}
 		else
 		{
-			this->ReturnToCenter();
+			this->returnToCenter();
 		}
-		this->Visualize();
+		this->paint();
 	}
 }

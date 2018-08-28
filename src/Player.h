@@ -1,15 +1,15 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include "Factory.h"
+#include "AbstractFactory.h"
+#include "Enemy.h"
 #include "Entity.h"
-#include "Ghost.h"
 
 using namespace std;
 
 namespace PACMAN
 {
-	class Ghost;
+	class Enemy;
 	class Player : public Entity
 	{
 		public:
@@ -23,7 +23,7 @@ namespace PACMAN
 			bool setAliveState(bool pAliveState);
 			void animate();
 			void move();
-			void gotCaptured(Ghost* ghosts[], int numOfGhosts);
+			void gotCaptured(Enemy* enemies[], int numOfEnemies);
 			void setSpeed(int pSpeed);
 
 			virtual void paint() = 0;

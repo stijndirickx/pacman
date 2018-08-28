@@ -2,27 +2,29 @@
 #define ENTITY_H_
 
 #include <iostream>
-#include "Tile.h"
-#include "GameContext.h"
+
+#include "Brick.h"
+#include "Context.h"
 using namespace std;
 
 namespace PACMAN
 {
-	class GameContext;
-	class Factory; //Forward declaration so the compiler knows what Factory is --> to use CheckCollision
+	class Context;
+	class AbstractFactory; //Forward declaration so the compiler knows what Factory is --> to use CheckCollision
 	class Entity
 	{
 		public:
 			Entity();
 			virtual ~Entity();
-			void SetFactory(Factory* fac);
-			bool CheckCollisions();
-			int* GetCollisionBox();
-			void SetGameContext(GameContext* gameContext);
+
+			void setAbstractFactory(AbstractFactory* fac);
+			bool checkCollisions();
+			int* getCollisionBox();
+			void setContext(Context* pContext);
 
 		protected:
-			Factory* aFactory;
-			GameContext* gContext;
+			AbstractFactory* aFactory;
+			Context* mContext;
 			bool collision;
 			int x, y, size;
 			int* entityBox = new int [4];
@@ -30,7 +32,7 @@ namespace PACMAN
 			int totalTiles = 0;
 			int screenWidth = 0;
 			int screenHeight = 0;
-			int numOfGhosts = 0;
+			int numOfEnemies = 0;
 	};
 }
 

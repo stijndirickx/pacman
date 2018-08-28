@@ -1,16 +1,16 @@
-#include "TileSDL.h"
+#include "SDLBrick.h"
 
 namespace PACMAN
 {
-	TileSDL::TileSDL(SDL_Renderer* sdlRendererTEMP, SDL_Texture* tileTexture)
+	SDLBrick::SDLBrick(SDL_Renderer* pRenderer, SDL_Texture* pTexture)
 	{
-		sdlRenderer = sdlRendererTEMP;
-		texture = tileTexture;
+		mRenderer = pRenderer;
+		mTexture = pTexture;
 	}
 
-	TileSDL::~TileSDL(){}
+	SDLBrick::~SDLBrick(){}
 
-	void TileSDL::Visualize()
+	void SDLBrick::paint()
 	{
 
 		switch(boxInt[4])
@@ -92,6 +92,6 @@ namespace PACMAN
 				break;
 		}
 		brickRect = { boxInt[0], boxInt[1], boxInt[2], boxInt[3] };
-		SDL_RenderCopy( sdlRenderer, texture, &brickSprite, &brickRect );
+		SDL_RenderCopy( mRenderer, mTexture, &brickSprite, &brickRect );
 	}
 }
