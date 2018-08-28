@@ -47,7 +47,7 @@ namespace graphics_SDL
 		}
 		else
 		{
-			if(living)
+			if(mAliveState)
 			{
 				if(!flashing)
 				{

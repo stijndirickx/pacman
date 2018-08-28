@@ -19,8 +19,6 @@ namespace logic
 
 			bool getAttackingState();
 			void setAttackingState(bool attack);
-			bool getLivingState();
-			void setLivingState(bool live);
 			void resetEnemy();
 			bool setFlashingState(bool flash);
 			bool getFlashingState();
@@ -36,12 +34,9 @@ namespace logic
 			int type;
 			bool attacking = true;
 			bool flashing = false;
-			bool living = true;
 			int prevDir[4] = { 1, 1, 1, 1 };
 			int dir[4] = { 1, 1, 1, 1 };
 			int changeDir = 0;
-
-			//int ghostVel = 5; // velocity = tilesize / ghostVel
 	};
 }
 

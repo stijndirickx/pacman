@@ -27,12 +27,8 @@ namespace logic
 		}
 	}
 
-	bool Player::getAliveState()
-	{
-		return aliveState;
-	}
 
-	bool Player::setAliveState(bool pAliveState)
+/*	bool Player::setAliveState(bool pAliveState)
 	{
 		aliveState = pAliveState;
 		if(pAliveState)
@@ -41,11 +37,11 @@ namespace logic
 			y = floor(3*screenHeight/4);
 		}
 		return aliveState;
-	}
+	}*/
 
 	void Player::animate()
 	{
-		if(aliveState)
+		if(mAliveState)
 		{
 			if(collision)  //stuck
 			{
@@ -119,12 +115,12 @@ namespace logic
 					mContext->subtractLives(1);
 					mContext->setPlaying(false, "Dead");
 					mContext->playSound("dead");
-					aliveState = false; //poor thing died :(
+					mAliveState = false; //poor thing died :(
 				}
 
 				else
 				{
-					enemies[i]->setLivingState(false);
+					enemies[i]->setAliveState(false);
 					mContext->playSound("kill");
 				}
 			}

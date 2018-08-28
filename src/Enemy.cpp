@@ -16,28 +16,18 @@ namespace logic
 
 	void Enemy::setAttackingState(bool attack)
 	{
-		if(living)
+		if(mAliveState)
 		{
 			attacking = attack;
 			flashing = false;
 		}
 	}
 
-	bool Enemy::getLivingState()
-	{
-		return living;
-	}
-
-	void Enemy::setLivingState(bool live)
-	{
-		living = live;
-	}
-
 	void Enemy::resetEnemy()
 	{
 		x = (screenWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
 		y = (screenHeight/2);
-		living = true;
+		mAliveState = true;
 		attacking = true;
 	}
 
@@ -55,7 +45,7 @@ namespace logic
 	void Enemy::move() //RANDOM MOVEMENT
 	{
 		int velocity = size / mSpeed;
-		if(living)
+		if(mAliveState)
 		{
 			int tempx = x;
 			int tempy = y;
@@ -142,7 +132,7 @@ namespace logic
 
 		if(x == tempx && y == tempy)
 		{
-			living = true;
+			mAliveState = true;
 			attacking = true;
 			flashing = false;
 		}
@@ -191,7 +181,7 @@ namespace logic
 
 	void Enemy::moveTo(int x, int y)
 	{
-		if(living)
+		if(mAliveState)
 		{
 			this->moveToCoordinates(x, y);
 		}
@@ -204,7 +194,7 @@ namespace logic
 
 	void Enemy::moveInFront(int pX, int pY)
 	{
-		if(living)
+		if(mAliveState)
 		{
 			int tempx, tempy;
 			int further = 4;

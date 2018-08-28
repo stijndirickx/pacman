@@ -77,4 +77,14 @@ namespace logic
 	{
 		mSpeed =  pSpeed;
 	}
+
+	void Entity::setAliveState(bool pAliveState)
+	{
+		mAliveState = pAliveState;
+	}
+
+	bool Entity::getAliveState()
+	{
+		return mAliveState;
+	}
 }
