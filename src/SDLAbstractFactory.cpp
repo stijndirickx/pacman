@@ -29,10 +29,10 @@ namespace graphics_SDL
 		return player;
 	}
 
-	Brick* SDLAbstractFactory::createBrick(int x, int y, int type, int width, int height)
+	Brick* SDLAbstractFactory::createBrick(int x, int y, int size, int type)
 	{
 		Brick* brick = new SDLBrick(helper->getRenderer(), helper->getBrickTexture());
-		brick->renderBrick(x, y, width, type);
+		brick->renderBrick(x, y, size, type);
 		return brick;
 	}
 
@@ -51,7 +51,7 @@ namespace graphics_SDL
 
 	EventHandler* SDLAbstractFactory::createEventHandler()
 	{
-		EventHandler* ev = new SDLEventHandler();
-		return ev;
+		EventHandler* eventHandler = new SDLEventHandler();
+		return eventHandler;
 	}
 }

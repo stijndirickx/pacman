@@ -53,7 +53,7 @@ namespace logic
 		{
 			int tileType = 0;
 			map >> tileType;
-			bricks[tile] = aFactory->createBrick(x, y, tileType, tileSize, tileSize);
+			bricks[tile] = aFactory->createBrick(x, y, tileSize, tileType);
 			if(tileType == 2)
 			{
 				numOfPellets++;

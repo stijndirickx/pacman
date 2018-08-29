@@ -32,7 +32,7 @@ namespace logic
 
 			virtual Enemy* createEnemy(int type) = 0;
 			virtual Player* createPlayer() = 0;
-			virtual Brick* createBrick(int x, int y, int type, int width, int height) = 0;
+			virtual Brick* createBrick(int x, int y, int size, int type) = 0;
 			virtual void createVis() = 0;
 			virtual Context* createContext() = 0;
 			virtual EventHandler* createEventHandler() = 0;

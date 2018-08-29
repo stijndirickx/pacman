@@ -22,7 +22,7 @@ namespace graphics_SDL
 
 			Enemy* createEnemy(int type);
 			Player* createPlayer();
-			Brick* createBrick(int x, int y, int type, int width, int height);
+			Brick* createBrick(int x, int y, int size, int type);
 			Context* createContext();
 			EventHandler* createEventHandler();
 			void createVis();
