@@ -37,7 +37,7 @@ namespace logic
 		if(lives <= 0)
 		{
 			playing = false;
-			displayString = "Game Over";
+			displayString = "game over";
 			if(score > highScore)
 			{
 				this->setHighscore(score);

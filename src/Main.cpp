@@ -6,13 +6,12 @@
 
 using namespace std;
 
-int main(int argc, char* args[])  //parameters for SDL
+int main(int argc, char* args[])
 {
-	logic::AbstractFactory* aFactory = new graphics_SDL::SDLAbstractFactory();
-	Game* game = new Game(aFactory);
+	logic::AbstractFactory* abstractFactory = new graphics_SDL::SDLAbstractFactory();
+	Game* game = new Game(abstractFactory);
 	game->start();
-	delete aFactory;
+	delete abstractFactory;
 	delete game;
-
 	return 0;
 }

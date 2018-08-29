@@ -58,7 +58,7 @@ namespace logic
 				{
 					if(eventHandler->getKeyDown() == 6) //pressed space
 					{
-						if(house->getNumOfPellets() > 0)
+						if(house->getNumOfPlusLeft() > 0)
 						{
 							context->setPlaying(!context->getPlaying(), "Paused");
 							if(!player->getAliveState())
@@ -107,7 +107,7 @@ namespace logic
 				}
 			}
 
-			if(house->getNumOfPellets() == 0)
+			if(house->getNumOfPlusLeft() == 0)
 			{
 				context->setPlaying(false, "Winner");
 			}
@@ -120,13 +120,13 @@ namespace logic
 				last_frame = clock_ms; //make sure not multiple frames in same ms
 
 				context->clearScreen();
-				house->draw();
+				house->paint();
 				if(context->getPlaying())
 				{
 					player->move();
 					enemies[0]->moveTo(player->getX(), player->getY());
 					enemies[1]->moveInFront(player->getX(), player->getY());
-					player->gotCaptured(enemies, numOfEnemies);
+					player->gotHit(enemies, numOfEnemies);
 					for(int j=2; j < numOfEnemies;j++)
 					{
 						enemies[j]->move();

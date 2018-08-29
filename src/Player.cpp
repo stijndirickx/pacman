@@ -4,7 +4,7 @@ namespace logic
 {
 	Player::Player()
 	{
-		isPac = true;
+		isPlayer = true;
 	}
 
 	Player::~Player() {}
@@ -46,20 +46,20 @@ namespace logic
 
 	void Player::move()
 	{
-		int tempX = x;
-		int tempY = y;
-
+		int oldx = x;
+		int oldy = y;
 		this->moveDir(direction);
-		if(this->checkCollisions())
-		{
-			x = tempX;
-			y = tempY;
 
-			this->moveDir(prevDirection);
+		if(this->checkCollisions()) //Collision while trying to move
+		{
+			x = oldx;
+			y = oldy;
+
+			this->moveDir(prevDirection); //Move back in previous direction
 			if(this->checkCollisions())
 			{
-				x = tempX;
-				y = tempY;
+				x = oldx;
+				y = oldy;
 			}
 		}
 		else
@@ -67,6 +67,7 @@ namespace logic
 			prevDirection = direction;
 		}
 
+		// Warping tunnels (left - right)
 		if(x < 0)
 		{
 			x = windowWidth;
@@ -80,35 +81,30 @@ namespace logic
 		this->paint();
 	}
 
-	void Player::gotCaptured(Enemy* enemies[], int numOfEnemies)
+	void Player::gotHit(Enemy* enemies[], int numOfEnemies)
 	{
 		for(int i = 0; i<numOfEnemies; i++)
 		{
-			int* ghostBoxInt = enemies[i]->getCollisionBox();
-			bool captured = mContext->checkCollision(this->getCollisionBox(), ghostBoxInt);
+			int* enemyBox = enemies[i]->getCollisionBox();
+			bool captured = mContext->checkCollision(this->getCollisionBox(), enemyBox);
 			if(captured)
 			{
-				if(enemies[i]->getAttackingState())
+				if(enemies[i]->getAttackingState()) //Agressive enemies
 				{
 					mContext->subtractLives(1);
-					mContext->setPlaying(false, "Dead");
+					mContext->setPlaying(false, "Dead"); //TODO change "dead"
 					mContext->playSound(4);
-					mAliveState = false; //poor thing died :(
+					mAliveState = false;
 				}
 
-				else
+				else		//Vulnerable enemies
 				{
 					enemies[i]->setAliveState(false);
 					mContext->playSound(6);
 				}
 			}
 
-			delete ghostBoxInt;
+			delete enemyBox;
 		}
 	}
-
-/*	void Player::setSpeed(int pSpeed)
-	{
-		playerSpeed = pSpeed;
-	}*/
 }

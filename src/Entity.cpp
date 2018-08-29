@@ -61,7 +61,7 @@ namespace logic
 				{
 					collision = true;
 				}
-				if(isPac) //entity is pacman
+				if(isPlayer) //entity is pacman
 				{
 					mContext->destroyBrick(j);
 				}

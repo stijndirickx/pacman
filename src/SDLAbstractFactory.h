@@ -25,7 +25,7 @@ namespace graphics_SDL
 			Brick* createBrick(int x, int y, int size, int type);
 			Context* createContext();
 			EventHandler* createEventHandler();
-			void createVis();
+			void createSDLHelper();
 
 		protected:
 			SDLHelper* helper;

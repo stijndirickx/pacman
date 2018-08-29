@@ -5,7 +5,7 @@ namespace logic
 	Brick::Brick() {}
 	Brick::~Brick() {}
 
-	void Brick::setType(int type)
+	void Brick::setType(int type) //See Assets/Maps/legend.txt for typeIDs
 	{
 		brickProp[3] = type;
 	}

@@ -25,8 +25,8 @@ namespace logic
 	House* AbstractFactory::createHouse()
 	{
 		house = new House(this, config->getMapFile(), config->getBrickSize());
-		this->createVis();
-		house->createMap();
+		this->createSDLHelper();
+		house->createHouse();
 		return house;
 	}
 }

@@ -2,28 +2,28 @@
 
 namespace logic
 {
-	House::House(AbstractFactory* abstractFactory, string mapName, int size)
+	House::House(AbstractFactory* pAbstractFactory, string mapName, int pBrickSize)
 	{
-		aFactory = abstractFactory;
+		mAbstractFactory = pAbstractFactory;
 		mContext = NULL;
-		tileSize = size;
-		numOfPellets = 0;
-		numOfPelletsLeft = 0;
-		map.open(mapName, std::ios::binary);
-		if( map.fail() )
+		mBrickSize = pBrickSize;
+		numOfPlus = 0;
+		numOfPlusLeft = 0;
+		file.open(mapName, std::ios::binary);
+		if(file.fail())
 		{
-			printf( "Unable to load map file!\n" );
+			printf("[House.cpp]: Can't load house.\n");
 		}
 
-		char line[256];
-		map.getline(line, 256); //get position at first line
-		int lineLength = map.tellg()/3;
+		char line[256]; // 83 chars
+		file.getline(line, 256); //get position at first line
+		int lineLength = 28;//file.tellg()/3;
 
-		map.seekg(0, ios::end); //to the end of the file
-		totalBricks = map.tellg()/3; //get the number of tiles
+		file.seekg(0, ios::end); //to the end of the file
+		totalBricks = file.tellg()/3; //get the number of tiles
 
-		windowWidth = lineLength * tileSize;
-		windowHeight = (totalBricks/lineLength) * tileSize;
+		windowWidth = lineLength * mBrickSize;
+		windowHeight = (totalBricks/lineLength) * mBrickSize;
 	}
 
 	House::~House()
@@ -44,47 +44,47 @@ namespace logic
 		mContext->setTotalBricks(totalBricks);
 	}
 
-	void House::createMap()
+	void House::createHouse()
 	{
-		map.seekg(0, ios::beg);
+		file.seekg(0, ios::beg);
 		int x = 0, y = 0;
 
-		for(int tile = 0; tile < totalBricks; tile++)
+		for(int i = 0; i < totalBricks; i++)
 		{
-			int tileType = 0;
-			map >> tileType;
-			bricks[tile] = aFactory->createBrick(x, y, tileSize, tileType);
-			if(tileType == 2)
+			int type = 0;
+			file >> type;
+			bricks[i] = mAbstractFactory->createBrick(x, y, mBrickSize, type);
+			if(type == 2)
 			{
-				numOfPellets++;
+				numOfPlus++;
 			}
-			x += tileSize;
+			x += mBrickSize;
 			if(x >= windowWidth)
 			{
 				x = 0;
-				y += tileSize;
+				y += mBrickSize;
 			}
 		}
-		numOfPelletsLeft = numOfPellets;
-		map.close();
+		numOfPlusLeft = numOfPlus;
+		file.close();
 	}
 
 	void House::load()
 	{
-		for(int tile = 0; tile < totalBricks; tile++)
+		for(int i = 0; i < totalBricks; i++)
 		{
-			destroyedBricks[tile] = 0;
+			destroyedBricks[i] = 0;
 		}
-		numOfPelletsLeft = numOfPellets;
+		numOfPlusLeft = numOfPlus;
 	}
 
-	void House::draw()
+	void House::paint()
 	{
-		for(int tile = 0; tile < totalBricks; tile++)
+		for(int i = 0; i < totalBricks; i++)
 		{
-			if(destroyedBricks[tile] != 1)
+			if(destroyedBricks[i] != 1)
 			{
-				bricks[tile]->paint();
+				bricks[i]->paint();
 			}
 		}
 	}
@@ -119,7 +119,7 @@ namespace logic
 			{
 				mContext->addToScore(1);
 				destroyedBricks[brickId] = 1;
-				numOfPelletsLeft--;
+				numOfPlusLeft--;
 			}
 			delete brickInfo;
 		}
@@ -135,8 +135,8 @@ namespace logic
 		return windowHeight;
 	}
 
-	int House::getNumOfPellets()
+	int House::getNumOfPlusLeft()
 	{
-		return numOfPelletsLeft;
+		return numOfPlusLeft;
 	}
 }

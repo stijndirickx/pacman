@@ -19,7 +19,7 @@ namespace logic
 			void setDirection(int key);
 			void animate();
 			void move();
-			void gotCaptured(Enemy* enemies[], int numOfEnemies);
+			void gotHit(Enemy* enemies[], int numOfEnemies);
 
 			virtual void paint() = 0;
 			virtual void moveDir(int direction) = 0;

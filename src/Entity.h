@@ -39,7 +39,7 @@ namespace logic
 			bool collision;
 			int x, y, size;
 			int* entityBox = new int [3];
-			bool isPac = false;
+			bool isPlayer = false;
 			int totalTiles = 0;
 			int windowWidth = 0;
 			int windowHeight = 0;

@@ -36,7 +36,7 @@ namespace graphics_SDL
 		return brick;
 	}
 
-	void SDLAbstractFactory::createVis()
+	void SDLAbstractFactory::createSDLHelper()
 	{
 		helper = new SDLHelper(house->getwindowWidth(), house->getwindowHeight(), config->getSpritesFile());
 	}

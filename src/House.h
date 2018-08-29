@@ -11,40 +11,43 @@ using namespace std;
 
 namespace logic
 {
-	class AbstractFactory; //TO USE
+	class AbstractFactory;
 	class Context;
 	class House
 	{
 		public:
-			House(AbstractFactory* abstractFactory, string mapName, int tileSize);
+			House(AbstractFactory* pAbstractFactory, string mapName, int pBrickSize);
 			virtual ~House();
 
 			void setContext(Context* pContext);
-			void draw();
+			void paint();
 			Brick** getBricks();
 			void destroyBrick(int brickId);
 			void load();
-			void createMap();
+			void createHouse();
 			int getwindowWidth();
 			int getwindowHeight();
-			int getNumOfPellets();
+			int getNumOfPlusLeft();
 
 
 		protected:
 			Context* mContext;
 
 			int totalBricks;
+
 			//TODO tile array variable size
 			Brick** bricks = new Brick*[911]; //** --> Cannot instantiate abstract object
 			int* destroyedBricks = new int [911];
-			int numOfPellets;
-			int numOfPelletsLeft;
-			AbstractFactory* aFactory = NULL;
-			std::ifstream map;
+
+
+			int numOfPlus;
+			int numOfPlusLeft;
+			AbstractFactory* mAbstractFactory = NULL;
+			std::ifstream file;
 
 			int windowWidth;
 			int windowHeight;
-			int tileSize;
+			int mBrickSize;
 	};
 }
 
