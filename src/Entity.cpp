@@ -2,16 +2,7 @@
 
 namespace logic
 {
-	Entity::Entity()
-	{
-		collision = false;
-		aFactory = NULL;
-		mContext = NULL;
-
-		x = 0;
-		y = 0;
-		size = 0;
-	}
+	Entity::Entity(){}
 
 	Entity::~Entity()
 	{
@@ -21,16 +12,16 @@ namespace logic
 	void Entity::setContext(Context* pContext)
 	{
 		mContext = pContext;
-		totalTiles = mContext->getTotalBricks();
+		totalBricks = mContext->getTotalBricks();
 		windowWidth = mContext->getwindowWidth();
 		windowHeight = mContext->getwindowHeight();
-		size = mContext->getBrickSize();
 		numOfEnemies = mContext->getNumOfEnemies();
+		size = mContext->getBrickSize();
 	}
 
-	void Entity::setAbstractFactory(AbstractFactory* fac)
+	void Entity::setAbstractFactory(AbstractFactory* pAbstractFactory )
 	{
-		aFactory = fac;
+		mAbstractFactory  = pAbstractFactory ;
 	}
 
 	int* Entity::getCollisionBox()
@@ -47,28 +38,28 @@ namespace logic
 		Brick** bricks = mContext->getBricks();
 
 		collision = false;
-		int* tileBoxInt = 0;
+		int* brickBox = 0;
 
-		for(int j = 0; j < totalTiles; j++) //CHECK TILES
+		for(int i = 0; i < totalBricks; i++) //CHECK TILES
 		{
-			tileBoxInt = bricks[j]->getProp();
+			brickBox = bricks[i]->getProp();
 
-			bool tempCollide = mContext->checkCollision(this->getCollisionBox(), tileBoxInt);
+			bool tempCollide = mContext->checkCollision(this->getCollisionBox(), brickBox);
 
 			if(!collision && tempCollide)
 			{
-				if(tileBoxInt[3] >= 5 && tileBoxInt[3] <= 24) //is wall
+				if(brickBox[3] >= 5 && brickBox[3] <= 24) //is wall
 				{
 					collision = true;
 				}
-				if(isPlayer) //entity is pacman
+				if(isPlayer) //entity is player
 				{
-					mContext->destroyBrick(j);
+					mContext->destroyBrick(i);
 				}
 			}
 		}
 
-		delete tileBoxInt;
+		delete brickBox;
 		return collision;
 	}
 

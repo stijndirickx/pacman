@@ -27,11 +27,11 @@ namespace logic
 			void createHouse();
 			int getwindowWidth();
 			int getwindowHeight();
-			int getNumOfPlusLeft();
+			int getNumOfPlus();
 
 
 		protected:
-			Context* mContext;
+			Context* mContext = NULL;
 
 			int totalBricks;
 
@@ -40,8 +40,7 @@ namespace logic
 			int* destroyedBricks = new int [911];
 
 
-			int numOfPlus;
-			int numOfPlusLeft;
+			int numOfPlus = 0;
 			AbstractFactory* mAbstractFactory = NULL;
 			std::ifstream file;
 

@@ -21,7 +21,7 @@ namespace logic
 			virtual ~Context();
 
 			void resetGame();
-			bool checkCollision(int* a, int* b);
+			bool checkCollision(int* entityBox, int* brickBox);
 
 			//Lives
 			int getLives();
@@ -30,15 +30,15 @@ namespace logic
 
 			//Pause
 			bool getPlaying();
-			bool setPlaying(bool play, string text);
+			bool setPlaying(bool play, string pDisplay);
 
 			//Score
 			int getScore();
 			int addToScore(int addition);
-			int setHighscore(int score);
-			int getHighscore();
+			int setHiscore(int pHiscore);
+			int getHiscore();
 
-			//Screen
+			//Window
 			int setwindowWidth(int sWidth);
 			int setwindowHeight(int sHeight);
 			int getwindowWidth();
@@ -67,22 +67,31 @@ namespace logic
 			virtual void updateScreen() = 0;
 
 		protected:
-			int windowWidth = 0;
-			int windowHeight = 0;
+
+			//Lives
+			int lives = 3;
+
+			//Pause
+			bool playing = false;
+			string mDisplay = "Start";
+
+			//Score
+			std::fstream file;
+			int mHiscore = 0;
+			int score = 0;
+
+			//Window
+			int mWindowWidth = 0;
+			int mWindowHeight = 0;
+
+			//Bricks & House
 			int numOfBricks = 0;
+			int brickSize = 20;
+			House* mHouse = NULL;
+
+			//Enemies
 			int numOfEnemies = 0;
 			std::vector<Enemy*> enemies;
-			House* mHouse = NULL;
-			std::fstream hs;
-
-			int highScore = 0;
-			int score = 0;
-			bool playing = false;
-
-			string displayString = "Start";
-
-			int brickSize = 20;
-			int lives = 3;
 	};
 }
 

@@ -58,9 +58,9 @@ namespace logic
 				{
 					if(eventHandler->getKeyDown() == 6) //pressed space
 					{
-						if(house->getNumOfPlusLeft() > 0)
+						if(house->getNumOfPlus() > 0)
 						{
-							context->setPlaying(!context->getPlaying(), "Paused");
+							context->setPlaying(!context->getPlaying(), "waiting...");
 							if(!player->getAliveState())
 							{
 								player->setAliveState(true);
@@ -82,7 +82,7 @@ namespace logic
 							house->load();
 							player->setAliveState(true);
 							player->setDirection(4);
-							context->setPlaying(true, "Paused");
+							context->setPlaying(true, "waiting...");
 						}
 					}
 					else if (context->getPlaying()) //not changing direction while paused
@@ -90,7 +90,7 @@ namespace logic
 						player->setDirection(eventHandler->getKeyDown());
 					}
 				}
-			}
+			} //end of second while
 
 			if(!enemies[0]->getAttackingState()) //if ghosts vulnerable
 			{
@@ -107,9 +107,9 @@ namespace logic
 				}
 			}
 
-			if(house->getNumOfPlusLeft() == 0)
+			if(house->getNumOfPlus() == 0)
 			{
-				context->setPlaying(false, "Winner");
+				context->setPlaying(false, "all cleared");
 			}
 
 			ticks = clock(); //#clock ticks since running

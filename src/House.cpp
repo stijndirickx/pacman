@@ -5,25 +5,23 @@ namespace logic
 	House::House(AbstractFactory* pAbstractFactory, string mapName, int pBrickSize)
 	{
 		mAbstractFactory = pAbstractFactory;
-		mContext = NULL;
 		mBrickSize = pBrickSize;
-		numOfPlus = 0;
-		numOfPlusLeft = 0;
+
 		file.open(mapName, std::ios::binary);
-		if(file.fail())
+		if(file.fail()) //Error catching
 		{
 			printf("[House.cpp]: Can't load house.\n");
 		}
 
-		char line[256]; // 83 chars
-		file.getline(line, 256); //get position at first line
-		int lineLength = 28;//file.tellg()/3;
+		char line[256];
+		file.getline(line, 256);
+		int bricksWidth = file.tellg()/3; //get amount of bricks width
+		file.seekg(0, ios::end);
+		totalBricks = file.tellg()/3;  //get total bricks
+		int bricksHeight = totalBricks / bricksWidth; //calculate amount of bricks height
 
-		file.seekg(0, ios::end); //to the end of the file
-		totalBricks = file.tellg()/3; //get the number of tiles
-
-		windowWidth = lineLength * mBrickSize;
-		windowHeight = (totalBricks/lineLength) * mBrickSize;
+		windowWidth = bricksWidth * mBrickSize; //brickamount * size = windowsize
+		windowHeight = bricksHeight * mBrickSize;
 	}
 
 	House::~House()
@@ -48,24 +46,22 @@ namespace logic
 	{
 		file.seekg(0, ios::beg);
 		int x = 0, y = 0;
-
 		for(int i = 0; i < totalBricks; i++)
 		{
 			int type = 0;
-			file >> type;
+			file >> type; //get type out of file
 			bricks[i] = mAbstractFactory->createBrick(x, y, mBrickSize, type);
-			if(type == 2)
+			if(type == 2) //count the plus-bricks
 			{
 				numOfPlus++;
 			}
 			x += mBrickSize;
-			if(x >= windowWidth)
+			if(x >= windowWidth) //new row
 			{
 				x = 0;
 				y += mBrickSize;
 			}
 		}
-		numOfPlusLeft = numOfPlus;
 		file.close();
 	}
 
@@ -75,7 +71,6 @@ namespace logic
 		{
 			destroyedBricks[i] = 0;
 		}
-		numOfPlusLeft = numOfPlus;
 	}
 
 	void House::paint()
@@ -112,14 +107,14 @@ namespace logic
 			else if(brickInfo[3] == 25) // Eclipse
 			{
 				mContext->playSound(7);
-				mContext->addToScore(10);
+				mContext->addToScore(50);
 				destroyedBricks[brickId] = 1;
 			}
 			else if(brickInfo[3] == 2) // Plus
 			{
 				mContext->addToScore(1);
 				destroyedBricks[brickId] = 1;
-				numOfPlusLeft--;
+				numOfPlus--;
 			}
 			delete brickInfo;
 		}
@@ -135,8 +130,8 @@ namespace logic
 		return windowHeight;
 	}
 
-	int House::getNumOfPlusLeft()
+	int House::getNumOfPlus()
 	{
-		return numOfPlusLeft;
+		return numOfPlus;
 	}
 }

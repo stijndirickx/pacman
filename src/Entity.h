@@ -21,7 +21,7 @@ namespace logic
 			int getX();
 			int getY();
 
-			void setAbstractFactory(AbstractFactory* fac);
+			void setAbstractFactory(AbstractFactory* pAbstractFactory );
 			bool checkCollisions();
 			int* getCollisionBox();
 			void setContext(Context* pContext);
@@ -34,17 +34,21 @@ namespace logic
 			bool getAliveState();
 
 		protected:
-			AbstractFactory* aFactory;
-			Context* mContext;
-			bool collision;
-			int x, y, size;
-			int* entityBox = new int [3];
-			bool isPlayer = false;
-			int totalTiles = 0;
+			AbstractFactory* mAbstractFactory = NULL;
+
+			//From context ~ setContext function
+			Context* mContext = NULL;
+			int totalBricks = 0;
 			int windowWidth = 0;
 			int windowHeight = 0;
 			int numOfEnemies = 0;
+			int size = 0;
 
+
+			bool collision = false;
+			int x = 0, y = 0;
+			int* entityBox = new int [3];
+			bool isPlayer = false;
 			int mSpeed = 1;
 			int mAliveState = true;
 	};

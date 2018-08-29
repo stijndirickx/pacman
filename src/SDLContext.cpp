@@ -28,16 +28,16 @@ namespace graphics_SDL
 	void SDLContext::updateText()
 	{
 		renderText(fontText, "Score: " + std::to_string(score), 20, 0, 0);
-		renderText(fontText, "Lives: " + std::to_string(lives), windowWidth - 20, 0, 1);
+		renderText(fontText, "Lives: " + std::to_string(lives), mWindowWidth - 20, 0, 1);
 
 		if(!playing)
 		{
-			renderText(fontTitle, displayString, windowWidth/2 , windowHeight/2  - 60, 2);
-			renderText(fontText, "Press 'space' to play", windowWidth/2, windowHeight/2 - 20, 2);
+			renderText(fontTitle, mDisplay, mWindowWidth/2 , mWindowHeight/2  - 60, 2);
+			renderText(fontText, "Press 'space' to play", mWindowWidth/2, mWindowHeight/2 - 20, 2);
 
 			if(lives <= 0)
 			{
-				renderText(fontText, "Hiscore: " + std::to_string(highScore), windowWidth/2, windowHeight/2 + 20, 2);
+				renderText(fontText, "Hiscore: " + std::to_string(mHiscore), mWindowWidth/2, mWindowHeight/2 + 20, 2);
 			}
 		}
 	}

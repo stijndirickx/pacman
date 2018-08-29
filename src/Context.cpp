@@ -4,20 +4,36 @@ namespace logic
 {
 	Context::Context()
 	{
-		this->getHighscore();
+		this->getHiscore();
 	}
 
 	Context::~Context() {}
 
+	void Context::resetGame()
+	{
+		score = 0;
+		mDisplay = "Start again";
+	}
+
+	bool Context::checkCollision(int* entityBox, int* brickBox)
+	{
+		bool horizontalColl1 = (entityBox[0] + entityBox[2]) > brickBox[0];
+		bool horizontalColl2 = entityBox[0] < (brickBox[0] + brickBox[2]);
+		bool verticalColl1 = (entityBox[1] + entityBox[2]) > brickBox[1];
+		bool verticalColl2 = entityBox[1] < (brickBox[1] + brickBox[2]);
+		return (horizontalColl1 && horizontalColl2 && verticalColl1 && verticalColl2);
+	}
+
+
+	//Lives
 	int Context::getLives()
 	{
 		return lives;
 	}
 
-
 	int Context::subtractLives(int subtraction)
 	{
-		lives = lives - subtraction;
+		lives -= subtraction;
 		return lives;
 	}
 
@@ -27,30 +43,34 @@ namespace logic
 		return lives;
 	}
 
+
+	//Pause
 	bool Context::getPlaying()
 	{
 		return playing;
 	}
 
-	bool Context::setPlaying(bool play, string text)
+	bool Context::setPlaying(bool play, string pDisplay)
 	{
 		if(lives <= 0)
 		{
 			playing = false;
-			displayString = "game over";
-			if(score > highScore)
+			mDisplay = "game over";
+			if(score > mHiscore)
 			{
-				this->setHighscore(score);
+				this->setHiscore(score);
 			}
 		}
 		else
 		{
 			playing = play;
-			displayString = text;
+			mDisplay = pDisplay;
 		}
 		return playing;
 	}
 
+
+	//Score
 	int Context::getScore()
 	{
 		return score;
@@ -58,35 +78,56 @@ namespace logic
 
 	int Context::addToScore(int addition)
 	{
-		score = score + addition;
+		score += addition;
 		return score;
 	}
 
-	int Context::setwindowWidth(int sWidth)
+	int Context::setHiscore(int pHiscore)
 	{
-		windowWidth = sWidth;
-		return windowWidth;
+		mHiscore = pHiscore;
+		file.open("Assets/hiscore.ini", std::ios::out);
+		file << pHiscore;
+		file.close();
+		return mHiscore;
 	}
 
-	int Context::setwindowHeight(int sHeight)
+	int Context::getHiscore()
 	{
-		windowHeight = sHeight;
-		return windowHeight;
+		file.open("Assets/hiscore.ini", std::ios::in);
+		file >> mHiscore;
+		file.close();
+		return mHiscore;
+	}
+
+
+	//Window
+	int Context::setwindowWidth(int pWindowWidth)
+	{
+		mWindowWidth = pWindowWidth;
+		return mWindowWidth;
+	}
+
+	int Context::setwindowHeight(int pWindowHeight)
+	{
+		mWindowHeight = pWindowHeight;
+		return mWindowHeight;
 	}
 
 	int Context::getwindowWidth()
 	{
-		return windowWidth;
+		return mWindowWidth;
 	}
 
 	int Context::getwindowHeight()
 	{
-		return windowHeight;
+		return mWindowHeight;
 	}
 
-	int Context::setTotalBricks(int totalTiles)
+
+	//Bricks & House
+	int Context::setTotalBricks(int totalBricks)
 	{
-		numOfBricks = totalTiles;
+		numOfBricks = totalBricks;
 		return numOfBricks;
 	}
 
@@ -106,51 +147,6 @@ namespace logic
 		return brickSize;
 	}
 
-	void Context::resetGame()
-	{
-		score = 0;
-		displayString = "Start again";
-	}
-
-	bool Context::checkCollision(int* entityBox, int* tileBox)
-	{
-		int leftA, leftB;
-		int rightA, rightB;
-		int topA, topB;
-		int bottomA, bottomB;
-
-		leftA = entityBox[0];
-		rightA = entityBox[0] + entityBox[2]; // + width
-		topA = entityBox[1];
-		bottomA = entityBox[1] + entityBox[2]; // + height
-
-		leftB = tileBox[0];
-		rightB = tileBox[0] + tileBox[2]; // + width
-		topB = tileBox[1];
-		bottomB = tileBox[1] + tileBox[2]; // + height
-
-		if( rightA > leftB && leftA < rightB && topA < bottomB && bottomA > topB)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	void Context::addEnemy(Enemy* enemy)
-	{
-		enemies.push_back(enemy);
-	}
-
-	std::vector<Enemy*> Context::getEnemies()
-	{
-		return enemies;
-	}
-
-	void Context::setHouse(House* pHouse)
-	{
-		mHouse = pHouse;
-	}
-
 	Brick** Context::getBricks()
 	{
 		return mHouse->getBricks();
@@ -161,21 +157,21 @@ namespace logic
 		mHouse->destroyBrick(brickId);
 	}
 
-	int Context::setHighscore(int hscore)
+	void Context::setHouse(House* pHouse)
 	{
-		highScore = hscore;
-		hs.open("Assets/highscore.ini", std::ios::out);
-		hs << hscore;
-		hs.close();
-		return highScore;
+		mHouse = pHouse;
 	}
 
-	int Context::getHighscore()
+
+	//Enemies
+	void Context::addEnemy(Enemy* enemy)
 	{
-		hs.open("Assets/highscore.ini", std::ios::in);
-		hs >> highScore;
-		hs.close();
-		return highScore;
+		enemies.push_back(enemy);
+	}
+
+	std::vector<Enemy*> Context::getEnemies()
+	{
+		return enemies;
 	}
 
 	int Context::setNumOfEnemies(int pNumber)
