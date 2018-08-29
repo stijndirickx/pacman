@@ -56,7 +56,7 @@ namespace logic
 				}
 				else if(eventHandler->keyDown())
 				{
-					if(eventHandler->getKeyDown() == 6) //pressed enter
+					if(eventHandler->getKeyDown() == 6) //pressed space
 					{
 						if(house->getNumOfPellets() > 0)
 						{
@@ -131,7 +131,7 @@ namespace logic
 					{
 						enemies[j]->move();
 					}
-					context->playSound("pacman");
+					context->playMusic(2);
 				}
 				else
 				{
@@ -140,7 +140,7 @@ namespace logic
 					{
 						enemies[j]->paint();
 					}
-					context->playSound("beginning");
+					context->playMusic(1);
 				}
 
 				if(clock_ms % (fpa*timePerFrame) == 0) //every x frames animation
@@ -165,6 +165,7 @@ namespace logic
 				context->updateScreen();
 			}
 		}
+
 
 		// Game ended
 		for(int i = 0; i < numOfEnemies; i++)

@@ -92,14 +92,14 @@ namespace logic
 				{
 					mContext->subtractLives(1);
 					mContext->setPlaying(false, "Dead");
-					mContext->playSound("dead");
+					mContext->playSound(4);
 					mAliveState = false; //poor thing died :(
 				}
 
 				else
 				{
 					enemies[i]->setAliveState(false);
-					mContext->playSound("kill");
+					mContext->playSound(6);
 				}
 			}
 

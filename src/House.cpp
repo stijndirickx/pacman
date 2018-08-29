@@ -101,7 +101,7 @@ namespace logic
 			int* brickInfo = bricks[brickId]->getProp();
 			if(brickInfo[3] == 3) // Big plus
 			{
-				mContext->playSound("eat");
+				mContext->playSound(5);
 				std::vector<Enemy*>enemies = mContext->getEnemies();
 				for(size_t i = 0; i <= (enemies.size()-1); i++)
 				{
@@ -111,7 +111,7 @@ namespace logic
 			}
 			else if(brickInfo[3] == 25) // Eclipse
 			{
-				mContext->playSound("eat");
+				mContext->playSound(7);
 				mContext->addToScore(10);
 				destroyedBricks[brickId] = 1;
 			}

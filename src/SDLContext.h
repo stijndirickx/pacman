@@ -20,17 +20,15 @@ namespace graphics_SDL
 			virtual ~SDLContext();
 
 			void updateText();
-			void playSound(string sound);
+			void playSound(int soundId);
+			void playMusic(int musicId);
 			void clearScreen();
 			void updateScreen();
 
 
 		protected:
 			void renderText(TTF_Font* font, string msgTxt, int x, int y, int option);
-
-
 			SDLHelper* mHelper;
-
 			SDL_Renderer* renderer;
 			SDL_Surface* surface;
 
@@ -38,8 +36,8 @@ namespace graphics_SDL
 			TTF_Font* fontTitle;
 			SDL_Color msgColor;
 
-			Mix_Chunk *pacMusic;
-			Mix_Chunk *pacSound;
+			Mix_Chunk* music;
+			Mix_Chunk* sound;
 	};
 }
 

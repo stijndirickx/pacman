@@ -61,7 +61,8 @@ namespace logic
 
 
 			virtual void updateText() = 0;
-			virtual void playSound(string sound) = 0;
+			virtual void playMusic(int musicId) = 0;
+			virtual void playSound(int soundId) = 0;
 			virtual void clearScreen() = 0;
 			virtual void updateScreen() = 0;
 

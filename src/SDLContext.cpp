@@ -8,20 +8,20 @@ namespace graphics_SDL
 		renderer = mHelper->getRenderer();
 		surface = mHelper->getSurface();
 
-		fontText = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 10);
-		fontTitle = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 40);
-		msgColor = {255, 255, 255}; //White
+		fontText = TTF_OpenFont("Assets/Fonts/Starjedi.ttf", 16);
+		fontTitle = TTF_OpenFont("Assets/Fonts/Starjedi.ttf", 40);
+		msgColor = {255, 220, 220}; //Salmon pink
 
-		pacMusic = Mix_LoadWAV("Assets/Sounds/pacman_beginning.wav");
-		pacSound = Mix_LoadWAV("Assets/Sounds/pacman_eatghost.wav");
+		music = Mix_LoadWAV("Assets/Sounds/c++man_beginning.wav");
+		sound = Mix_LoadWAV("Assets/Sounds/c++man_eatghost.wav");
 	}
 
 	SDLContext::~SDLContext()
 	{
-		Mix_FreeChunk(pacMusic);
-		pacMusic = NULL;
-		Mix_FreeChunk(pacSound);
-		pacSound = NULL;
+		Mix_FreeChunk(music);
+		music = NULL;
+		Mix_FreeChunk(sound);
+		sound = NULL;
 		delete mHelper;
 	}
 
@@ -32,12 +32,12 @@ namespace graphics_SDL
 
 		if(!playing)
 		{
-			renderText(fontTitle, displayString, windowWidth/2 , windowHeight/2  - 40, 2);
-			renderText(fontText, "Press 'space' to play", windowWidth/2, windowHeight/2, 2);
+			renderText(fontTitle, displayString, windowWidth/2 , windowHeight/2  - 60, 2);
+			renderText(fontText, "Press 'space' to play", windowWidth/2, windowHeight/2 - 20, 2);
 
 			if(lives <= 0)
 			{
-				renderText(fontText, "High score: " + std::to_string(highScore), windowWidth/2, windowHeight/2 + 20, 2);
+				renderText(fontText, "Hiscore: " + std::to_string(highScore), windowWidth/2, windowHeight/2 + 20, 2);
 			}
 		}
 	}
@@ -66,55 +66,64 @@ namespace graphics_SDL
 		SDL_FreeSurface(msgSurface);
 	}
 
-	void SDLContext::playSound(string sound) //TODO clean this
+	void SDLContext::playSound(int soundId) //Check Assets/Sounds/legend.txt for id's of WAV file
 	{
-		if(sound == "pacman")
+		Mix_FreeChunk(sound);
+		switch(soundId)
 		{
-			if(Mix_Playing(2) != 0)
-			{
-				Mix_HaltChannel(2);
-				Mix_FreeChunk(pacMusic);
-				pacMusic = Mix_LoadWAV("Assets/Sounds/pacman_chomp.wav");
-			}
+			case 4:
+				sound = Mix_LoadWAV("Assets/Sounds/c++man_death.wav");
+				break;
+			case 5:
+				sound = Mix_LoadWAV("Assets/Sounds/c++man_eatfruit.wav");
+				break;
+			case 6:
+				sound = Mix_LoadWAV("Assets/Sounds/c++man_eatghost.wav");
+				break;
+			case 7:
+				sound = Mix_LoadWAV("Assets/Sounds/c++man_eateclipse.wav");
+				break;
+		}
+		Mix_PlayChannel(soundId, sound, 0);
+	}
 
-			if( Mix_Playing(1) == 0)
-			{
-				Mix_PlayChannel(1, pacMusic, 0);
-			}
-		}
-		else if(sound == "beginning")
+	void SDLContext::playMusic(int musicId) //Check Assets/Sounds/legend.txt for id's of WAV file
+	{
+		int notplayA=1;int notplayB=3;
+		string musicString;
+		switch(musicId)
 		{
-			if(Mix_Playing(1) != 0)
-			{
-				Mix_HaltChannel(1);
-				Mix_FreeChunk(pacMusic);
-				pacMusic = Mix_LoadWAV("Assets/Sounds/pacman_beginning.wav");
-			}
-
-			if(Mix_Playing(2) == 0)
-			{
-				Mix_PlayChannel(2, pacMusic, 0);
-			}
-		}
-		else if(sound == "dead")
-		{
-			Mix_FreeChunk(pacSound);
-			pacSound = Mix_LoadWAV("Assets/Sounds/pacman_death.wav");
-			Mix_PlayChannel(-1, pacSound, 0);
-		}
-		else if(sound == "kill")
-		{
-			Mix_FreeChunk(pacSound);
-			pacSound = Mix_LoadWAV("Assets/Sounds/pacman_eatghost.wav");
-			Mix_PlayChannel(3, pacSound, 0);
-		}
-		else if(sound == "eat")
-		{
-			Mix_FreeChunk(pacSound);
-			pacSound = Mix_LoadWAV("Assets/Sounds/pacman_eatfruit.wav");
-			Mix_PlayChannel(3, pacSound, 0);
+			case 1:
+				notplayA=2;
+				musicString = "Assets/Sounds/c++man_beginning.wav";
+				break;
+			case 2:
+				musicString = "Assets/Sounds/c++man_chomp.wav";
+				break;
+			case 3:
+				notplayB=2;
+				musicString = "Assets/Sounds/c++man_intermission.wav";
+				break;
 		}
 
+		if((Mix_Playing(notplayA) != 0)||(Mix_Playing(notplayB) != 0)) //other track is playing
+		{
+			if(Mix_Playing(notplayA) != 0) 	//stop playing track
+			{
+				Mix_HaltChannel(notplayA);
+			}
+			else							//stop playing track
+			{
+				Mix_HaltChannel(notplayB);
+			}
+			Mix_FreeChunk(music);		//Free chunk from this track
+			music = Mix_LoadWAV(musicString.c_str()); //Load new WAV
+		}
+
+		if(Mix_Playing(musicId) == 0) //Check if right track isnt playing yet, if so start playing
+		{
+			Mix_PlayChannel(musicId, music, 0);
+		}
 	}
 
 	void SDLContext::clearScreen()
