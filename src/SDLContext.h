@@ -24,8 +24,9 @@ namespace graphics_SDL
 			void clearScreen();
 			void updateScreen();
 
-		protected:
 
+		protected:
+			void renderText(TTF_Font* font, string msgTxt, int x, int y, int option);
 
 
 			SDLHelper* mHelper;
@@ -36,10 +37,6 @@ namespace graphics_SDL
 			TTF_Font* fontText;
 			TTF_Font* fontTitle;
 			SDL_Color msgColor;
-			SDL_Surface* msgSurface;
-			SDL_Texture* msgTexture;
-			SDL_Rect msgRect;
-			std::string printTxt = "";
 
 			Mix_Chunk *pacMusic;
 			Mix_Chunk *pacSound;

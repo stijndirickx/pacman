@@ -11,8 +11,6 @@ namespace graphics_SDL
 		fontText = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 10);
 		fontTitle = TTF_OpenFont("Assets/Fonts/emulogic.ttf", 40);
 		msgColor = {255, 255, 255}; //White
-		msgTexture = NULL;
-		msgSurface = NULL;
 
 		pacMusic = Mix_LoadWAV("Assets/Sounds/pacman_beginning.wav");
 		pacSound = Mix_LoadWAV("Assets/Sounds/pacman_eatghost.wav");
@@ -29,56 +27,46 @@ namespace graphics_SDL
 
 	void SDLContext::updateText()
 	{
-		//left top
-		printTxt = "Score: " + std::to_string(score);
-		msgSurface = TTF_RenderText_Solid(fontText, printTxt.c_str(), msgColor);
-		msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
-
-		msgRect = {20, 0, msgSurface->w, msgSurface->h};
-		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
-		SDL_DestroyTexture(msgTexture);
-		SDL_FreeSurface(msgSurface);
-
-		//right top
-		printTxt = "Lives: " + std::to_string(lives);
-		msgSurface = TTF_RenderText_Solid(fontText, printTxt.c_str(), msgColor);
-		msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
-
-		msgRect = {windowWidth - msgSurface->w - 20, 0, msgSurface->w, msgSurface->h};
-		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
-		SDL_DestroyTexture(msgTexture);
-		SDL_FreeSurface(msgSurface);
+		renderText(fontText, "Score: " + std::to_string(score), 20, 0, 0);
+		renderText(fontText, "Lives: " + std::to_string(lives), windowWidth - 20, 0, 1);
 
 		if(!playing)
 		{
-			msgSurface = TTF_RenderText_Solid(fontTitle, displayString.c_str(), msgColor);
-			msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
-			msgRect = {windowWidth/2 - (msgSurface->w/2), windowHeight/2 - (msgSurface->h/2) - 40, msgSurface->w, msgSurface->h};
-			SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
-			SDL_DestroyTexture(msgTexture);
-			SDL_FreeSurface(msgSurface);
-
-			msgSurface = TTF_RenderText_Solid(fontText, "Press 'space' to play", msgColor);
-			msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
-			msgRect = {windowWidth/2 - (msgSurface->w/2), windowHeight/2 - (msgSurface->h/2), msgSurface->w, msgSurface->h};
-			SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
-			SDL_DestroyTexture(msgTexture);
-			SDL_FreeSurface(msgSurface);
+			renderText(fontTitle, displayString, windowWidth/2 , windowHeight/2  - 40, 2);
+			renderText(fontText, "Press 'space' to play", windowWidth/2, windowHeight/2, 2);
 
 			if(lives <= 0)
 			{
-				printTxt = "High score: " + std::to_string(highScore);
-				msgSurface = TTF_RenderText_Solid(fontText, printTxt.c_str(), msgColor);
-				msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
-				msgRect = {windowWidth/2 - (msgSurface->w/2), windowHeight/2 - (msgSurface->h/2) + 20, msgSurface->w, msgSurface->h};
-				SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
-				SDL_DestroyTexture(msgTexture);
-				SDL_FreeSurface(msgSurface);
+				renderText(fontText, "High score: " + std::to_string(highScore), windowWidth/2, windowHeight/2 + 20, 2);
 			}
 		}
 	}
 
-	void SDLContext::playSound(string sound)
+	void SDLContext::renderText(TTF_Font* font, string msgTxt, int x, int y, int option)
+	{
+		SDL_Rect msgRect;
+		SDL_Surface* msgSurface = TTF_RenderText_Solid(font, msgTxt.c_str(), msgColor);
+		SDL_Texture* msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
+
+		switch(option)
+		{
+			case 0: //left align
+				msgRect = {x,y, msgSurface->w, msgSurface->h};
+				break;
+			case 1: //right align
+				msgRect = {x - msgSurface->w,y, msgSurface->w, msgSurface->h};
+				break;
+			case 2: //centered
+				msgRect = {x - (msgSurface->w/2), y - (msgSurface->h/2), msgSurface->w, msgSurface->h};
+				break;
+		}
+
+		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+		SDL_DestroyTexture(msgTexture);
+		SDL_FreeSurface(msgSurface);
+	}
+
+	void SDLContext::playSound(string sound) //TODO clean this
 	{
 		if(sound == "pacman")
 		{
