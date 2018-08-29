@@ -9,21 +9,6 @@ namespace logic
 
 	Context::~Context() {}
 
-	void Context::resetGame()
-	{
-		score = 0;
-		mDisplay = "Start again";
-	}
-
-	bool Context::checkCollision(int* entityBox, int* brickBox)
-	{
-		bool horizontalColl1 = (entityBox[0] + entityBox[2]) > brickBox[0];
-		bool horizontalColl2 = entityBox[0] < (brickBox[0] + brickBox[2]);
-		bool verticalColl1 = (entityBox[1] + entityBox[2]) > brickBox[1];
-		bool verticalColl2 = entityBox[1] < (brickBox[1] + brickBox[2]);
-		return (horizontalColl1 && horizontalColl2 && verticalColl1 && verticalColl2);
-	}
-
 
 	//Lives
 	int Context::getLives()
@@ -67,6 +52,12 @@ namespace logic
 			mDisplay = pDisplay;
 		}
 		return playing;
+	}
+
+	void Context::resetGame()
+	{
+		score = 0;
+		mDisplay = "Start again";
 	}
 
 

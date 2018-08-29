@@ -23,6 +23,7 @@ namespace logic
 
 			void setAbstractFactory(AbstractFactory* pAbstractFactory );
 			bool checkCollisions();
+			bool checkCollision(int* entityBox, int* brickBox);
 			int* getCollisionBox();
 			void setContext(Context* pContext);
 

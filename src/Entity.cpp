@@ -44,7 +44,7 @@ namespace logic
 		{
 			brickBox = bricks[i]->getProp();
 
-			bool tempCollide = mContext->checkCollision(this->getCollisionBox(), brickBox);
+			bool tempCollide = checkCollision(this->getCollisionBox(), brickBox);
 
 			if(!collision && tempCollide)
 			{
@@ -61,6 +61,15 @@ namespace logic
 
 		delete brickBox;
 		return collision;
+	}
+
+	bool Entity::checkCollision(int* entityBox, int* brickBox)
+	{
+		bool horizontalColl1 = (entityBox[0] + entityBox[2]) > brickBox[0];
+		bool horizontalColl2 = entityBox[0] < (brickBox[0] + brickBox[2]);
+		bool verticalColl1 = (entityBox[1] + entityBox[2]) > brickBox[1];
+		bool verticalColl2 = entityBox[1] < (brickBox[1] + brickBox[2]);
+		return (horizontalColl1 && horizontalColl2 && verticalColl1 && verticalColl2);
 	}
 
 	void Entity::setSpeed(int pSpeed)

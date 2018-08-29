@@ -85,8 +85,7 @@ namespace logic
 	{
 		for(int i = 0; i<numOfEnemies; i++)
 		{
-			int* enemyBox = enemies[i]->getCollisionBox();
-			bool captured = mContext->checkCollision(this->getCollisionBox(), enemyBox);
+			bool captured = checkCollision(this->getCollisionBox(), enemies[i]->getCollisionBox());
 			if(captured)
 			{
 				if(enemies[i]->getAttackingState()) //Agressive enemies
@@ -103,8 +102,6 @@ namespace logic
 					mContext->playSound(6);
 				}
 			}
-
-			delete enemyBox;
 		}
 	}
 }

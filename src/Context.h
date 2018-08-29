@@ -20,9 +20,6 @@ namespace logic
 			Context();
 			virtual ~Context();
 
-			void resetGame();
-			bool checkCollision(int* entityBox, int* brickBox);
-
 			//Lives
 			int getLives();
 			int subtractLives(int subtraction);
@@ -31,6 +28,7 @@ namespace logic
 			//Pause
 			bool getPlaying();
 			bool setPlaying(bool play, string pDisplay);
+			void resetGame();
 
 			//Score
 			int getScore();
