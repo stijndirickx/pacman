@@ -11,7 +11,7 @@ using namespace std;
 namespace logic
 {
 	class Context;
-	class AbstractFactory; //Forward declaration so the compiler knows what Factory is --> to use CheckCollision
+	class AbstractFactory;
 	class Entity
 	{
 		public:
@@ -34,12 +34,21 @@ namespace logic
 			void setAliveState(bool pAliveState);
 			bool getAliveState();
 
+			virtual void move() = 0;
+			virtual void reset() = 0;
+
 		protected:
 			//Method
 			bool checkCollision(int* entityBox, int* brickBox);
 
 			//Variables
 			AbstractFactory* mAbstractFactory = NULL;
+			bool collision = false;
+			int x = 0, y = 0;
+			int* entityBox = new int [3];
+			bool isPlayer = false;
+			int mSpeed = 1;
+			int mAliveState = true;
 
 			//From context ~ setContext function
 			Context* mContext = NULL;
@@ -48,13 +57,6 @@ namespace logic
 			int windowHeight = 0;
 			int numOfEnemies = 0;
 			int size = 0;
-
-			bool collision = false;
-			int x = 0, y = 0;
-			int* entityBox = new int [3];
-			bool isPlayer = false;
-			int mSpeed = 1;
-			int mAliveState = true;
 	};
 }
 

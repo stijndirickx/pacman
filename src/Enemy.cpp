@@ -31,7 +31,7 @@ namespace logic
 		}*/
 	}
 
-	void Enemy::resetEnemy()
+	void Enemy::reset()
 	{
 		x = (windowWidth/2)-(floor(numOfEnemies/2) * size)+(type*size);
 		y = (windowHeight/2);
@@ -57,7 +57,7 @@ namespace logic
 		{
 			int tempx = x;
 			int tempy = y;
-			if(changeDir >= 15 ) //after x movements change direction
+			if(changeDir >= rand()%(10) + 10) //after x movements change direction
 			{
 				dir[type] = rand()%(4) + 1;
 				changeDir = 0;
@@ -117,13 +117,6 @@ namespace logic
 		{
 			this->returnToCenter();
 		}
-
-		if(x < -size) //ghost went to far
-		{
-			x = windowWidth;
-		}
-
-
 		this->paint();
 	}
 
@@ -136,7 +129,7 @@ namespace logic
 
 		if(x == tempx && y == tempy)
 		{
-			resetEnemy();
+			reset();
 		}
 	}
 

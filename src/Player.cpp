@@ -104,4 +104,9 @@ namespace logic
 			}
 		}
 	}
+
+	void Player::reset()
+	{
+		//TODO
+	}
 }

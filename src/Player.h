@@ -16,9 +16,12 @@ namespace logic
 			Player();
 			virtual ~Player();
 
+			//From entity
+			void move();
+			void reset();
+
 			void setDirection(int key);
 			void animate();
-			void move();
 			void gotHit(Enemy* enemies[], int numOfEnemies);
 
 			virtual void paint() = 0;

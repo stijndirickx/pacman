@@ -22,9 +22,10 @@ namespace logic
 			bool getFlashingState();
 			bool setFlashingState(bool flash);
 
-
-			void resetEnemy();
+			//From entity
+			void reset();
 			void move();
+
 			void returnToCenter();
 			void moveTo(int x, int y);
 			void moveToCoordinates(int x, int y);

@@ -66,7 +66,7 @@ namespace logic
 								player->setAliveState(true);
 								for(int j=0; j < numOfEnemies;j++)
 								{
-									enemies[j]->resetEnemy();
+									enemies[j]->reset();
 								}
 								if(context->getLives() <= 0)
 								{
@@ -124,7 +124,7 @@ namespace logic
 				if(context->getPlaying())
 				{
 					player->move();
-					enemies[0]->move();//To(player->getX(), player->getY());
+					enemies[0]->moveTo(player->getX(), player->getY());
 					enemies[1]->move();//InFront(player->getX(), player->getY());
 					player->gotHit(enemies, numOfEnemies);
 					for(int j=2; j < numOfEnemies;j++)
