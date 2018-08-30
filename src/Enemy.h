@@ -33,19 +33,18 @@ namespace logic
 			void moveToPlayer(int playerX, int playerY);
 			void returnToCenter();
 
+			//Movement AI controls
 			bool hunting = false;
 			int timeCaged = 0;
 			int timeHunting = 0;
 			int timeSameDir = 0;
 			int timeRandoming = 0;
+			int direction = 0;
+			int prevDirection = 0;
 
 			int type;
 			bool attacking = true;
 			bool flashing = false;
-
-			int prevDir[4] = { 1, 1, 1, 1 };
-			int dir[4] = { 1, 1, 1, 1 };
-			int changeDir = 0;
 	};
 }
 

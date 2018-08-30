@@ -72,12 +72,12 @@ namespace logic
 			{
 				if(timeSameDir > rand()%10 + 10) //too long in same direction
 				{
-					dir[type] = rand()%4 + 1; //change direction
+					direction = rand()%4 + 1; //change direction
 					timeSameDir = 0; //reset time for new direction
 				}
 				timeSameDir++;
 
-				switch(dir[type])
+				switch(direction)
 				{
 					case 1:
 						y -= mSpeed;
@@ -97,7 +97,7 @@ namespace logic
 						x = oldx;
 						y = oldy;
 
-						switch(prevDir[type])
+						switch(prevDirection)
 						{
 							case 1:
 								y -= mSpeed;
@@ -117,18 +117,18 @@ namespace logic
 						{
 							x = oldx;
 							y = oldy;
-							dir[type] = rand()%(4) + 1; //if stuck, change direction
+							direction = rand()%(4) + 1; //if stuck, change direction
 						}
 						else
 						{
-							prevDir[type] = dir[type];
+							prevDirection = direction;
 						}
 				}
 				timeRandoming++;
 			}
 			else // its on the hunt
 			{
-				if(timeHunting < 30)
+				if(timeHunting < 30*(type+1))
 				{
 					if(isCaged && timeCaged > (50*type))
 					{
@@ -147,7 +147,7 @@ namespace logic
 					timeRandoming = 0;
 				}
 			}
-			hunting = timeRandoming > 30;
+			hunting = timeRandoming > 30*(type+1);
 		}
 		else //if dead go back to center
 		{
@@ -176,8 +176,8 @@ namespace logic
 
 	void Enemy::moveToCoordinates(int coordx, int coordy)
 	{
-		int tempx = x;
-		int tempy = y;
+		int oldx = x;
+		int oldy = y;
 
 		if(x - coordx > 0) //TRY HORIZONTALLY;
 		{
@@ -188,10 +188,10 @@ namespace logic
 			x += mSpeed;
 		}
 
-		if(this->checkCollisions())
+/*		if(this->checkCollisions())
 		{
-			x = tempx;
-		}
+			x = oldx;
+		}*/
 		if(y - coordy > 0) //TRY VERTICALLY
 		{
 			y -= mSpeed;
@@ -203,7 +203,8 @@ namespace logic
 
 		if(this->checkCollisions())
 		{
-			y = tempy;
+			x= oldx;
+			y = oldy;
 		}
 	}
 }
