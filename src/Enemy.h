@@ -30,7 +30,8 @@ namespace logic
 
 		protected:
 			void moveToCoordinates(int x, int y);
-			void moveToPlayer(int playerX, int playerY);
+			int newPos(int pos, int coord);
+			void reposition(int direction);
 			void returnToCenter();
 
 			//Movement AI controls
@@ -42,7 +43,7 @@ namespace logic
 			int direction = 0;
 			int prevDirection = 0;
 
-			int type;
+			int type = 0;
 			bool attacking = true;
 			bool flashing = false;
 	};
