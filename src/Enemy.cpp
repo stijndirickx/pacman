@@ -63,6 +63,10 @@ namespace logic
 					isCaged = false;
 				}
 			}
+			else
+			{
+				timeCaged = 0;
+			}
 
 			if(!hunting) //its random moving
 			{

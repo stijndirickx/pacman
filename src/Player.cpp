@@ -66,18 +66,6 @@ namespace logic
 		{
 			prevDirection = direction;
 		}
-
-		// Warping tunnels (left - right)
-		if(x < 0)
-		{
-			x = windowWidth;
-		}
-
-		if(x > windowWidth)
-		{
-			x = 0;
-		}
-
 		this->paint();
 	}
 
@@ -108,6 +96,7 @@ namespace logic
 
 	void Player::reset()
 	{
-		//TODO
+		x = (windowWidth/2);
+		y = floor(3*windowHeight/4);
 	}
 }
