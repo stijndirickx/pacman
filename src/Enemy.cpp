@@ -54,27 +54,28 @@ namespace logic
 
 	void Enemy::move(int playerX, int playerY)
 	{
+		int oldx = x;
+		int oldy = y;
+
 		if(mAliveState)
 		{
-			if(isCaged && y == windowHeight/2 - 4 * size) //got out of cage
+			if(isCaged)
 			{
-				isCaged = false;
-			}
-
-			if(isCaged){
 				timeCaged++;
+				if(y == windowHeight/2 - 4 * size) //got out of cage
+				{
+					isCaged = false;
+				}
 			}
 
 			if(!hunting)
 			{
-				int tempx = x;
-				int tempy = y;
-				if(changeDir >= rand()%10 + 10) //after x movements change direction
+				if(timeSameDir > rand()%10 + 10) //too long in same direction
 				{
-					dir[type] = rand()%4 + 1;
-					changeDir = 0;
+					dir[type] = rand()%4 + 1; //change direction
+					timeSameDir = 0; //reset time for new direction
 				}
-				changeDir++;
+				timeSameDir++;
 
 				switch(dir[type])
 				{
@@ -93,8 +94,8 @@ namespace logic
 				}
 				if(this->checkCollisions()) //not possible to go to direction
 				{
-						x = tempx;
-						y = tempy;
+						x = oldx;
+						y = oldy;
 
 						switch(prevDir[type])
 						{
@@ -114,8 +115,8 @@ namespace logic
 
 						if(this->checkCollisions())
 						{
-							x = tempx;
-							y = tempy;
+							x = oldx;
+							y = oldy;
 							dir[type] = rand()%(4) + 1; //if stuck, change direction
 						}
 						else
@@ -123,27 +124,32 @@ namespace logic
 							prevDir[type] = dir[type];
 						}
 				}
-				stateTime++;
+				timeRandoming++;
 			}
-			else{
-				if(timeHunting < 30){
-					if(isCaged && timeCaged > (50*type)){
+			else // its on the hunt
+			{
+				if(timeHunting < 30)
+				{
+					if(isCaged && timeCaged > (50*type))
+					{
 						moveToCoordinates(windowWidth/2, windowHeight/2 - 4 * size);
 					}
-					else{
+					else
+					{
 						moveToCoordinates(playerX, playerY);
 						timeHunting++;
 					}
 				}
-				else{
+				else
+				{
 					timeHunting = 0;
 					hunting = false;
-					stateTime = 0;
+					timeRandoming = 0;
 				}
 			}
-			hunting = stateTime > 30;
+			hunting = timeRandoming > 30;
 		}
-		else
+		else //if dead go back to center
 		{
 			this->returnToCenter();
 		}

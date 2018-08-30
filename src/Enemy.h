@@ -33,10 +33,11 @@ namespace logic
 			void moveToPlayer(int playerX, int playerY);
 			void returnToCenter();
 
-			int stateTime = 0;
 			bool hunting = false;
-			int timeHunting = 0;
 			int timeCaged = 0;
+			int timeHunting = 0;
+			int timeSameDir = 0;
+			int timeRandoming = 0;
 
 			int type;
 			bool attacking = true;
