@@ -52,7 +52,7 @@ namespace logic
 		return flashing;
 	}
 
-	void Enemy::move(int playerX, int playerY) //RANDOM MOVEMENT
+	void Enemy::move(int playerX, int playerY)
 	{
 		if(mAliveState)
 		{
@@ -61,69 +61,98 @@ namespace logic
 				isCaged = false;
 			}
 
-			int tempx = x;
-			int tempy = y;
-			if(changeDir >= rand()%(10) + 10) //after x movements change direction
-			{
-				dir[type] = rand()%(4) + 1;
-				changeDir = 0;
-			}
-			changeDir++;
-
-			switch(dir[type])
-			{
-				case 1:
-					y -= mSpeed;
-					break;
-				case 2:
-					y += mSpeed;
-					break;
-				case 3:
-					x -= mSpeed;
-					break;
-				case 4:
-					x += mSpeed;
-					break;
+			if(isCaged){
+				timeCaged++;
 			}
 
-			if(this->checkCollisions()) //not possible to go to direction
+			if(!hunting)
 			{
-					x = tempx;
-					y = tempy;
+				int tempx = x;
+				int tempy = y;
+				if(changeDir >= rand()%10 + 10) //after x movements change direction
+				{
+					dir[type] = rand()%4 + 1;
+					changeDir = 0;
+				}
+				changeDir++;
 
-					switch(prevDir[type])
-					{
-						case 1:
-							y -= mSpeed;
-							break;
-						case 2:
-							y += mSpeed;
-							break;
-						case 3:
-							x -= mSpeed;
-							break;
-						case 4:
-							x += mSpeed;
-							break;
-					}
-
-					if(this->checkCollisions())
-					{
+				switch(dir[type])
+				{
+					case 1:
+						y -= mSpeed;
+						break;
+					case 2:
+						y += mSpeed;
+						break;
+					case 3:
+						x -= mSpeed;
+						break;
+					case 4:
+						x += mSpeed;
+						break;
+				}
+				if(this->checkCollisions()) //not possible to go to direction
+				{
 						x = tempx;
 						y = tempy;
-						dir[type] = rand()%(4) + 1; //if stuck, change direction
+
+						switch(prevDir[type])
+						{
+							case 1:
+								y -= mSpeed;
+								break;
+							case 2:
+								y += mSpeed;
+								break;
+							case 3:
+								x -= mSpeed;
+								break;
+							case 4:
+								x += mSpeed;
+								break;
+						}
+
+						if(this->checkCollisions())
+						{
+							x = tempx;
+							y = tempy;
+							dir[type] = rand()%(4) + 1; //if stuck, change direction
+						}
+						else
+						{
+							prevDir[type] = dir[type];
+						}
+				}
+				stateTime++;
+			}
+			else{
+				if(timeHunting < 30){
+					if(isCaged && timeCaged > (50*type)){
+						moveToCoordinates(windowWidth/2, windowHeight/2 - 4 * size);
 					}
+					else{
+						moveToCoordinates(playerX, playerY);
+						timeHunting++;
+					}
+				}
+				else{
+					timeHunting = 0;
+					hunting = false;
+					stateTime = 0;
+				}
 			}
-			else
-			{
-				prevDir[type] = dir[type];
-			}
+			hunting = stateTime > 30;
 		}
 		else
 		{
 			this->returnToCenter();
 		}
 		this->paint();
+	}
+
+	void Enemy::moveToPlayer(int playerX, int playerY)
+	{
+
 	}
 
 	void Enemy::returnToCenter()
@@ -148,7 +177,7 @@ namespace logic
 		{
 			x -= mSpeed;
 		}
-		else if (x - coordx < 0)
+		else if (x - coordx < 0) //player is right of enemy
 		{
 			x += mSpeed;
 		}
@@ -157,8 +186,6 @@ namespace logic
 		{
 			x = tempx;
 		}
-
-
 		if(y - coordy > 0) //TRY VERTICALLY
 		{
 			y -= mSpeed;
