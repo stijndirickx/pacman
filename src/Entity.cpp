@@ -35,40 +35,34 @@ namespace logic
 
 	bool Entity::checkCollisions()
 	{
-		Brick** bricks = mContext->getBricks();
+		collision = false; //reset before checking
+		Brick** bricks = mContext->getBricks(); //get all bricks
 
-		collision = false;
-		int* brickBox = 0;
-
-		for(int i = 0; i < totalBricks; i++) //CHECK TILES
+		for(int i = 0; i < totalBricks; i++) //check every brick
 		{
-			brickBox = bricks[i]->getProp();
-
-			bool tempCollide = checkCollision(this->getCollisionBox(), brickBox);
-
-			if(!collision && tempCollide)
+			if(!collision) //keep searching till collision is found
 			{
-				if(brickBox[3] >= 5 && brickBox[3] <= 24) //is wall
+				int* brickBox = bricks[i]->getProp(); //get brick x,y and size
+				if(checkCollision(this->getCollisionBox(), brickBox)) //grab entity x,y and size and check
 				{
-					collision = true;
+					collision = (brickBox[3] >= 5 && brickBox[3] <= 24); //collision was wall
+					if(isPlayer) //entity is player
+					{
+						mContext->destroyBrick(i); //only player can destroybricks
+					}
 				}
-				if(isPlayer) //entity is player
-				{
-					mContext->destroyBrick(i);
-				}
+				delete brickBox;
 			}
 		}
-
-		delete brickBox;
 		return collision;
 	}
 
 	bool Entity::checkCollision(int* entityBox, int* brickBox)
 	{
-		bool horizontalColl1 = (entityBox[0] + entityBox[2]) > brickBox[0];
-		bool horizontalColl2 = entityBox[0] < (brickBox[0] + brickBox[2]);
-		bool verticalColl1 = (entityBox[1] + entityBox[2]) > brickBox[1];
-		bool verticalColl2 = entityBox[1] < (brickBox[1] + brickBox[2]);
+		bool horizontalColl1 = (entityBox[0] + entityBox[2]) > brickBox[0]; //entity got hit from right
+		bool horizontalColl2 = entityBox[0] < (brickBox[0] + brickBox[2]); //entity got hit from left
+		bool verticalColl1 = (entityBox[1] + entityBox[2]) > brickBox[1]; //entity got hit from bottom
+		bool verticalColl2 = entityBox[1] < (brickBox[1] + brickBox[2]); //entity got hit from top
 		return (horizontalColl1 && horizontalColl2 && verticalColl1 && verticalColl2);
 	}
 
