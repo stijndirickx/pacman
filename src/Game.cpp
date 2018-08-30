@@ -47,14 +47,10 @@ namespace logic
 
 		while(!quit) // Start of gameloop
 		{
-			while(eventHandler->pollEvent() != 0)
+			while(eventHandler->pollEvent() != 0) //get event
 			{
-				//User requests quit
-				if(eventHandler->quitEvent())
-				{
-					quit = true;
-				}
-				else if(eventHandler->keyDown())
+				quit = eventHandler->quitEvent(); // User requests quit
+				if(eventHandler->keyDown())
 				{
 					if(eventHandler->getKeyDown() == 6) //pressed space
 					{
@@ -64,13 +60,14 @@ namespace logic
 							if(!player->getAliveState())
 							{
 								player->setAliveState(true);
-								for(int j=0; j < numOfEnemies;j++)
+								for(int i=0; i < numOfEnemies;i++)
 								{
-									enemies[j]->reset();
+									enemies[i]->reset();
 								}
 								if(context->getLives() <= 0)
 								{
-									context->resetGame();
+									context->resetGame(); //set score to 0 and changes displaytext
+									player->reset();
 									context->setLives(config->getLivesCount());
 									house->load();
 								}
@@ -80,12 +77,11 @@ namespace logic
 						else
 						{
 							house->load();
-							player->setAliveState(true);
-							player->setDirection(4);
+							player->reset();
 							context->setPlaying(true, "waiting...");
 						}
 					}
-					else if (context->getPlaying()) //not changing direction while paused
+					else if (context->getPlaying()) //change direction with key input
 					{
 						player->setDirection(eventHandler->getKeyDown());
 					}
@@ -121,7 +117,8 @@ namespace logic
 
 				context->clearScreen();
 				house->paint();
-				if(context->getPlaying())
+
+				if(context->getPlaying()) //Playing
 				{
 					player->move();
 					player->gotHit(enemies, numOfEnemies);
@@ -129,22 +126,21 @@ namespace logic
 					{
 						enemies[i]->move(player->getX(), player->getY());
 					}
-					context->playMusic(2);
+					context->playMusic(2); //Playing music
 				}
-				else
+				else //Paused
 				{
 					player->paint();
-					for(int j=0; j < numOfEnemies;j++)
+					for(int i=0; i < numOfEnemies;i++)
 					{
-						enemies[j]->paint();
+						enemies[i]->paint();
 					}
-					context->playMusic(1);
+					context->playMusic(3); //Pause music
 				}
 
 				if(clock_ms % (fpa*timePerFrame) == 0) //every x frames animation
 				{
 					player->animate();
-					//TODO enemies too
 				}
 
 				if(countingAttack > 0)

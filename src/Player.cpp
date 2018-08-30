@@ -98,5 +98,7 @@ namespace logic
 	{
 		x = (windowWidth/2);
 		y = floor(3*windowHeight/4);
+		mAliveState = true;
+		setDirection(4);
 	}
 }

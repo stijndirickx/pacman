@@ -20,6 +20,9 @@ namespace logic
 		totalBricks = file.tellg()/3;  //get total bricks
 		int bricksHeight = totalBricks / bricksWidth; //calculate amount of bricks height
 
+		bricks = new Brick*[totalBricks];
+		destroyedBricks = new int [totalBricks];
+
 		windowWidth = bricksWidth * mBrickSize; //brickamount * size = windowsize
 		windowHeight = bricksHeight * mBrickSize;
 	}
@@ -99,7 +102,6 @@ namespace logic
 			{
 				case 2: //Plus
 					mContext->addToScore(10);
-					//TODO chomp sound
 					numOfPlus--;
 					break;
 				case 3: //Big plus

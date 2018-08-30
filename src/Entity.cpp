@@ -66,8 +66,6 @@ namespace logic
 								collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
 							}
 						}
-
-						//TODO clean this
 					}
 				}
 				delete brickBox;

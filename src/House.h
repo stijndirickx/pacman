@@ -34,10 +34,8 @@ namespace logic
 			Context* mContext = NULL;
 
 			int totalBricks;
-
-			//TODO tile array variable size
-			Brick** bricks = new Brick*[911]; //** --> Cannot instantiate abstract object
-			int* destroyedBricks = new int [911];
+			Brick** bricks = 0;
+			int* destroyedBricks = 0;
 
 
 			int numOfPlus = 0;

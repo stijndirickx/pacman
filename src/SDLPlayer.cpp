@@ -26,7 +26,7 @@ namespace graphics_SDL
 		if(x == 0 && y == 0)
 		{
 			reset();
-			//this->moveDir(4);
+			this->moveDir(4);
 		}
 		renderRect = {x, y, size, size};
 		SDL_RenderCopy(mRenderer, playerTexture, &playerSprites[spriteSelector], &renderRect);
