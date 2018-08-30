@@ -37,6 +37,7 @@ namespace logic
 		y = (windowHeight/2);
 		mAliveState = true;
 		attacking = true;
+		flashing = false;
 	}
 
 	bool Enemy::getFlashingState()
@@ -117,15 +118,11 @@ namespace logic
 			this->returnToCenter();
 		}
 
-		if(x < -30) //ghost went to far
+		if(x < -size) //ghost went to far
 		{
 			x = windowWidth;
 		}
 
-		if(y > windowWidth)
-		{
-			y = -30;
-		}
 
 		this->paint();
 	}
@@ -139,9 +136,7 @@ namespace logic
 
 		if(x == tempx && y == tempy)
 		{
-			mAliveState = true;
-			attacking = true;
-			flashing = false;
+			resetEnemy();
 		}
 	}
 
@@ -177,11 +172,6 @@ namespace logic
 		if(this->checkCollisions())
 		{
 			y = tempy;
-		}
-
-		if(y == tempy && x == tempx)
-		{
-			//this->Move();
 		}
 	}
 

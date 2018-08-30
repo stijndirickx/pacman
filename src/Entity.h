@@ -23,7 +23,7 @@ namespace logic
 
 			void setAbstractFactory(AbstractFactory* pAbstractFactory );
 			bool checkCollisions();
-			bool checkCollision(int* entityBox, int* brickBox);
+
 			int* getCollisionBox();
 			void setContext(Context* pContext);
 
@@ -35,6 +35,10 @@ namespace logic
 			bool getAliveState();
 
 		protected:
+			//Method
+			bool checkCollision(int* entityBox, int* brickBox);
+
+			//Variables
 			AbstractFactory* mAbstractFactory = NULL;
 
 			//From context ~ setContext function
@@ -44,7 +48,6 @@ namespace logic
 			int windowHeight = 0;
 			int numOfEnemies = 0;
 			int size = 0;
-
 
 			bool collision = false;
 			int x = 0, y = 0;

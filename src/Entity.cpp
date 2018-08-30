@@ -45,10 +45,17 @@ namespace logic
 				int* brickBox = bricks[i]->getProp(); //get brick x,y and size
 				if(checkCollision(this->getCollisionBox(), brickBox)) //grab entity x,y and size and check
 				{
-					collision = (brickBox[3] >= 5 && brickBox[3] <= 24); //collision was wall
 					if(isPlayer) //entity is player
 					{
+						collision = (brickBox[3] >= 4 && brickBox[3] <= 24); //collision was wall or barrier
 						mContext->destroyBrick(i); //only player can destroybricks
+					}
+					else //entity is enemy
+					{
+						if(brickBox[3] >= 5 && brickBox[3] <= 24) //collision was wall
+						{
+							collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
+						}
 					}
 				}
 				delete brickBox;

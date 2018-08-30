@@ -124,8 +124,8 @@ namespace logic
 				if(context->getPlaying())
 				{
 					player->move();
-					enemies[0]->moveTo(player->getX(), player->getY());
-					enemies[1]->moveInFront(player->getX(), player->getY());
+					enemies[0]->move();//To(player->getX(), player->getY());
+					enemies[1]->move();//InFront(player->getX(), player->getY());
 					player->gotHit(enemies, numOfEnemies);
 					for(int j=2; j < numOfEnemies;j++)
 					{
