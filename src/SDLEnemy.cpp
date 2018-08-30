@@ -24,25 +24,23 @@ namespace graphics_SDL
 			y = (windowHeight/2);
 		}
 
-		enemySprites[0].y = 15;
-
+		enemySprites[0].y = 16;
 		if(attacking)
 		{
-			if(type == 0)
+			switch(type)
 			{
-				enemySprites[0].x = 82;
-			}
-			else if (type == 1)
-			{
-				enemySprites[0].x = 97;
-			}
-			else if (type == 2)
-			{
-				enemySprites[0].x = 112;
-			}
-			else
-			{
-				enemySprites[0].x = 127;
+				case 0:
+					enemySprites[0].x = 79;
+					break;
+				case 1:
+					enemySprites[0].x = 94;
+					break;
+				case 2:
+					enemySprites[0].x = 109;
+					break;
+				case 3:
+					enemySprites[0].x = 124;
+					break;
 			}
 		}
 		else
@@ -51,16 +49,16 @@ namespace graphics_SDL
 			{
 				if(!flashing)
 				{
-					enemySprites[0].x = 142;
+					enemySprites[0].x = 139;
 				}
 				else
 				{
-					enemySprites[0].x = 157;
+					enemySprites[0].x = 154;
 				}
 			}
 			else
 			{
-				enemySprites[0].x = 172;
+				enemySprites[0].x = 169;
 			}
 		}
 		renderRect = {x, y, size, size};

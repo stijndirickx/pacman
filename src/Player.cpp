@@ -100,6 +100,7 @@ namespace logic
 				{
 					enemies[i]->setAliveState(false);
 					mContext->playSound(6);
+					mContext->addToScore(200);
 				}
 			}
 		}

@@ -12,8 +12,8 @@ namespace graphics_SDL
 		//Making sprites rect
 		for(int i = 0; i <= 14; i++)
 		{
-			playerSprites[i].x = 37+(15*i);
-			playerSprites[i].y = 0;
+			playerSprites[i].x = 34+(15*i);
+			playerSprites[i].y = 1;
 			playerSprites[i].w = 15;
 			playerSprites[i].h = 15;
 		}
@@ -38,7 +38,7 @@ namespace graphics_SDL
 		//direction: 1 = up, 2 = down, 3 = left, 4 = right
 		for(int i=0; i< 3 ; i++)
 		{
-			playerSprites[i].y = (direction-1)*15;
+			playerSprites[i].y = 1+(direction-1)*15;
 		}
 
 		switch(direction)

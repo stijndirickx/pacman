@@ -1,10 +1,12 @@
+/* PATHS */
 00 = nothing
-
 01 = path
 02 = +
 03 = big +
 04 = barrier
 
+
+/* WALLS */
 05 = double wall - topleft
 06 = double wall - topright
 07 = double wall - bottomleft
@@ -30,4 +32,15 @@
 23 = inner wall - bottomleft
 24 = inner wall - bottomright
 
-25 = Eclipse
+25 = top straight - rightbottom corner
+26 = top straight - leftbottom corner
+27 = bottom straight - righttop corner
+28 = bottom straight - righttop corner
+29 = left straight - rightbottom corner
+30 = right straight - leftbottom corner
+31 = left straight - righttop corner
+32 = right straight - righttop corner
+
+
+/* BONUS */
+33 = Eclipse

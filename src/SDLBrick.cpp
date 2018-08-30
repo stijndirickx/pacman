@@ -15,6 +15,7 @@ namespace graphics_SDL
 		//To see different types --> Assets/Maps/legend.txt
 		switch(brickProp[3])
 		{
+			//Paths
 			case 1: // path but empty
 				brickSprite = {0,0,8,8};
 				break;
@@ -27,6 +28,8 @@ namespace graphics_SDL
 			case 4:	// barrier
 				brickSprite = {24,0,8,8};
 				break;
+
+			//Walls
 			case 5: // double wall topleft
 				brickSprite = {0,8,8,8};
 				break;
@@ -87,8 +90,37 @@ namespace graphics_SDL
 			case 24: // inner wall bottomright
 				brickSprite = {24,40,8,8};
 				break;
-			case 25: // eclipse
-				brickSprite = {0,48,15,15};
+			case 25: // top straight rightbottom corner
+				brickSprite = {0,48,8,8};
+				break;
+			case 26: // top straight leftbottom corner
+				brickSprite = {8,48,8,8};
+				break;
+			case 27: // bottom straight righttop corner
+				brickSprite = {16,48,8,8};
+				break;
+			case 28: // bottom straight righttop corner
+				brickSprite = {24,48,8,8};
+				break;
+			case 29: // left straight rightbottom corner
+				brickSprite = {0,56,8,8};
+				break;
+			case 30: // right straight leftbottom corner
+				brickSprite = {8,56,8,8};
+				break;
+			case 31: // left straight righttop corner
+				brickSprite = {16,56,8,8};
+				break;
+			case 32: // right straight righttop corner
+				brickSprite = {24,56,8,8};
+				break;
+
+			//Bonus
+			case 33: // eclipse
+				brickSprite = {79,33,15,15};
+				break;
+			case 34: // clion
+				brickSprite = {94,33,15,15};
 				break;
 		}
 		brickRect = { brickProp[0], brickProp[1], brickProp[2], brickProp[2] };

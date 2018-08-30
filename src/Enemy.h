@@ -24,16 +24,14 @@ namespace logic
 
 			//From entity
 			void reset();
-			void move();
-
-			void returnToCenter();
-			void moveTo(int x, int y);
-			void moveToCoordinates(int x, int y);
-			void moveInFront(int x, int y);
+			void move(int playerX, int playerY);
 
 			virtual void paint() = 0;
 
 		protected:
+			void moveToCoordinates(int x, int y);
+			void returnToCenter();
+
 			int type;
 			bool attacking = true;
 			bool flashing = false;

@@ -52,10 +52,22 @@ namespace logic
 					}
 					else //entity is enemy
 					{
-						if(brickBox[3] >= 5 && brickBox[3] <= 24) //collision was wall
+						if(isCaged)
 						{
-							collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
+							if(brickBox[3] >= 5 && brickBox[3] <= 24) //collision was wall
+							{
+								collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
+							}
 						}
+						else
+						{
+							if(brickBox[3] >= 4 && brickBox[3] <= 24) //collision was wall
+							{
+								collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
+							}
+						}
+
+						//TODO clean this
 					}
 				}
 				delete brickBox;

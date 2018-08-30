@@ -94,27 +94,30 @@ namespace logic
 		if(destroyedBricks[brickId] != 1)
 		{
 			int* brickInfo = bricks[brickId]->getProp();
-			if(brickInfo[3] == 3) // Big plus
+			std::vector<Enemy*>enemies = mContext->getEnemies();
+			switch(brickInfo[3])
 			{
-				mContext->playSound(5);
-				std::vector<Enemy*>enemies = mContext->getEnemies();
-				for(size_t i = 0; i <= (enemies.size()-1); i++)
-				{
-					enemies[i]->setAttackingState(false);
-				}
-				destroyedBricks[brickId] = 1;
+				case 2: //Plus
+					mContext->addToScore(10);
+					//TODO chomp sound
+					numOfPlus--;
+					break;
+				case 3: //Big plus
+					mContext->addToScore(50);
+					mContext->playSound(5);
+					for(size_t i = 0; i <= (enemies.size()-1); i++)
+					{
+						enemies[i]->setAttackingState(false);
+					}
+					break;
+				case 33: //Eclipse
+					mContext->addToScore(-100);
+					mContext->playSound(7);
+					break;
 			}
-			else if(brickInfo[3] == 25) // Eclipse
+			if(brickInfo[3] == 2 || brickInfo[3] == 3 || brickInfo[3] == 33)
 			{
-				mContext->playSound(7);
-				mContext->addToScore(50);
 				destroyedBricks[brickId] = 1;
-			}
-			else if(brickInfo[3] == 2) // Plus
-			{
-				mContext->addToScore(1);
-				destroyedBricks[brickId] = 1;
-				numOfPlus--;
 			}
 			delete brickInfo;
 		}

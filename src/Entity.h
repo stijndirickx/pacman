@@ -34,7 +34,6 @@ namespace logic
 			void setAliveState(bool pAliveState);
 			bool getAliveState();
 
-			virtual void move() = 0;
 			virtual void reset() = 0;
 
 		protected:
@@ -46,7 +45,8 @@ namespace logic
 			bool collision = false;
 			int x = 0, y = 0;
 			int* entityBox = new int [3];
-			bool isPlayer = false;
+			bool isPlayer = false; //Used for collision
+			bool isCaged = true; //Used for collision
 			int mSpeed = 1;
 			int mAliveState = true;
 

@@ -38,6 +38,7 @@ namespace logic
 		mAliveState = true;
 		attacking = true;
 		flashing = false;
+		isCaged = true;
 	}
 
 	bool Enemy::getFlashingState()
@@ -51,10 +52,15 @@ namespace logic
 		return flashing;
 	}
 
-	void Enemy::move() //RANDOM MOVEMENT
+	void Enemy::move(int playerX, int playerY) //RANDOM MOVEMENT
 	{
 		if(mAliveState)
 		{
+			if(isCaged && y == windowHeight/2 - 4 * size) //got out of cage
+			{
+				isCaged = false;
+			}
+
 			int tempx = x;
 			int tempy = y;
 			if(changeDir >= rand()%(10) + 10) //after x movements change direction
@@ -166,69 +172,5 @@ namespace logic
 		{
 			y = tempy;
 		}
-	}
-
-	void Enemy::moveTo(int x, int y)
-	{
-		if(mAliveState)
-		{
-			this->moveToCoordinates(x, y);
-		}
-		else
-		{
-			this->returnToCenter();
-		}
-		this->paint();
-	}
-
-	void Enemy::moveInFront(int pX, int pY)
-	{
-		if(mAliveState)
-		{
-			int tempx, tempy;
-			int further = 4;
-			if(x - pX > 0) //pacman to the left of the ghost
-			{
-				tempx = pX - (further*size);
-			}
-			else
-			{
-				tempx = pX + (further*size);
-			}
-
-			if(tempx < 0)
-			{
-				tempx = 0;
-			}
-			else if (tempx > windowWidth)
-			{
-				tempx = windowWidth;
-			}
-
-			if(y - pY > 0) //pacman above the ghost
-			{
-				tempy = pY - (further*size);
-			}
-			else
-			{
-				tempy = pY + (further*size);
-			}
-
-			if(tempy < 0)
-			{
-				tempy = 0;
-			}
-			else if (tempy > windowHeight)
-			{
-				tempy = windowHeight;
-			}
-
-			this->moveToCoordinates(tempx, tempy);
-		}
-		else
-		{
-			this->returnToCenter();
-		}
-		this->paint();
 	}
 }
