@@ -65,6 +65,7 @@ namespace logic
 				y += mBrickSize;
 			}
 		}
+		maxNumOfPlus = numOfPlus;
 		file.close();
 	}
 
@@ -138,5 +139,10 @@ namespace logic
 	int House::getNumOfPlus()
 	{
 		return numOfPlus;
+	}
+
+	void House::resetNumOfPlus()
+	{
+		numOfPlus = maxNumOfPlus;
 	}
 }

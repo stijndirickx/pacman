@@ -51,7 +51,7 @@ namespace logic
 		if(lives <= 0)
 		{
 			playing = false;
-			mDisplay = "game over";
+			mDisplay = "rip, try again!";
 			if(score > mHiscore)
 			{
 				this->setHiscore(score);
@@ -67,6 +67,7 @@ namespace logic
 
 	void Context::resetGame()
 	{
+		level = 1;
 		score = 0;
 		mDisplay = "Start again";
 	}
@@ -185,5 +186,24 @@ namespace logic
 	int Context::getNumOfEnemies()
 	{
 		return numOfEnemies;
+	}
+
+	int Context::getVulnerableTime()
+	{
+		return vulnerableTime;
+	}
+
+	void Context::nextLevel() //Enemies become less long vulnerable
+	{
+		level++;
+		if(vulnerableTime >= 1000)
+		{
+			vulnerableTime -= 1000;
+		}
+	}
+
+	int Context::getLevel()
+	{
+		return level;
 	}
 }

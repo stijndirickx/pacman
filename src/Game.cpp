@@ -42,20 +42,22 @@ namespace logic
 		int last_frame = 0;
 		clock_t ticks = 0;
 		int clock_ms = 0; //clock in ms
-		int countingAttack = 0;
+		int vulnerableTime = 0;
 		bool quit = false;
 
 		while(!quit) // Start of gameloop
 		{
-			while(eventHandler->pollEvent() != 0) //get event
+
+			// 1. Get user input
+			while(eventHandler->pollEvent() != 0)
 			{
 				quit = eventHandler->quitEvent(); // User requests quit
 				if(eventHandler->keyDown()) //getting user input (arrow keys or space)
 				{
 					if(eventHandler->getKeyDown() == 6) //pressed space
 					{
-						if(house->getNumOfPlus() > 0)
-						{
+						//if(house->getNumOfPlus() > 0)
+						//{
 							context->setPlaying(!context->getPlaying(), "waiting..."); //Switch pause/unpause
 
 							if(!player->getAliveState()) //Player got killed and is waiting for pause to restart new life
@@ -72,63 +74,70 @@ namespace logic
 									house->load();	//reload the house
 								}
 							}
-						}
-						else //All plus where taken TODO
-						{
-							for(int i=0; i< numOfEnemies;i++)
-							{
-								enemies[i]->reset();
-								enemies[i]->speedUp(1.1);
-							};
-							house->load();
-							player->reset();
-							context->setPlaying(true, "");
-						}
+						//}
 					}
 					else if (context->getPlaying()) //change direction with arrow key
 					{
 						player->setDirection(eventHandler->getKeyDown());
 					}
 				}
-			} //end of second while
+			} // --- end of user input ---
 
-			if(!enemies[0]->getAttackingState()) //if ghosts vulnerable
-			{
-				if(countingAttack == 0)
+
+
+			// 2. --- How long enemies are vulnerable ---
+			for(int j = 0; j < numOfEnemies; j++){
+				if(!enemies[j]->getAttackingState())
 				{
-					countingAttack = 8000 / timePerFrame; //8s
-				}
-				else if(countingAttack == 1)
-				{
-					for(int j=0; j < numOfEnemies;j++) // set ghosts back to attacking
+					if(vulnerableTime == 0)
+					{
+						vulnerableTime = context->getVulnerableTime() / timePerFrame;
+					}
+					else if(vulnerableTime == 1)
 					{
 						enemies[j]->setAttackingState(true);
 					}
 				}
-			}
+			} // --- end 2
 
+
+
+			// 3. --- Level is cleared, go to next level---
 			if(house->getNumOfPlus() == 0)
 			{
-				context->setPlaying(false, "all cleared");
-			}
+				context->nextLevel();
+				context->setPlaying(false, "level " + std::to_string(context->getLevel()));
+				house->resetNumOfPlus();
+				for(int i=0; i< numOfEnemies;i++)
+				{
+					enemies[i]->reset();
+				};
+				house->load();
+				player->reset();
+			} // --- end 3
 
+
+
+			// 4. --- Check if extra life can be given ---
 			if(!context->isExtraLiveGiven() && context->getScore() >= 10000)
 			{
 				context->addToLives(1);
-				context->playSound(0); //TODO doesnt seem to work
-			}
+				context->playSound(0);
+			} // --- end 4
 
+
+
+			// 5. --- Timing
 			ticks = clock(); //#clock ticks since running
 			clock_ms = (ticks/(double)CLOCKS_PER_SEC)*1000.0; //#ms since running
 
 			if(last_frame != clock_ms && clock_ms % timePerFrame == 0)
 			{
 				last_frame = clock_ms; //make sure not multiple frames in same ms
-
 				context->clearScreen();
 				house->paint();
 
-				if(context->getPlaying()) //Playing
+				if(context->getPlaying()) //Playing --- move the entities
 				{
 					player->move();
 					player->gotHit(enemies, numOfEnemies);
@@ -138,7 +147,7 @@ namespace logic
 					}
 					context->playMusic(2); //Playing music
 				}
-				else //Paused
+				else // Paused --- paint entities
 				{
 					player->paint();
 					for(int i=0; i < numOfEnemies;i++)
@@ -153,22 +162,24 @@ namespace logic
 					player->animate();
 				}
 
-				if(countingAttack > 0)
+				if(vulnerableTime > 0)
 				{
-					countingAttack--;
-					if(countingAttack <= 30 && clock_ms % (fpa*timePerFrame) == 0)
+					vulnerableTime--;
+					if(vulnerableTime <= 30 && clock_ms % (fpa*timePerFrame) == 0)
 					{
-						for(int j=0; j < numOfEnemies;j++)
+						for(int i=0; i < numOfEnemies;i++)
 						{
-							enemies[j]->setFlashingState(!enemies[j]->getFlashingState());
+							enemies[i]->setFlashingState(!enemies[i]->getFlashingState());
 						}
 					}
 				}
 
 				context->updateText();
 				context->updateScreen();
-			}
-		}
+			} // 5. --- End of timing ---
+
+
+		} // End of game loop
 
 
 		// Game ended

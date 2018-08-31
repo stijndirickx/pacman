@@ -58,7 +58,11 @@ namespace logic
 			std::vector<Enemy*> getEnemies();
 			int setNumOfEnemies(int pNumber);
 			int getNumOfEnemies();
+			int getVulnerableTime();
 
+			//Level
+			void nextLevel();
+			int getLevel();
 
 			virtual void updateText() = 0;
 			virtual void playMusic(int musicId) = 0;
@@ -91,8 +95,12 @@ namespace logic
 			House* mHouse = NULL;
 
 			//Enemies
+			int vulnerableTime = 8000; // in ms
 			int numOfEnemies = 0;
 			std::vector<Enemy*> enemies;
+
+			//Level
+			int level = 1;
 	};
 }
 

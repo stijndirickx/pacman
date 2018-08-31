@@ -79,7 +79,7 @@ namespace logic
 				if(enemies[i]->getAttackingState()) //Agressive enemies
 				{
 					mContext->subtractLives(1);
-					mContext->setPlaying(false, "rip");
+					mContext->setPlaying(false, "A live has been taken");
 					mContext->playSound(4);
 					mAliveState = false;
 				}
@@ -88,7 +88,6 @@ namespace logic
 				{
 					enemies[i]->setAliveState(false);
 					mContext->playSound(6);
-					mContext->addToScore(200);
 				}
 			}
 		}

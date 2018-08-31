@@ -29,6 +29,7 @@ namespace graphics_SDL
 	{
 		renderText(fontText, "Score: " + std::to_string(score), 20, 0, 0);
 		renderText(fontText, "Lives: " + std::to_string(lives), mWindowWidth - 20, 0, 1);
+		renderText(fontText, "Level: " + std::to_string(level), mWindowWidth/2 - 35, 0, 0);
 
 		if(!playing)
 		{

@@ -28,6 +28,7 @@ namespace logic
 			int getwindowWidth();
 			int getwindowHeight();
 			int getNumOfPlus();
+			void resetNumOfPlus();
 
 
 		protected:
@@ -39,6 +40,7 @@ namespace logic
 
 
 			int numOfPlus = 0;
+			int maxNumOfPlus = 0;
 			AbstractFactory* mAbstractFactory = NULL;
 			std::ifstream file;
 
