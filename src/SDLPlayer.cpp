@@ -9,7 +9,7 @@ namespace graphics_SDL
 		mSurface = pSurface;
 		playerTexture = SDL_CreateTextureFromSurface(mRenderer, mSurface);
 
-		//Making sprites rect
+		//Making sprite rects
 		for(int i = 0; i <= 14; i++)
 		{
 			playerSprites[i].x = 34+(15*i);

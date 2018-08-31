@@ -1,7 +1,7 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include "AbstractFactory.h"
+#include "Brick.h"
 #include "Enemy.h"
 #include "Entity.h"
 
@@ -20,15 +20,14 @@ namespace logic
 			void move();
 			void reset();
 
-			void setDirection(int key);
 			void animate();
 			void gotHit(Enemy* enemies[], int numOfEnemies);
+			void setDirection(int key);
 
 			virtual void paint() = 0;
 			virtual void moveDir(int direction) = 0;
 
 		protected:
-
 			int direction = 4;
 			int prevDirection = 4;
 			int spriteSelector = 0;

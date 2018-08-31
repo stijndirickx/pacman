@@ -1,8 +1,9 @@
 #ifndef SDLEVENTHANDLER_H_
 #define SDLEVENTHANDLER_H_
 
-#include "EventHandler.h"
 #include <sdl2/SDL.h>
+
+#include "EventHandler.h"
 
 using namespace logic;
 

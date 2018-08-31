@@ -1,12 +1,10 @@
 #ifndef SDLBRICK_H_
 #define SDLBRICK_H_
 
-#include <sdl2/SDL.h>
 #include <sdl2/SDL_image.h>
 
 #include "Brick.h"
 
-using namespace std;
 using namespace logic;
 
 namespace graphics_SDL

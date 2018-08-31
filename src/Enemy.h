@@ -1,7 +1,6 @@
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
-#include <iostream>
 #include <math.h>
 
 #include "AbstractFactory.h"
@@ -17,6 +16,7 @@ namespace logic
 			Enemy();
 			virtual ~Enemy();
 
+			//Getters & setters for states
 			bool getAttackingState();
 			void setAttackingState(bool attack);
 			bool getFlashingState();
@@ -29,10 +29,12 @@ namespace logic
 			virtual void paint() = 0;
 
 		protected:
-			void moveToCoordinates(int x, int y);
-			int newPos(int pos, int coord);
+
+			//Methods used by enemy
 			void reposition(int direction);
 			void returnToCenter();
+			void moveToCoordinates(int x, int y);
+			int newPos(int pos, int coord);
 
 			//Movement AI controls
 			bool hunting = false;

@@ -16,6 +16,7 @@ namespace logic
 		delete config;
 	}
 
+
 	Config* AbstractFactory::createConfig()
 	{
 		config = new Config();

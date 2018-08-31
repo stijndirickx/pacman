@@ -1,7 +1,6 @@
 #ifndef SDLPLAYER_H_
 #define SDLPLAYER_H_
 
-#include <sdl2/SDL.h>
 #include <sdl2/SDL_image.h>
 
 #include "Player.h"

@@ -9,12 +9,37 @@ namespace logic
 
 	Player::~Player() {}
 
-	void Player::setDirection(int key)
+	void Player::move()
 	{
-		if(direction != key)
+		int oldx = x;
+		int oldy = y;
+		this->moveDir(direction);
+
+		if(this->checkCollisions()) //Collision while trying to move
 		{
-			direction = key;
+			x = oldx;
+			y = oldy;
+
+			this->moveDir(prevDirection); //Move back in previous direction
+			if(this->checkCollisions())
+			{
+				x = oldx;
+				y = oldy;
+			}
 		}
+		else
+		{
+			prevDirection = direction;
+		}
+		this->paint();
+	}
+
+	void Player::reset()
+	{
+		x = (windowWidth/2);
+		y = floor(3*windowHeight/4);
+		mAliveState = true;
+		setDirection(4);
 	}
 
 	void Player::animate()
@@ -44,31 +69,6 @@ namespace logic
 		}
 	}
 
-	void Player::move()
-	{
-		int oldx = x;
-		int oldy = y;
-		this->moveDir(direction);
-
-		if(this->checkCollisions()) //Collision while trying to move
-		{
-			x = oldx;
-			y = oldy;
-
-			this->moveDir(prevDirection); //Move back in previous direction
-			if(this->checkCollisions())
-			{
-				x = oldx;
-				y = oldy;
-			}
-		}
-		else
-		{
-			prevDirection = direction;
-		}
-		this->paint();
-	}
-
 	void Player::gotHit(Enemy* enemies[], int numOfEnemies)
 	{
 		for(int i = 0; i<numOfEnemies; i++)
@@ -93,11 +93,11 @@ namespace logic
 		}
 	}
 
-	void Player::reset()
+	void Player::setDirection(int key)
 	{
-		x = (windowWidth/2);
-		y = floor(3*windowHeight/4);
-		mAliveState = true;
-		setDirection(4);
+		if(direction != key)
+		{
+			direction = key;
+		}
 	}
 }

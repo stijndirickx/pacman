@@ -25,48 +25,6 @@ namespace graphics_SDL
 		delete mHelper;
 	}
 
-	void SDLContext::updateText()
-	{
-		renderText(fontText, "Score: " + std::to_string(score), 20, 0, 0);
-		renderText(fontText, "Lives: " + std::to_string(lives), mWindowWidth - 20, 0, 1);
-		renderText(fontText, "Level: " + std::to_string(level), mWindowWidth/2 - 35, 0, 0);
-
-		if(!playing)
-		{
-			renderText(fontTitle, mDisplay, mWindowWidth/2 , mWindowHeight/2  - 60, 2);
-			renderText(fontText, "Press 'space' to play", mWindowWidth/2, mWindowHeight/2 - 20, 2);
-
-			if(lives <= 0)
-			{
-				renderText(fontText, "Hiscore: " + std::to_string(mHiscore), mWindowWidth/2, mWindowHeight/2 + 20, 2);
-			}
-		}
-	}
-
-	void SDLContext::renderText(TTF_Font* font, string msgTxt, int x, int y, int option)
-	{
-		SDL_Rect msgRect;
-		SDL_Surface* msgSurface = TTF_RenderText_Solid(font, msgTxt.c_str(), msgColor);
-		SDL_Texture* msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
-
-		switch(option)
-		{
-			case 0: //left align
-				msgRect = {x,y, msgSurface->w, msgSurface->h};
-				break;
-			case 1: //right align
-				msgRect = {x - msgSurface->w,y, msgSurface->w, msgSurface->h};
-				break;
-			case 2: //centered
-				msgRect = {x - (msgSurface->w/2), y - (msgSurface->h/2), msgSurface->w, msgSurface->h};
-				break;
-		}
-
-		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
-		SDL_DestroyTexture(msgTexture);
-		SDL_FreeSurface(msgSurface);
-	}
-
 	void SDLContext::playSound(int soundId) //Check Assets/Sounds/legend.txt for id's of WAV file
 	{
 		Mix_FreeChunk(sound);
@@ -141,5 +99,47 @@ namespace graphics_SDL
 		SDL_Renderer* shownRenderer = mHelper->getShownRenderer();
 		shownRenderer = renderer;
 		SDL_RenderPresent(shownRenderer);
+	}
+
+	void SDLContext::updateText()
+	{
+		renderText(fontText, "Score: " + std::to_string(score), 20, 0, 0);
+		renderText(fontText, "Lives: " + std::to_string(lives), mWindowWidth - 20, 0, 1);
+		renderText(fontText, "Level: " + std::to_string(level), mWindowWidth/2 - 35, 0, 0);
+
+		if(!playing)
+		{
+			renderText(fontTitle, mDisplay, mWindowWidth/2 , mWindowHeight/2  - 60, 2);
+			renderText(fontText, "Press 'space' to play", mWindowWidth/2, mWindowHeight/2 - 20, 2);
+
+			if(lives <= 0)
+			{
+				renderText(fontText, "Hiscore: " + std::to_string(mHiscore), mWindowWidth/2, mWindowHeight/2 + 20, 2);
+			}
+		}
+	}
+
+	void SDLContext::renderText(TTF_Font* font, string msgTxt, int x, int y, int option)
+	{
+		SDL_Rect msgRect;
+		SDL_Surface* msgSurface = TTF_RenderText_Solid(font, msgTxt.c_str(), msgColor);
+		SDL_Texture* msgTexture = SDL_CreateTextureFromSurface(renderer, msgSurface);
+
+		switch(option)
+		{
+			case 0: //left align
+				msgRect = {x,y, msgSurface->w, msgSurface->h};
+				break;
+			case 1: //right align
+				msgRect = {x - msgSurface->w,y, msgSurface->w, msgSurface->h};
+				break;
+			case 2: //centered
+				msgRect = {x - (msgSurface->w/2), y - (msgSurface->h/2), msgSurface->w, msgSurface->h};
+				break;
+		}
+
+		SDL_RenderCopy(renderer, msgTexture, NULL, &msgRect);
+		SDL_DestroyTexture(msgTexture);
+		SDL_FreeSurface(msgSurface);
 	}
 }

@@ -193,6 +193,13 @@ namespace logic
 		return vulnerableTime;
 	}
 
+
+	//Level
+	int Context::getLevel()
+	{
+		return level;
+	}
+
 	void Context::nextLevel() //Enemies become less long vulnerable
 	{
 		level++;
@@ -200,10 +207,5 @@ namespace logic
 		{
 			vulnerableTime -= 1000;
 		}
-	}
-
-	int Context::getLevel()
-	{
-		return level;
 	}
 }

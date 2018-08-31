@@ -9,7 +9,6 @@
 #include "SDLHelper.h"
 #include "SDLPlayer.h"
 
-using namespace std;
 using namespace logic;
 
 namespace graphics_SDL
@@ -20,11 +19,11 @@ namespace graphics_SDL
 			SDLAbstractFactory();
 			virtual ~SDLAbstractFactory();
 
-			Enemy* createEnemy(int type);
-			Player* createPlayer();
 			Brick* createBrick(int x, int y, int size, int type);
 			Context* createContext();
+			Enemy* createEnemy(int type);
 			EventHandler* createEventHandler();
+			Player* createPlayer();
 			void createSDLHelper();
 
 		protected:

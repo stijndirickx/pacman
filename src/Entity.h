@@ -1,12 +1,8 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
-#include <iostream>
-
 #include "Brick.h"
 #include "Context.h"
-
-using namespace std;
 
 namespace logic
 {
@@ -18,26 +14,28 @@ namespace logic
 			Entity();
 			virtual ~Entity();
 
+			int* getCollisionBox();
+			bool checkCollisions(); //uses protected method checkCollision
+
+			void setAbstractFactory(AbstractFactory* pAbstractFactory );
+			void setContext(Context* pContext);
+
+			//Pos
 			int getX();
 			int getY();
 
-			void setAbstractFactory(AbstractFactory* pAbstractFactory );
-			bool checkCollisions();
-
-			int* getCollisionBox();
-			void setContext(Context* pContext);
-
+			//Speed
 			void setSpeed(int pSpeed);
 			void speedUp(int factor);
 			void slowDown(int factor);
 
+			//State
 			void setAliveState(bool pAliveState);
 			bool getAliveState();
 
 			virtual void reset() = 0;
 
 		protected:
-			//Method
 			bool checkCollision(int* entityBox, int* brickBox);
 
 			//Variables

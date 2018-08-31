@@ -1,8 +1,6 @@
 #ifndef CONTEXT_H_
 #define CONTEXT_H_
 
-#include <iostream>
-#include <fstream>
 #include <vector>
 
 #include "Enemy.h"
@@ -61,8 +59,8 @@ namespace logic
 			int getVulnerableTime();
 
 			//Level
-			void nextLevel();
 			int getLevel();
+			void nextLevel();
 
 			virtual void updateText() = 0;
 			virtual void playMusic(int musicId) = 0;
@@ -95,7 +93,7 @@ namespace logic
 			House* mHouse = NULL;
 
 			//Enemies
-			int vulnerableTime = 8000; // in ms
+			int vulnerableTime = 8000; // startvalue (in ms)
 			int numOfEnemies = 0;
 			std::vector<Enemy*> enemies;
 

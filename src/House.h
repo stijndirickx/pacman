@@ -1,13 +1,7 @@
 #ifndef HOUSE_H_
 #define HOUSE_H_
 
-#include <fstream>
-
 #include "AbstractFactory.h"
-#include "Brick.h"
-#include "Context.h"
-
-using namespace std;
 
 namespace logic
 {
@@ -20,33 +14,34 @@ namespace logic
 			virtual ~House();
 
 			void setContext(Context* pContext);
+
+			void createHouse();
+			void load();
 			void paint();
+
 			Brick** getBricks();
 			void destroyBrick(int brickId);
-			void load();
-			void createHouse();
-			int getwindowWidth();
-			int getwindowHeight();
+
 			int getNumOfPlus();
 			void resetNumOfPlus();
-
+			int getwindowHeight();
+			int getwindowWidth();
 
 		protected:
+			AbstractFactory* mAbstractFactory = NULL;
+			std::ifstream file;
+			int mBrickSize;
+
 			Context* mContext = NULL;
 
 			int totalBricks;
 			Brick** bricks = 0;
 			int* destroyedBricks = 0;
 
-
-			int numOfPlus = 0;
 			int maxNumOfPlus = 0;
-			AbstractFactory* mAbstractFactory = NULL;
-			std::ifstream file;
-
+			int numOfPlus = 0;
 			int windowWidth;
 			int windowHeight;
-			int mBrickSize;
 	};
 }
 

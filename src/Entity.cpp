@@ -9,6 +9,11 @@ namespace logic
 		delete entityBox;
 	}
 
+	void Entity::setAbstractFactory(AbstractFactory* pAbstractFactory )
+	{
+		mAbstractFactory  = pAbstractFactory ;
+	}
+
 	void Entity::setContext(Context* pContext)
 	{
 		mContext = pContext;
@@ -19,11 +24,6 @@ namespace logic
 		size = mContext->getBrickSize();
 	}
 
-	void Entity::setAbstractFactory(AbstractFactory* pAbstractFactory )
-	{
-		mAbstractFactory  = pAbstractFactory ;
-	}
-
 	int* Entity::getCollisionBox()
 	{
 		entityBox[0] = x;
@@ -31,7 +31,6 @@ namespace logic
 		entityBox[2] = size;
 		return entityBox;
 	}
-
 
 	bool Entity::checkCollisions()
 	{
@@ -83,19 +82,21 @@ namespace logic
 		return (horizontalColl1 && horizontalColl2 && verticalColl1 && verticalColl2);
 	}
 
+	int Entity::getX()
+	{
+		return x;
+	}
+
+	int Entity::getY()
+	{
+		return y;
+	}
+
+
+	//Speed
 	void Entity::setSpeed(int pSpeed)
 	{
 		mSpeed =  pSpeed;
-	}
-
-	void Entity::setAliveState(bool pAliveState)
-	{
-		mAliveState = pAliveState;
-	}
-
-	bool Entity::getAliveState()
-	{
-		return mAliveState;
 	}
 
 	void Entity::speedUp(int factor)
@@ -111,13 +112,14 @@ namespace logic
 		}
 	}
 
-	int Entity::getX()
+	void Entity::setAliveState(bool pAliveState)
 	{
-		return x;
+		mAliveState = pAliveState;
 	}
 
-	int Entity::getY()
+	bool Entity::getAliveState()
 	{
-		return y;
+		return mAliveState;
 	}
+
 }

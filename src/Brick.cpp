@@ -5,14 +5,15 @@ namespace logic
 	Brick::Brick() {}
 	Brick::~Brick() {}
 
-	void Brick::setType(int type) //See Assets/Maps/legend.txt for typeIDs
+
+	int* Brick::getProp()
 	{
-		brickProp[3] = type;
+		return brickProp;
 	}
 
 	void Brick::renderBrick(int x, int y, int size, int type)
 	{
-		if (type == 2)   // = Plus
+		if (type == 2)   //Resize the Plus-brick
 		{
 			x = x+(size/4); // Center x-axis
 			y = y+(size/4); // Center y-axis
@@ -27,8 +28,9 @@ namespace logic
 		this->paint();
 	}
 
-	int* Brick::getProp()
+
+	void Brick::setType(int type) //See Assets/Maps/legend.txt for typeIDs
 	{
-		return brickProp;
+		brickProp[3] = type;
 	}
 }

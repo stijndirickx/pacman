@@ -126,16 +126,6 @@ namespace logic
 		}
 	}
 
-	int House::getwindowWidth()
-	{
-		return windowWidth;
-	}
-
-	int House::getwindowHeight()
-	{
-		return windowHeight;
-	}
-
 	int House::getNumOfPlus()
 	{
 		return numOfPlus;
@@ -144,5 +134,15 @@ namespace logic
 	void House::resetNumOfPlus()
 	{
 		numOfPlus = maxNumOfPlus;
+	}
+
+	int House::getwindowHeight()
+	{
+		return windowHeight;
+	}
+
+	int House::getwindowWidth()
+	{
+		return windowWidth;
 	}
 }

@@ -19,10 +19,12 @@ namespace logic
 		}
 
 		//Uncomment for slowdown while vulnerable
-		/*if(!attack){
+		/*if(!attack)
+		{
 			this->slowDown(2);
 		}
-		else{
+		else
+		{
 			this->speedUp(2);
 		}*/
 	}

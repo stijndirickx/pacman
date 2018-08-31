@@ -1,10 +1,6 @@
 #ifndef BRICK_H_
 #define BRICK_H_
 
-#include <iostream>
-
-using namespace std;
-
 namespace logic
 {
 	class Brick
@@ -13,9 +9,9 @@ namespace logic
 			Brick();
 			virtual ~Brick();
 
-			void setType(int type);
 			int* getProp();
 			void renderBrick(int x, int y, int size, int type);
+			void setType(int type);
 
 			virtual void paint() = 0;
 

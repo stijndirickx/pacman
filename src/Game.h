@@ -4,11 +4,7 @@
 #include <time.h>
 
 #include "AbstractFactory.h"
-#include "Config.h"
-#include "Enemy.h"
 #include "EventHandler.h"
-#include "House.h"
-#include "SDLEventHandler.h"
 
 using namespace std;
 
