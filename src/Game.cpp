@@ -115,7 +115,7 @@ namespace logic
 			if(!context->isExtraLiveGiven() && context->getScore() >= 10000)
 			{
 				context->addToLives(1);
-				context->playSound(8); //TODO doesnt seem to work
+				context->playSound(0); //TODO doesnt seem to work
 			}
 
 			ticks = clock(); //#clock ticks since running
