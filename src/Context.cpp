@@ -22,10 +22,21 @@ namespace logic
 		return lives;
 	}
 
+	void Context::addToLives(int addition)
+	{
+		extraLiveGiven = true;
+		lives++;
+	}
+
 	int Context::setLives(int numOfLives)
 	{
 		lives = numOfLives;
 		return lives;
+	}
+
+	bool Context::isExtraLiveGiven()
+	{
+		return extraLiveGiven;
 	}
 
 

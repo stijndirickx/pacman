@@ -24,6 +24,8 @@ namespace logic
 			int getLives();
 			int subtractLives(int subtraction);
 			int setLives(int numOfLives);
+			void addToLives(int addition);
+			bool isExtraLiveGiven();
 
 			//Pause
 			bool getPlaying();
@@ -68,6 +70,7 @@ namespace logic
 
 			//Lives
 			int lives = 3;
+			bool extraLiveGiven = false;
 
 			//Pause
 			bool playing = false;

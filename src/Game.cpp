@@ -50,38 +50,42 @@ namespace logic
 			while(eventHandler->pollEvent() != 0) //get event
 			{
 				quit = eventHandler->quitEvent(); // User requests quit
-				if(eventHandler->keyDown())
+				if(eventHandler->keyDown()) //getting user input (arrow keys or space)
 				{
 					if(eventHandler->getKeyDown() == 6) //pressed space
 					{
 						if(house->getNumOfPlus() > 0)
 						{
-							context->setPlaying(!context->getPlaying(), "waiting...");
-							if(!player->getAliveState())
+							context->setPlaying(!context->getPlaying(), "waiting..."); //Switch pause/unpause
+
+							if(!player->getAliveState()) //Player got killed and is waiting for pause to restart new life
 							{
-								player->setAliveState(true);
+								player->reset();
 								for(int i=0; i < numOfEnemies;i++)
 								{
 									enemies[i]->reset();
 								}
-								if(context->getLives() <= 0)
+								if(context->getLives() <= 0) //Player lost
 								{
 									context->resetGame(); //set score to 0 and changes displaytext
-									player->reset();
-									context->setLives(config->getLivesCount());
-									house->load();
+									context->setLives(config->getLivesCount()); //gets his lives
+									house->load();	//reload the house
 								}
-								player->setDirection(4);
 							}
 						}
-						else
+						else //All plus where taken TODO
 						{
+							for(int i=0; i< numOfEnemies;i++)
+							{
+								enemies[i]->reset();
+								enemies[i]->speedUp(1.1);
+							};
 							house->load();
 							player->reset();
-							context->setPlaying(true, "waiting...");
+							context->setPlaying(true, "");
 						}
 					}
-					else if (context->getPlaying()) //change direction with key input
+					else if (context->getPlaying()) //change direction with arrow key
 					{
 						player->setDirection(eventHandler->getKeyDown());
 					}
@@ -106,6 +110,12 @@ namespace logic
 			if(house->getNumOfPlus() == 0)
 			{
 				context->setPlaying(false, "all cleared");
+			}
+
+			if(!context->isExtraLiveGiven() && context->getScore() >= 10000)
+			{
+				context->addToLives(1);
+				context->playSound(8); //TODO doesnt seem to work
 			}
 
 			ticks = clock(); //#clock ticks since running

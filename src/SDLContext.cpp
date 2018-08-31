@@ -83,6 +83,9 @@ namespace graphics_SDL
 			case 7:
 				sound = Mix_LoadWAV("Assets/Sounds/c++man_eateclipse.wav");
 				break;
+			case 8:
+				sound = Mix_LoadWAV("Assets/Sounds/c++man_extrapac.wav");
+				break;
 		}
 		Mix_PlayChannel(soundId, sound, 0);
 	}
