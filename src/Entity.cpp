@@ -46,21 +46,21 @@ namespace logic
 				{
 					if(isPlayer) //entity is player
 					{
-						collision = (brickBox[3] >= 4 && brickBox[3] <= 24); //collision was wall or barrier
+						collision = (brickBox[3] >= 4 && brickBox[3] <= 32); //collision was wall or barrier
 						mContext->destroyBrick(i); //only player can destroybricks
 					}
 					else //entity is enemy
 					{
 						if(isCaged)
 						{
-							if(brickBox[3] >= 5 && brickBox[3] <= 24) //collision was wall
+							if(brickBox[3] >= 5 && brickBox[3] <= 32) //collision was wall
 							{
 								collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
 							}
 						}
 						else
 						{
-							if(brickBox[3] >= 4 && brickBox[3] <= 24) //collision was wall
+							if(brickBox[3] >= 4 && brickBox[3] <= 32) //collision was wall or barrier
 							{
 								collision = mAliveState; //dont collide if enemy is dead (for easier return to center)
 							}
