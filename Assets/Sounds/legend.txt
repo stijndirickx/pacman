@@ -9,6 +9,4 @@ Sound
 5 = c++man_eatfruit
 6 = c++man_eatghost
 7 = c++man_eateclipse
-
-Unused
-8 = c++man_extrapac
+0 = c++man_extrapac

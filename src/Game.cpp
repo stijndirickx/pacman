@@ -46,7 +46,6 @@ namespace logic
 
 		while(!quit) // Start of gameloop
 		{
-
 			// 1. Get user input
 			while(eventHandler->pollEvent() != 0)
 			{
